@@ -1,0 +1,39 @@
+{
+	"name": "bd-widgets",
+	"version": "0.0.1",
+	"description": "a library of user interface widgets built with Backdraft",
+	"main": "index.html",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/altoviso/bd-widgets.git"
+	},
+	"keywords": [
+		"JavaScript",
+		"Backdraft",
+		"widgets",
+		"components",
+		"UI"
+	],
+	"author": "Rawld Gill <rgill@altoviso.com> (http://altoviso.com/)",
+	"license": "BSD-3-Clause",
+	"homepage": "https://github.com/altoviso/bd-widgets#readme",
+	"bugs": {
+		"url": "https://github.com/altoviso/bd-widgets/issues"
+	},
+	"dependencies": {
+		"bd-core": "^2.2.1",
+		"bd-promise": "^2.0.3",
+		"express": "^4.16.3",
+		"morgan": "^1.9.0"
+	},
+	"devDependencies": {
+		"grunt": "^1.0.3",
+		"grunt-cli": "^1.2.0",
+		"grunt-contrib-less": "^2.0.0",
+		"grunt-contrib-watch": "^1.1.0",
+		"less": "^3.8.1"
+	}
+}

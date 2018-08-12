@@ -1,0 +1,72 @@
+@charset "UTF-8";
+@import "icomoon/style.css";
+body {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  color: #222222;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+}
+.container.Buttons {
+  display: inline-block;
+  margin: 1em;
+  padding: 1em;
+  border: 1px solid #CCC;
+}
+.bd-button {
+  /* center the content both ways */
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 0 1em;
+  min-height: 2em;
+  border: 1px solid #5a739b;
+  margin: 0.15em;
+  border-radius: 5px;
+  background: #9fb1ce;
+  cursor: pointer;
+}
+.bd-button div {
+  display: inline-block;
+  padding: 3px;
+}
+.bd-button div:after {
+  padding: 5px;
+}
+.bd-button:hover,
+.bd-button.tickle:hover {
+  background: #bcd1f2;
+  -webkit-animation-name: none;
+  animation-name: none;
+}
+.bd-button.bd-disabled {
+  border-color: #a9a9a9;
+  background: #ddd;
+  color: #a9a9a9;
+  cursor: default;
+  text-shadow: 1px 2px 1px white;
+}
+.bd-button.tickle {
+  background-image: none;
+  animation-name: yellowTickle;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+@keyframes yellowTickle {
+  0% {
+    background-color: white;
+  }
+  50% {
+    background-color: yellow;
+  }
+  100% {
+    background-color: white;
+  }
+}
+/*# sourceMappingURL=http://localhost:8080/altoviso/bd-widgests/less/main.css.map */
