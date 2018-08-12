@@ -34,15 +34,18 @@ Serve the project root with a web server and load index.html. Alternatively, a s
 ### Contents
 
 #### Button
-
-```src/Button.js``` implements a button component:
-
-* ```label``` property (mutable); label content of the button
-* ```enabled``` property (mutable); causes the button to be disabled/enabled
-* ```handler``` method (mutable); executed upon button push
-* `````"click"````` event: signaled upon button click
-* several CSS configurable with less via ```less/button-vars.less```
-* otherwise, CSS at ```less/button.less```
+A stylable button component with a mutable label and easy-to-connect handler. Clicking the button or key-pressing a space when the button has the focus causes the handler to be applied and the click event to be signaled.
 
 
-#### React Component Container
+source: ```src/button/Button.js```
+
+docs: ```src/button/button.md```
+
+
+#### ReactComponent
+A thin container for a React component which provides access to the contained component's props, state, and instance.
+
+
+source: ```src/reactComponent/ReactComponent.js```
+
+docs: ```src/reactComponent/ReactComponent.md```
