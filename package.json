@@ -2,7 +2,7 @@
 	"name": "bd-widgets",
 	"version": "0.0.1",
 	"description": "a library of user interface widgets built with Backdraft",
-	"main": "index.html",
+	"main": "main.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"server": "node httpServer.js"
