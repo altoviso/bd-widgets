@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+.bd-state-button {
+    display: inline-flex;
+    min-height: 2em;
+    margin: @button-gap;
+    cursor: pointer;
+
+    padding: 0 @button-pad;
+    border: @button-border;
+    border-radius: @button-border-radius;
+    background: @button-background;
+
+    > div {
+        /* center the content both ways */
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &:hover {
+        background: @button-hover;
+    }
+
+    &.bd-disabled {
+        background: @button-disabled-background;
+        color: @button-disabled-color;
+        cursor: default;
+        text-shadow: 1px 2px 1px white;
+    }
+
+    &.checkbox {
+        padding: @state-button-pad;
+        border: none;
+        background-color: inherit;
+
+        > div {
+            border: 1px solid black;
+            padding: 3px;
+            font-weight: bold;
+
+            > div::selection {
+                background-color: inherit;
+                color: inherit;
+            }
+
+            > div:nth-child(2) {
+                height: 1em;
+                width: 1em;
+                text-align: center;
+            }
+        }
+    }
+
+    &.radio-button {
+        padding: @state-button-pad;
+        border: none;
+        background-color: inherit;
+        .icon-mixin;
+        div::selection {
+            background-color: inherit;
+            color: inherit;
+        }
+    }
+
+    &.checkbox.state-null,
+    &.radio-button.state-null {
+        color: #c6be1b;
+    }
+}

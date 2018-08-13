@@ -1,12 +1,10 @@
 import {Component, e, connect, stopEvent} from "../lib.js";
 
 const
-	ppLabel = Symbol("bdButton-label"),
-	ppOnClick = Symbol("bdButton-onClick");
+	ppLabel = Symbol("button-label"),
+	ppOnClick = Symbol("button-onClick");
 
 export default class Button extends Component {
-
-
 	constructor(kwargs){
 		super(kwargs);
 		Object.defineProperties(this, {
@@ -44,7 +42,7 @@ export default class Button extends Component {
 
 	[Component.ppOnFocus](){
 		if(!this._keyHandler){
-			this._keyHandler = connect(this.labelNode, "keypress", (e)=>{
+			this._keyHandler = connect(this._dom.tabIndexNode, "keypress", (e)=>{
 				if(e.charCode == 32){
 					// space bar => click
 					this[ppOnClick](e);
@@ -71,6 +69,6 @@ export default class Button extends Component {
 
 Object.assign(Button, {
 	ppLabel: ppLabel,
-	onClick: ppOnClick
+	ppOnClick: ppOnClick
 });
 

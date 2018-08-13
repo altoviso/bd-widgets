@@ -57,9 +57,11 @@ Button derives from Backdraft [Component](http://backdraftjs.org/ref/component.h
 signaled when the button is clicked/pressed; the raw DOM event object is provided
 
 ### Structure
-
-The button is comprised if a div nested in a div; the inner div holds the label.
-
+```
+<div className="bd-button">
+    <div>label-content</div>
+</div>
+```
 ### Styling
 
 [Less](http://lesscss.org/) is used to express all CSSS. Button's CSS is described in less/button-vars.less and less/button.less. Most common styling can be accomplished by editing/replacing less/button-vars.less.

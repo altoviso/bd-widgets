@@ -13,14 +13,13 @@ module.exports = function(grunt){
 					'./less/main.css': './less/main.less'
 				}
 			}
-		}
-
-		, watch: {
+		},
+		watch: {
 			options: {
 				livereload: true
 			},
 			less: {
-				files: ['./less/**/*.less'],
+				files: ['./less/**/*.less', './src/**/*.less'],
 				tasks: ['less'],
 				options: {
 					// Start a live reload server on the default port 35729

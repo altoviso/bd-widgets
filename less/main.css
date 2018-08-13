@@ -12,6 +12,19 @@ body {
   padding: 0;
   background-color: white;
 }
+.icon-mixin {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 .container.Buttons {
   display: inline-block;
   margin: 1em;
@@ -21,9 +34,8 @@ body {
 .bd-button {
   /* center the content both ways */
   display: inline-flex;
-  flex-direction: column;
   justify-content: center;
-  text-align: center;
+  align-items: center;
   padding: 0 1em;
   min-height: 2em;
   border: 1px solid #5a739b;
@@ -68,5 +80,73 @@ body {
   100% {
     background-color: white;
   }
+}
+.bd-state-button {
+  display: inline-flex;
+  min-height: 2em;
+  margin: 0.15em;
+  cursor: pointer;
+  padding: 0 1em;
+  border: 1px solid #5a739b;
+  border-radius: 5px;
+  background: #9fb1ce;
+}
+.bd-state-button > div {
+  /* center the content both ways */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.bd-state-button:hover {
+  background: #bcd1f2;
+}
+.bd-state-button.bd-disabled {
+  background: #ddd;
+  color: #a9a9a9;
+  cursor: default;
+  text-shadow: 1px 2px 1px white;
+}
+.bd-state-button.checkbox {
+  padding: 0.2em;
+  border: none;
+  background-color: inherit;
+}
+.bd-state-button.checkbox > div {
+  border: 1px solid black;
+  padding: 3px;
+  font-weight: bold;
+}
+.bd-state-button.checkbox > div > div::selection {
+  background-color: inherit;
+  color: inherit;
+}
+.bd-state-button.checkbox > div > div:nth-child(2) {
+  height: 1em;
+  width: 1em;
+  text-align: center;
+}
+.bd-state-button.radio-button {
+  padding: 0.2em;
+  border: none;
+  background-color: inherit;
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.bd-state-button.radio-button div::selection {
+  background-color: inherit;
+  color: inherit;
+}
+.bd-state-button.checkbox.state-null,
+.bd-state-button.radio-button.state-null {
+  color: #c6be1b;
 }
 /*# sourceMappingURL=http://localhost:8080/altoviso/bd-widgests/less/main.css.map */
