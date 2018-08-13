@@ -37,15 +37,22 @@ Serve the project root with a web server and load index.html. Alternatively, a s
 A stylable button component with a mutable label and easy-to-connect handler. Clicking the button or key-pressing a space when the button has the focus causes the handler to be applied and the click event to be signaled.
 
 
-source: ```src/button/Button.js```
+source: [```src/button/Button.js```](https://github.com/altoviso/bd-widgets/blob/master/src/button/Button.js)
 
-docs: ```src/button/button.md```
+docs: [```src/button/button.md```](https://github.com/altoviso/bd-widgets/blob/master/src/button/button.md)
+
+#### StateButton
+A stylable state button component with a label and/or mark and customizable value mapping. Clicking the button or key-pressing a space when the button has the focus causes the value property to cycle through the values given by the states; cycling past the last state resets the state to the first state. Two- and three-state checkbox and radio button subclasses are provided.
+
+
+source: [```src/stateButton/StateButton.js```](https://github.com/altoviso/bd-widgets/blob/master/src/stateButton/StateButton.js)
+
+docs: [```src/stateButton/stateButton.md```](https://github.com/altoviso/bd-widgets/blob/master/src/stateButton/stateButton.md)
 
 
 #### ReactComponent
 A thin container for a React component which provides access to the contained component's props, state, and instance.
 
+source: [```src/reactComponent/ReactComponent.js```](https://github.com/altoviso/bd-widgets/blob/master/src/reactComponent/ReactComponent.js)
 
-source: ```src/reactComponent/ReactComponent.js```
-
-docs: ```src/reactComponent/ReactComponent.md```
+docs: [```src/reactComponent/reactComponent.md```](https://github.com/altoviso/bd-widgets/blob/master/src/reactComponent/reactComponent.md)
