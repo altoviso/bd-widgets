@@ -4,14 +4,11 @@ import Button from "../button/Button.js"
 class States {
 	constructor(owner, states, value){
 		this.owner = owner;
-		this.states = states;
-		let index = this.findIndex(value);
-		this.currentState = states[index !== -1 ? index : 0];
-		this.owner.addClassName(this.className);
+		this.reset(states, value);
 	}
 
 	reset(states, value){
-		this.owner.removeClassName(this.className);
+		this.currentState && this.owner.removeClassName(this.className);
 		this.states = states;
 		let index = this.findIndex(value);
 		this.currentState = states[index !== -1 ? index : 0];
@@ -65,10 +62,10 @@ class States {
 const ppStates = Symbol("StateButton-states");
 const pmConditionStates = Symbol("StateButton-condition-states");
 const DEFAULT_2_STATE_VALUES = [false, true];
-const DEFAULT_3_STATE_VALUES = [null, false, true];
+const DEFAULT_3_STATE_VALUES = [null, true, false];
 
 function valuesToStates(values){
-	return values.map(value => ({value: value, mark: value+""}));
+	return values.map(value => ({value: value, mark: value + ""}));
 }
 
 
@@ -99,9 +96,10 @@ export default class StateButton extends Button {
 		}else{
 			let oldValue = this.value;
 			if(value !== oldValue){
+				let oldState = this[ppStates].state;
 				this[ppStates].value = value;
 				this._applyWatchersRaw("value", oldValue, value);
-				this._updateRendering();
+				this._applyWatchersRaw("state", oldState, this[ppStates].state);
 			}
 		}
 	}
@@ -111,33 +109,40 @@ export default class StateButton extends Button {
 		return this[ppStates].states.map(state => Object.assign({}, state));
 	}
 
+	get state(){
+		// deep copy
+		return Object.assign({}, this[ppStates].state);
+	}
+
 	reset(states, value){
-		this[ppStates].reset(this[pmConditionStates](states), value);
+		if(!Array.isArray(states)){
+			console.error("illegal states");
+		}else{
+			this[ppStates].reset(this[pmConditionStates](states), value);
+			this._applyWatchersRaw("value", undefined, this.value);
+			this._applyWatchersRaw("state", undefined, this.value);
+		}
 	}
 
 	// protected API...
 
 	_elements(){
+		let labelText = (state) =>{
+			let label = state.label;
+			return label !== undefined ? (label ? label : "") : (this[Button.ppLabel] !== undefined ? this[Button.ppLabel] : "");
+		};
+
+		let markText = (state) =>{
+			let mark = state.mark;
+			return mark !== undefined ? (mark ? mark : "") : "";
+		};
+
 		return e("div", {[e.tabIndexNode]: true, [e.advise]: {click: this[Button.ppOnClick].bind(this)}},
 			e("div",
-				e("div", {[e.attach]: "labelNode"}),
-				e("div", {[e.attach]: "markNode"})
+				e("div", {[e.reflect]: ["state", labelText]}),
+				e("div", {[e.reflect]: ["state", markText]})
 			)
 		)
-	}
-
-	render(proc){
-		super.render(proc);
-		this._updateRendering();
-	}
-
-	_updateRendering(){
-		if(this.rendered){
-			let label = this[ppStates].label;
-			let mark = this[ppStates].mark;
-			this.labelNode.innerHTML = label !== undefined ? (label ? label : "") : (this[Button.ppLabel] !== undefined ? this[Button.ppLabel] : "");
-			this.markNode.innerHTML = mark !== undefined ? (mark ? mark : "") : "";
-		}
 	}
 
 	// private API...
@@ -157,6 +162,7 @@ export default class StateButton extends Button {
 	}
 
 	[Button.ppOnClick](e){
+		// override Button's [Button.ppOnClick]
 		stopEvent(e);
 		if(this[Component.ppEnabled]){
 			this.value = this[ppStates].nextValue();
