@@ -28,7 +28,8 @@
 	// to run remotely (and therefore, be loaded by smoke on node) and use smoke.defBrowserTestRef to inform smoke about
 	// such tests
 	let tests = [
-		[["button"], "./src/button/button-test.es6.js"]
+		[["button"], "./src/button/button-test.es6.js"],
+		[["stateButton"], "./src/stateButton/stateButton-test.es6.js"]
 	];
 
 	if(isNode){
@@ -61,23 +62,23 @@
 			testSet = smoke.options.testSet;
 
 			let include = [];
-			let doBrowser = testSet ==="browser";
-			let doStatic = doBrowser || testSet ==="static";
-			let doDynamic = testSet ==="browser" || testSet ==="dynamic";
-			let doAll = testSet ==="*";
+			let doBrowser = testSet === "browser";
+			let doStatic = doBrowser || testSet === "static";
+			let doDynamic = testSet === "browser" || testSet === "dynamic";
+			let doAll = testSet === "*";
 			let ttBrowser = smoke.testTypes.browser;
 			let ttNode = smoke.testTypes.node;
 			let ttBoth = smoke.testTypes.both;
-			smoke.tests.forEach(test=>{
+			smoke.tests.forEach(test => {
 				let rootId = test.id;
 				if(!/-demo$/.test(rootId)){
 					if(doAll || test.test){
 						include.push([rootId]);
 					}else if(test.tests){
-						test.tests.forEach(test=>{
-							if(test.id==="static" && (doStatic || doBrowser)){
+						test.tests.forEach(test => {
+							if(test.id === "static" && (doStatic || doBrowser)){
 								include.push([rootId, "static"]);
-							}else if(test.id==="dynamic" && (dynamic || doBrowser)){
+							}else if(test.id === "dynamic" && (dynamic || doBrowser)){
 								include.push([rootId, "dynamic"]);
 							}
 						});

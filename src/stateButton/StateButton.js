@@ -59,15 +59,16 @@ class States {
 	}
 }
 
-const ppStates = Symbol("StateButton-states");
-const pmConditionStates = Symbol("StateButton-condition-states");
+let ns = Button.getNamespace();
+const pStates = ns.get("pStates");
+const pConditionStates = ns.get("pConditionStates");
+
 const DEFAULT_2_STATE_VALUES = [false, true];
 const DEFAULT_3_STATE_VALUES = [null, true, false];
 
 function valuesToStates(values){
 	return values.map(value => ({value: value, mark: value + ""}));
 }
-
 
 export default class StateButton extends Button {
 	constructor(kwargs){
@@ -80,75 +81,75 @@ export default class StateButton extends Button {
 			states = valuesToStates(DEFAULT_2_STATE_VALUES);
 		}
 		Object.defineProperties(this, {
-			[ppStates]: {
-				value: new States(this, this[pmConditionStates](states), kwargs.value)
+			[pStates]: {
+				value: new States(this, this[pConditionStates](states), kwargs.value)
 			}
 		});
 	}
 
 	get value(){
-		return this[ppStates].value;
+		return this[pStates].value;
 	}
 
 	set value(value){
-		if(!this[ppStates].exists(value)){
+		if(!this[pStates].exists(value)){
 			console.ward("illegal value provided; ignored");
 		}else{
 			let oldValue = this.value;
 			if(value !== oldValue){
-				let oldState = this[ppStates].state;
-				this[ppStates].value = value;
-				this._applyWatchersRaw("value", oldValue, value);
-				this._applyWatchersRaw("state", oldState, this[ppStates].state);
+				let oldState = this[pStates].state;
+				this[pStates].value = value;
+				this.bdMutateNotify("value", oldValue, value);
+				this.bdMutateNotify("state", oldState, this[pStates].state);
 			}
 		}
 	}
 
 	get states(){
 		// deep copy
-		return this[ppStates].states.map(state => Object.assign({}, state));
+		return this[pStates].states.map(state => Object.assign({}, state));
 	}
 
 	get state(){
 		// deep copy
-		return Object.assign({}, this[ppStates].state);
+		return Object.assign({}, this[pStates].state);
 	}
 
 	reset(states, value){
 		if(!Array.isArray(states)){
 			console.error("illegal states");
 		}else{
-			this[ppStates].reset(this[pmConditionStates](states), value);
-			this._applyWatchersRaw("value", undefined, this.value);
-			this._applyWatchersRaw("state", undefined, this.value);
+			this[pStates].reset(this[pConditionStates](states), value);
+			this.bdMutateNotify("value", undefined, this.value);
+			this.bdMutateNotify("state", undefined, this.value);
 		}
 	}
 
 	// protected API...
 
-	_elements(){
-		let labelText = (state) =>{
+	bdElements(){
+		let labelText = (state) => {
 			let label = state.label;
-			return label !== undefined ? (label ? label : "") : (this[Button.ppLabel] !== undefined ? this[Button.ppLabel] : "");
+			return label !== undefined ? (label ? label : "") : (this[Button.pLabel] !== undefined ? this[Button.pLabel] : "");
 		};
 
-		let markText = (state) =>{
+		let markText = (state) => {
 			let mark = state.mark;
 			return mark !== undefined ? (mark ? mark : "") : "";
 		};
 
-		return e("div", {[e.tabIndexNode]: true, [e.advise]: {click: this[Button.ppOnClick].bind(this)}},
+		return e("div", {tabIndex: -1, bdAdvise: {click: this[Button.pOnClick].bind(this)}},
 			e("div",
-				e("div", {[e.reflect]: ["state", labelText]}),
-				e("div", {[e.reflect]: ["state", markText]})
+				e("div", {bdReflect: ["state", labelText]}),
+				e("div", {bdReflect: ["state", markText]})
 			)
 		)
 	}
 
 	// private API...
 
-	[pmConditionStates](value){
-		return value.map((state, i) =>{
+	[pConditionStates](value){
+		return value.map((state, i) => {
 			let result = {
 				value: "value" in state ? state.value : i,
 				className: "className" in state ? state.className : "state-" + i,
@@ -161,18 +162,20 @@ export default class StateButton extends Button {
 		})
 	}
 
-	[Button.ppOnClick](e){
-		// override Button's [Button.ppOnClick]
+	[Button.pOnClick](e){
+		// override Button's [Button.pOnClick]
 		stopEvent(e);
-		if(this[Component.ppEnabled]){
-			this.value = this[ppStates].nextValue();
+		if(this[Component.pEnabled]){
+			this.value = this[pStates].nextValue();
 			this.handler && this.handler();
-			this._applyHandlers({name: "click", e: e});
+			this.bdNotify({name: "click", e: e});
 		}
 	}
 }
-
-StateButton.className = "bd-state-button";
+ns.publish(StateButton, {
+	className: "bd-state-button",
+	watchables: ['value', "state"].concat(Button.watchables),
+});
 
 function valuesToStatesNoMark(values){
 	return values.map(value => ({value: value}));
@@ -212,12 +215,13 @@ function getStates(_states, nullable, nullMark, falseMark, trueMark){
 
 StateButton.Checkbox = class CheckBox extends StateButton {
 	constructor(kwargs){
-		kwargs.states = getStates(
-			kwargs.values ? valuesToStatesNoMark(kwargs.values) : kwargs.states,
-			kwargs.nullable,
-			"?", " ", "X"
-		);
-		super(kwargs);
+		super(Object.assign({}, kwargs, {
+			states: getStates(
+				kwargs.values ? valuesToStatesNoMark(kwargs.values) : kwargs.states,
+				kwargs.nullable,
+				"?", " ", "X"
+			)
+		}));
 		this.addClassName("checkbox");
 	}
 };
@@ -225,18 +229,16 @@ StateButton.Checkbox = class CheckBox extends StateButton {
 
 StateButton.RadioButton = class RadioButton extends StateButton {
 	constructor(kwargs){
-		kwargs.states = getStates(
-			kwargs.values ? valuesToStatesNoMark(kwargs.values) : kwargs.states,
-			kwargs.nullable,
-			"\u{e912}", "\u{e912}", "\u{e911}"
-		);
-		super(kwargs);
+		super(Object.assign({}, kwargs, {
+			states: getStates(
+				kwargs.values ? valuesToStatesNoMark(kwargs.values) : kwargs.states,
+				kwargs.nullable,
+				"\u{e912}", "\u{e912}", "\u{e911}"
+			)
+		}));
 		this.addClassName("radio-button");
 	}
 };
 
-Object.assign(StateButton, {
-	ppStates: ppStates,
-	pmConditionStates: pmConditionStates
-});
+
 

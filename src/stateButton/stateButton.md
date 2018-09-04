@@ -35,7 +35,7 @@ e(StateButton, {
     value: 456, // optional
     states: [{value: 123, mark: "A"}, {value: 456, mark: "B"} , {value: 789, mark: "C"}], // required
     tabIndex: tabIndex++,
-    [e.watch]: {"value": myHandler}
+    bdWatch: {"value": myHandler}
 })
 
 // for the states below, the values default to [0, 1, 2] 
@@ -75,28 +75,28 @@ import Button from "<path-to>/StateButton.js";
 // two-state with default values and marks
 e(StateButton.Checkbox, {
     tabIndex: tabIndex++,
-    [e.watch]: {"value": showValueChange}
+    bdWatch: {"value": showValueChange}
 })
 
 // two-state with default values and marks, explicit initial value
 e(StateButton.Checkbox, {
     value: true,
     tabIndex: tabIndex++,
-    [e.watch]: {"value": showValueChange}
+    bdWatch: {"value": showValueChange}
 })
 
 // three-state with default values and marks
 e(StateButton.Checkbox, {
     nullable: true,
     tabIndex: tabIndex++,
-    [e.watch]: {"value": showValueChange}
+    bdWatch: {"value": showValueChange}
 }
 
 // two-state with explicit values and default marks
 e(StateButton.Checkbox, {
     values: ["A", "B"],
     tabIndex: tabIndex++,
-    [e.watch]: {"value": showValueChange}
+    bdWatch: {"value": showValueChange}
 }
 
 // three-state with explicit values and default marks
@@ -104,14 +104,14 @@ e(StateButton.Checkbox, {
     nullable: true,
     values: ["A", "B", "C"],
     tabIndex: tabIndex++,
-    [e.watch]: {"value": showValueChange}
+    bdWatch: {"value": showValueChange}
 }
 
 // two-state with explicit values and marks
 e(StateButton.Checkbox, {
     states: [{value: false, mark: "F"}, {value: true, mark: "T"}],
     tabIndex: tabIndex++,
-    [e.watch]: {"value": showValueChange}
+    bdWatch: {"value": showValueChange}
 }
 
 // three-state with explicit values and marks
@@ -119,7 +119,7 @@ e(StateButton.Checkbox, {
     states: [{value: null, mark: "?"}, {value: false, mark: "F"}, {value: true, mark: "T"}],
     nullable: true,
     tabIndex: tabIndex++,
-    [e.watch]: {"value": showValueChange}
+    bdWatch: {"value": showValueChange}
 }
 ```
 
@@ -136,14 +136,14 @@ import Button from "<path-to>/StateButton.js";
 // two-state with default values and marks
 e(StateButton.RadioButton, {
     tabIndex: tabIndex++,
-    [e.watch]: {"value": showValueChange}
+    bdWatch: {"value": showValueChange}
 })
 
 // two-state with default values and marks, explicit initial value
 e(StateButton.RadioButton, {
     value: true,
     tabIndex: tabIndex++,
-    [e.watch]: {"value": showValueChange}
+    bdWatch: {"value": showValueChange}
 })
 
 // all of the examples above for StateButton.Checkbox work for StateButton.RadioButton
