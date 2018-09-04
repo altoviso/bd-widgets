@@ -2,9 +2,16 @@
 
 // these styles have nothing to do with the widgets and don't need to be included in a program that uses the widgets
 
-.container.Buttons {
-    display:inline-block;
-    margin:1em;
-    padding: 1em;
-    border: 1px solid #CCC;
+.container {
+    &.Button, &.StateButton, &.ReactComponent {
+        display:inline-block;
+        margin:1em;
+        padding: 1em;
+        border: 1px solid #CCC;
+    }
+
+    &.ReactComponent {
+        max-width: 20em;
+        min-width: 12em;
+    }
 }

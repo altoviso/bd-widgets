@@ -25,11 +25,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.container.Buttons {
+.container.Button,
+.container.StateButton,
+.container.ReactComponent {
   display: inline-block;
   margin: 1em;
   padding: 1em;
   border: 1px solid #CCC;
+}
+.container.ReactComponent {
+  max-width: 20em;
+  min-width: 12em;
 }
 .bd-button {
   /* center the content both ways */
@@ -148,5 +154,19 @@ body {
 .bd-state-button.checkbox.state-null,
 .bd-state-button.radio-button.state-null {
   color: #c6be1b;
+}
+.bd-input {
+  /* center the content both ways */
+  display: inline-block;
+  margin: 0.2em;
+  border: 1px solid black;
+  padding: 0.2em;
+}
+.bd-input div {
+  background-color: inherit;
+  min-width: 5em;
+}
+.bd-input div:focus {
+  background-color: yellow;
 }
 /*# sourceMappingURL=http://localhost:8080/altoviso/bd-widgests/less/main.css.map */
