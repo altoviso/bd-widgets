@@ -1,4 +1,4 @@
-import {Component, e, render} from "./lib.js";
+import {Component, e, render} from "./bd-core.js";
 import Button from "./button/Button.js";
 import StateButton from "./stateButton/StateButton.js";
 import ReactComponent from "./reactComponent/ReactComponent.js";
@@ -9,7 +9,7 @@ class DemoContainerForReactComponent extends Component {
 		this.theSelect.props = {value: e.value};
 	}
 
-	_elements(){
+	bdElements(){
 		return e("div", e(ReactComponent, {
 			component: Select,
 			props: {
@@ -20,7 +20,7 @@ class DemoContainerForReactComponent extends Component {
 					{value: 'vanilla', label: 'Vanilla'}
 				]
 			},
-			[e.attach]: "theSelect"
+			bdAttach: "theSelect"
 		}));
 	}
 }
@@ -32,7 +32,7 @@ function showValueChange(value){
 let tabIndex = 1;
 let components = [
 	{
-		title: "Buttons", class: Button, ctorArgs: [
+		title: "Button", class: Button, ctorArgs: [
 			{label: "OK", title: "click me!", tabIndex: tabIndex++, handler: () => console.log("clicked OK button")},
 			{
 				label: "Ticklish",
@@ -57,45 +57,45 @@ let components = [
 		title: "StateButton.Checkbox", class: StateButton.Checkbox, ctorArgs: [
 			{
 				tabIndex: tabIndex++,
-				[e.watch]: {"value": showValueChange}
+				bdWatch: {"value": showValueChange}
 			},
 			{
 				value: true,
 				tabIndex: tabIndex++,
-				[e.watch]: {"value": showValueChange}
+				bdWatch: {"value": showValueChange}
 			},
 			{
 				nullable: true,
 				tabIndex: tabIndex++,
-				[e.watch]: {"value": showValueChange}
+				bdWatch: {"value": showValueChange}
 			},
 			{
 				values: ["A", "B"],
 				tabIndex: tabIndex++,
-				[e.watch]: {"value": showValueChange}
+				bdWatch: {"value": showValueChange}
 			},
 			{
 				nullable: true,
 				values: ["A", "B", "C"],
 				tabIndex: tabIndex++,
-				[e.watch]: {"value": showValueChange}
+				bdWatch: {"value": showValueChange}
 			},
 			{
 				states: [{value: false, mark: "F"}, {value: true, mark: "T"}],
 				tabIndex: tabIndex++,
-				[e.watch]: {"value": showValueChange}
+				bdWatch: {"value": showValueChange}
 			},
 			{
 				states: [{value: null, mark: "?"}, {value: false, mark: "F"}, {value: true, mark: "T"}],
 				nullable: true,
 				tabIndex: tabIndex++,
-				[e.watch]: {"value": showValueChange}
+				bdWatch: {"value": showValueChange}
 			}
 		]
 	}, {
 		title: "StateButton.RadioButton", class: StateButton.RadioButton, ctorArgs: [
-			{tabIndex: tabIndex++, [e.watch]: {"value": showValueChange}},
-			{nullable: true, tabIndex: tabIndex++, [e.watch]: {"value": showValueChange}}
+			{tabIndex: tabIndex++, bdWatch: {"value": showValueChange}},
+			{nullable: true, tabIndex: tabIndex++, bdWatch: {"value": showValueChange}}
 		]
 	}, {
 		title: "StateButton", class: StateButton, ctorArgs: [
@@ -103,25 +103,25 @@ let components = [
 				states: [{value: 123, mark: "A"}, {value: 456, mark: "B"}, {value: 789, mark: "C"}],
 				value: 456,
 				tabIndex: tabIndex++,
-				[e.watch]: {"value": showValueChange}
+				bdWatch: {"value": showValueChange}
 			},
 			{
 				label: "State: ",
 				states: [{mark: "A"}, {mark: "B"}, {mark: "C"}],
 				tabIndex: tabIndex++,
-				[e.watch]: {"value": showValueChange}
+				bdWatch: {"value": showValueChange}
 			},
 			{
 				label: "A-F: ",
 				states: [..."ABCDEF"].map(c => ({mark: c})),
 				tabIndex: tabIndex++,
-				[e.watch]: {"value": showValueChange}
+				bdWatch: {"value": showValueChange}
 			},
 			{
 				label: "U-Z: ",
 				values: [..."UVWXYZ"],
 				tabIndex: tabIndex++,
-				[e.watch]: {"value": showValueChange}
+				bdWatch: {"value": showValueChange}
 			}
 		]
 	}, {
@@ -131,10 +131,10 @@ let components = [
 
 
 class Top extends Component {
-	_elements(){
+	bdElements(){
 		return e("div", components.map((item) => e("div", {className: "component-section"},
 			e("p", {className: "title"}, item.title),
-			item.ctorArgs.map((ctorArgs) => e("div", {className: "container " + item.title}, e(item.class, ctorArgs)))
+			item.ctorArgs.map(ctorArgs => e("div", {className: "container " + item.title.replace(/\./g, " ")}, e(item.class, ctorArgs)))
 			))
 		);
 	}

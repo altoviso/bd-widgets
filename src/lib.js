@@ -1,1 +1,2 @@
-export * from "../node_modules/bd-core/lib.js"
+export * from "./bd-core.js"
+export * from "./VStat.js"

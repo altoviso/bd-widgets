@@ -31,7 +31,7 @@ e(Button, {label: "OK", tabIndex: 1, handler: myOkHandler})
 e(Button, {label: "OK", tabIndex: 1, enabled: false, handler: myOkHandler})
 
 // another way to set up a handler
-e(Button, {label: "OK", [e.advise]: {click::myOkHandler}})
+e(Button, {label: "OK", bdAdvise: {click::myOkHandler}})
 
 // a button with an image (a floppy disk in the demo) instead of a label
 e(Button, {className: "icon-", label: "\u{e904}", handler: myOkHandler})
