@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+.bd-input {
+    /* center the content both ways */
+    display: inline-block;
+    margin: @input-gap;
+    border: @input-borderWidth @input-borderStyle @input-borderColor;
+    padding: @input-padding;
+
+    div {
+        background-color: @input-bg-color;
+        min-width: 5em;
+
+    }
+
+    div:focus {
+        background-color: @input-bg-color-focus;
+    }
+}
+
+//@keyframes yellowTickle {
+//    0% {
+//        background-color: white;
+//    }
+//    50% {
+//        background-color: yellow;
+//    }
+//    100% {
+//        background-color: white;
+//    }
+//}

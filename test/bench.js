@@ -4,13 +4,15 @@ import Input from "../src/input/Input.js";
 import InputInteger from "../src/input/InputInteger.js";
 import InputFloat from "../src/input/InputFloat.js";
 import InputBoolean from "../src/input/InputBoolean.js";
+import InputMap from "../src/input/InputMap.js";
 
 let componentTypes = {
 	button: Button,
 	input: Input,
 	inputinteger: InputInteger,
 	inputfloat: InputFloat,
-	inputboolean: InputBoolean
+	inputboolean: InputBoolean,
+	inputmap: InputMap
 };
 
 function monitor(component){
@@ -33,13 +35,13 @@ class Top extends Component {
 		((qString && qString.split("#")[0]) || "").split("&").forEach(arg => {
 			arg = arg.trim();
 			if(/=/.test(arg)){
-				arg = arg.split("=").map(s=>s.trim());
+				arg = arg.split("=").map(s => s.trim());
 				ctorParams[arg[0]] = arg[1];
 			}else{
 				if(componentTypes[arg.toLowerCase()]){
 					componentType = componentTypes[arg.toLowerCase()];
 				}else{
-					ctorParams[arg]= true;
+					ctorParams[arg] = true;
 				}
 			}
 		});
@@ -53,4 +55,4 @@ class Top extends Component {
 }
 
 let top = render(Top, document.getElementById("root"));
-setTimeout(()=>(z.focus), 50);
+setTimeout(() => (z.focus), 50);

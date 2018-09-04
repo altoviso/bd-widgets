@@ -31,7 +31,8 @@ class Help extends Component {
 		function individualTable(){
 			let widgetList = [
 				["Button", "button"],
-				["StateButton", "stateButton"]
+				["StateButton", "stateButton"],
+				["Input", "input"]
 			];
 			let content = widgetList.map(pair => {
 				let [widgetName, testid] = pair;
@@ -58,7 +59,8 @@ class Help extends Component {
 		function demosTable(){
 			let widgetList = [
 				["Button", "button-demo"],
-				["StateButton", "stateButton-demo"]
+				["StateButton", "stateButton-demo"],
+				["Input", "input-demo"]
 			];
 			let content = widgetList.map(pair => {
 				let [widgetName, testid] = pair;
@@ -79,8 +81,13 @@ class Help extends Component {
 
 		function workbench(){
 			let widgetList = [
-				["Button", "button"],
-				["StateButton", "stateButton"]
+				["Button", "Button"],
+				["StateButton", "StateButton"],
+				["Input", "Input"],
+				["InputBoolean", "InputBoolean"],
+				["InputFloat", "InputFloat"],
+				["InputInteger", "InputInteger"],
+				["InputMap", "InputMap"],
 			];
 			let content = widgetList.map(pair => {
 				let [widgetName, testid] = pair;

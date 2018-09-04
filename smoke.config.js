@@ -29,7 +29,8 @@
 	// such tests
 	let tests = [
 		[["button"], "./src/button/button-test.es6.js"],
-		[["stateButton"], "./src/stateButton/stateButton-test.es6.js"]
+		[["stateButton"], "./src/stateButton/stateButton-test.es6.js"],
+		[["input"], "./src/input/input-test.es6.js"]
 	];
 
 	if(isNode){
