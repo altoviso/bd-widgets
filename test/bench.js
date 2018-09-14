@@ -1,18 +1,26 @@
-import {Component, e, render} from "../node_modules/bd-core/lib.js"
+import {Component, e, render} from "../node_modules/bd-core/lib.js";
 import Button from "../src/button/Button.js";
+import StateButton from "../src/stateButton/StateButton.js";
 import Input from "../src/input/Input.js";
 import InputInteger from "../src/input/InputInteger.js";
-import InputFloat from "../src/input/InputFloat.js";
+import InputNumber from "../src/input/InputNumber.js";
 import InputBoolean from "../src/input/InputBoolean.js";
 import InputMap from "../src/input/InputMap.js";
+import ListBox from "../src/listBox/ListBox.js";
+import ComboBox from "../src/comboBox/ComboBox.js";
+
+/* eslint-disable no-console */
 
 let componentTypes = {
 	button: Button,
+	statebutton: StateButton,
 	input: Input,
 	inputinteger: InputInteger,
-	inputfloat: InputFloat,
+	inputnumber: InputNumber,
 	inputboolean: InputBoolean,
-	inputmap: InputMap
+	inputmap: InputMap,
+	listbox: ListBox,
+	comboBox: ComboBox
 };
 
 function monitor(component){
@@ -21,7 +29,7 @@ function monitor(component){
 			(newValue, oldValue) => {
 				console.log("[" + prop + "]", newValue, "[old:", oldValue, "]");
 			}
-		)
+		);
 	});
 	component.constructor.events.forEach(name => component.advise(name, (e) => console.log(e)));
 	window.z = component;
@@ -48,11 +56,10 @@ class Top extends Component {
 
 		return e("div",
 			e("div", e(Button, {label: "Focusable-1"})),
-			e("div", e(componentType, {bdAttach: monitor})),
+			e("div", e(componentType, Object.assign(ctorParams, {bdAttach: monitor}))),
 			e("div", e(Button, {label: "Focusable-2"})),
 		);
 	}
 }
 
-let top = render(Top, document.getElementById("root"));
-setTimeout(() => (z.focus), 50);
+render(Top, document.getElementById("root"));

@@ -1,4 +1,4 @@
-import {Component, e, render} from "../src/lib.js"
+import {Component, e, render} from "../src/lib.js";
 
 const smoke = typeof window!=="undefined" ? window.smoke : require('bd-smoke');
 const assert = smoke.assert;
@@ -153,4 +153,4 @@ class TestContainer extends Component {
 }
 
 export {TestContainer, smoke, assert, assertClassNameEq};
-export * from "../src/lib.js"
+export * from "../src/lib.js";
