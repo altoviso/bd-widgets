@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+.bd-listBox {
+    display: inline-block;
+    border-color: @bd-listBox-border-color;
+    border-width: @bd-listBox-border-width;
+    border-style: solid;
+    min-width: 10em;
+    margin: 1em;
+    overflow-y: auto;
+    cursor: pointer;
+
+    &.fixed {
+        overflow-y: hidden;
+    }
+
+    .no-items {
+        display: none;
+    }
+    &.no-data .no-items {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: @bd-listBox-no-items-color;
+        margin: 2em;
+    }
+
+    .up-arrow, .down-arrow {
+        padding: @bd-listBox-item-padding;
+        justify-content: center;
+        align-items: center;
+        font-size: 200%;
+        padding: .05em;
+        background-color: @bd-listbox-arrow-background;
+
+        &:hover {
+            background-color: @bd-listbox-arrow-hover-background;
+        }
+    }
+
+    &.arrows {
+        .up-arrow, .down-arrow {
+            display: flex;
+        }
+    }
+    //focusedItem
+    .items {
+        & > div {
+            border: 1px solid @bd-listBox-item-border-color;
+            padding: @bd-listBox-item-padding;
+        }
+        & .mouseOverItem {
+            border: 1px solid @bd-listBox-item-mouse-over-border-color;
+        }
+    }
+    .focusedItem,
+    &.bd-focused .focusedItem,
+    &.bd-for-combo .focusedItem{
+        border: 1px solid @bd-listBox-item-focused-border-color;
+        background-color: @bd-listBox-item-focused-bg-color;
+    }
+
+    &.bd-focused .selectedItem, .selectedItem {
+        color: @bd-listBox-item-selected-color;
+        border: 1px solid @bd-listBox-item-mouse-over-border-color;
+        background-color: @bd-listBox-item-selected-bg-color;
+    }
+
+    &.query-before .up-arrow {
+        background-color: yellow;
+    }
+
+    &.query-after .down-arrow {
+        background-color: yellow;
+    }
+}
