@@ -4,7 +4,7 @@
 	"description": "a library of user interface widgets built with Backdraft",
 	"main": "./lib.js",
 	"scripts": {
-		"test": "node test/main.js capsPreset=local",
+		"test": "node node_modules/bd-smoke/smoke.js",
 		"server": "node httpServer.js"
 	},
 	"repository": {
@@ -25,10 +25,13 @@
 		"url": "https://github.com/altoviso/bd-widgets/issues"
 	},
 	"dependencies": {
+		"animejs": "^2.2.0",
 		"bd-core": "^2.2.1"
 	},
 	"devDependencies": {
 		"bd-smoke": "^0.4.0",
+		"chai": "^4.1.2",
+		"eslint": "^5.5.0",
 		"express": "^4.16.3",
 		"grunt": "^1.0.3",
 		"grunt-cli": "^1.2.0",
