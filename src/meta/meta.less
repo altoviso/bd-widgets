@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+.bd-meta {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    border: none;
+    //font-weight: bold;
+
+    font-size: 20px;
+
+    &.bd-vStat-valid:before {
+        color: green;
+        content: "\e910";
+    }
+
+    &.bd-vStat-contextInfo:before, &.scalarInfo:before {
+        color: green;
+        content: "\ea08";
+    }
+
+    &.bd-vStat-contextWarn:before, &.bd-vStat-scalarWarn:before {
+        color: @meta-warn-color;
+        content: "\ea07";
+    }
+
+    &.bd-vStat-contextError:before, &.bd-vStat-scalarError:before {
+        color: red;
+        content: "\ea0d";
+    }
+}
