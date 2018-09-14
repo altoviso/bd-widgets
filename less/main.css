@@ -3,14 +3,29 @@
 body {
   font-family: "Open Sans", Arial, sans-serif;
   font-size: 16px;
-  line-height: 20px;
   font-weight: 400;
   font-style: normal;
+  line-height: 20px;
   -webkit-font-smoothing: antialiased;
   color: #222222;
+  background-color: #f2f2f2;
   margin: 0;
   padding: 0;
-  background-color: white;
+}
+input {
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 20px;
+}
+.bd-rbox {
+  position: relative;
+}
+.unselectable {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .icon-mixin {
   /* use !important to prevent issues with browser extensions that change fonts */
@@ -36,6 +51,33 @@ body {
 .container.ReactComponent {
   max-width: 20em;
   min-width: 12em;
+}
+.bd-meta {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+  border: none;
+  font-size: 20px;
+}
+.bd-meta.bd-vStat-valid:before {
+  color: green;
+  content: "\e910";
+}
+.bd-meta.bd-vStat-contextInfo:before,
+.bd-meta.scalarInfo:before {
+  color: green;
+  content: "\ea08";
+}
+.bd-meta.bd-vStat-contextWarn:before,
+.bd-meta.bd-vStat-scalarWarn:before {
+  color: #dd9b00;
+  content: "\ea07";
+}
+.bd-meta.bd-vStat-contextError:before,
+.bd-meta.bd-vStat-scalarError:before {
+  color: red;
+  content: "\ea0d";
 }
 .bd-button {
   /* center the content both ways */
@@ -157,16 +199,157 @@ body {
 }
 .bd-input {
   /* center the content both ways */
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   margin: 0.2em;
-  border: 1px solid black;
+  border: 1px solid #969696;
+  border-radius: 5px;
   padding: 0.2em;
-}
-.bd-input div {
   background-color: inherit;
-  min-width: 5em;
 }
-.bd-input div:focus {
+.bd-input input {
+  min-width: 10em;
+  padding: 2px;
+  border: 0;
+  background-color: inherit;
+}
+.bd-input.bd-focused input {
+  background-color: white;
+}
+.bd-input .placeholder,
+.bd-input.empty.bd-focused .placeholder {
+  display: none;
+}
+.bd-input.empty .placeholder {
+  display: block;
+  position: absolute;
+  color: #d6d6d6;
+  bottom: 0;
+  left: 0;
+}
+.bd-listBox {
+  display: inline-block;
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+  min-width: 10em;
+  margin: 1em;
+  overflow-y: auto;
+  cursor: pointer;
+}
+.bd-listBox.fixed {
+  overflow-y: hidden;
+}
+.bd-listBox .no-items {
+  display: none;
+}
+.bd-listBox.no-data .no-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #CCCCCC;
+  margin: 2em;
+}
+.bd-listBox .up-arrow,
+.bd-listBox .down-arrow {
+  padding: 3px;
+  justify-content: center;
+  align-items: center;
+  font-size: 200%;
+  padding: 0.05em;
+  background-color: #9fb1ce;
+}
+.bd-listBox .up-arrow:hover,
+.bd-listBox .down-arrow:hover {
+  background-color: #bacff2;
+}
+.bd-listBox.arrows .up-arrow,
+.bd-listBox.arrows .down-arrow {
+  display: flex;
+}
+.bd-listBox .items > div {
+  border: 1px solid #f2f2f2;
+  padding: 3px;
+}
+.bd-listBox .items .mouseOverItem {
+  border: 1px solid #6990ce;
+}
+.bd-listBox .focusedItem,
+.bd-listBox.bd-focused .focusedItem,
+.bd-listBox.bd-for-combo .focusedItem {
+  border: 1px solid #c3cfe2;
+  background-color: #c3cfe2;
+}
+.bd-listBox.bd-focused .selectedItem,
+.bd-listBox .selectedItem {
+  color: white;
+  border: 1px solid #6990ce;
+  background-color: #6990ce;
+}
+.bd-listBox.query-before .up-arrow {
   background-color: yellow;
+}
+.bd-listBox.query-after .down-arrow {
+  background-color: yellow;
+}
+.bd-comboBox {
+  display: inline-flex;
+  align-items: center;
+  margin: 0.2em;
+  border: 1px solid #969696;
+  border-radius: 5px;
+  padding: 0.2em;
+  background-color: inherit;
+}
+.bd-comboBox.bd-listBox-visible {
+  border-bottom-width: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.bd-comboBox .bd-static,
+.bd-comboBox input {
+  min-width: 10em;
+  padding: 2px;
+  border: 0;
+  background-color: inherit;
+}
+.bd-comboBox.bd-focused .bd-static,
+.bd-comboBox.bd-focused input {
+  background-color: white;
+}
+.bd-comboBox .placeholder,
+.bd-comboBox.empty.bd-focused .placeholder {
+  display: none;
+}
+.bd-comboBox.empty .placeholder {
+  display: block;
+  position: absolute;
+  color: #d6d6d6;
+  bottom: 0;
+  left: 0;
+}
+.bd-comboBox .arrow {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  padding: 5px;
+  border-radius: 5px;
+}
+.bd-comboBox .arrow:hover {
+  background-color: #bcd1f2;
+}
+.bd-listBox.bd-for-combo {
+  position: absolute;
+  margin: 0;
+  border: 1px solid #969696;
+  border-top-width: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: white;
+  opacity: 1;
+  max-height: 15em;
 }
 /*# sourceMappingURL=http://localhost:8080/altoviso/bd-widgests/less/main.css.map */

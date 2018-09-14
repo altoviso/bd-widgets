@@ -3,15 +3,32 @@
 body {
     font-family: "Open Sans", Arial, sans-serif;
     font-size: @font-size;
-    line-height: @line-height;
     font-weight: @font-weight;
     font-style: normal;
+    line-height: @line-height;
     -webkit-font-smoothing: antialiased;
 
     color: @color;
-    background-color: @background-color;
+    background-color: @bg-color;
 
     margin: 0;
     padding: 0;
-    background-color: white;
+}
+
+input {
+    font-size: @font-size;
+    font-weight: @font-weight;
+    font-style: normal;
+    line-height: @line-height;
+}
+
+.bd-rbox {
+    position:relative;
+}
+
+.unselectable {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
