@@ -2,30 +2,40 @@
 
 .bd-input {
     /* center the content both ways */
-    display: inline-block;
-    margin: @input-gap;
-    border: @input-borderWidth @input-borderStyle @input-borderColor;
+    display: inline-flex;
+    align-items: center;
+    margin: @input-margin;
+    border: @input-border-width @input-border-style @input-border-color;
+    border-radius: @input-border-radius;
     padding: @input-padding;
+    background-color: @input-bg-color;
 
-    div {
-        background-color: @input-bg-color;
-        min-width: 5em;
-
+    input {
+        min-width: @input-input-width;
+        padding: @input-input-padding;
+        border: 0;
+        background-color:inherit;
     }
 
-    div:focus {
+    &.bd-focused input {
         background-color: @input-bg-color-focus;
+    }
+
+    .placeholder, &.empty.bd-focused .placeholder {
+        display: none;
+    }
+
+    &.empty .placeholder {
+        display: block;
+        position: absolute;
+        color: @input-placeholder-color;
+        bottom: 0;
+        left: 0;
     }
 }
 
-//@keyframes yellowTickle {
-//    0% {
-//        background-color: white;
-//    }
-//    50% {
-//        background-color: yellow;
-//    }
-//    100% {
-//        background-color: white;
-//    }
-//}
+
+
+
+
+

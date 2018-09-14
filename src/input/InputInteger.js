@@ -1,38 +1,10 @@
-import Input from "./Input.js";
-import {VStat} from "../lib.js";
+import InputNumber from "./InputNumber.js";
 
-export default class IntegerInput extends Input {
+export default class InputInteger extends InputNumber {
+	// an input control that accepts an optionally range-limited integer
+
 	validateValue(_value){
-		let value, text;
-		if(_value === undefined || value === "" || value === null){
-			return [null, this.format(null), VStat.valid()];
-		}
-		let valueMap = this.valueMap;
-		if(valueMap && valueMap.has(_value)){
-			let value = valueMap.get(_value);
-			return [value, this.format(value), VStat.valid()];
-		}else{
-			value = Number(_value);
-			if(isNaN(value)){
-				return [value, _value + "", VStat.scalarError()];
-			}else{
-				value = Math.round(value);
-				return [value, this.format(value), VStat.valid()];
-			}
-		}
-	}
-
-	validateText(text){
-		text = text.trim();
-		return text ? this.validateValue(Number(text)) : [null, this.format(null), VStat.valid()]
-	}
-
-	format(value, checkMap){
-		return value === null ? "" : value + "";
+		let [value, text, vStat] = super.validateValue(_value);
+		return [value === this.errorValue ? value : Math.round(value), text, vStat];
 	}
 }
-Object.assign(Input, {
-	default: null,
-	valueMap: null,
-	textMap: null
-});

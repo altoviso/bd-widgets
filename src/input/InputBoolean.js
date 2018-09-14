@@ -19,8 +19,3 @@ export default class IntegerInput extends Input {
 		return value ? "true" : "false";
 	}
 }
-Object.assign(Input, {
-	default: null,
-	valueMap: null,
-	textMap: null
-});

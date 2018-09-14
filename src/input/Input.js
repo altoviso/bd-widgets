@@ -1,65 +1,33 @@
-import {Component, e, VStat, connect, stopEvent} from "../lib.js";
+import {Component, e, VStat, defProps} from "../lib.js";
 
 let ns = Component.getNamespace();
-const pDefault = ns.get("pDefault");
 const pValue = ns.get("pValue");
 const pText = ns.get("pText");
 const pVStat = ns.get("pVStat");
 const pPlaceholder = ns.get("pPlaceholder");
-const pInputNodeAttributes = ns.get("pInputNodeAttributes");
-const pTrim = ns.get("pTrim");
-const pOnClick = ns.get("pOnClick");
+const pInputNode = ns.get("pInputNode");
 const pOnInput = ns.get("pOnInput");
 
 export default class Input extends Component {
 	constructor(kwargs){
 		super(kwargs);
-
-		// settable only at construction...
-		"placeholder" in kwargs && (this[pPlaceholder] = kwargs.placeholder);
-		"default" in kwargs && (this[pDefault] = kwargs.default);
-		"trim" in kwargs && (this[pTrim] = kwargs.trim);
+		"validateValue" in kwargs && (this.validateValue = kwargs.validateValue);
+		"validateText" in kwargs && (this.validateText = kwargs.validateText);
+		"format" in kwargs && (this.format = kwargs.format);
 
 		let [value, text, vStat] = this.validateValue("value" in kwargs ? kwargs.value : this.default);
-		if(vStat.isError){
-			[value, text, vStat] = this.validateValue(this.default);
-		}
-		Object.defineProperties(this, {
-			[pValue]: {
-				writable: true, value: value
-			},
-			[pText]: {
-				writable: true, value: text
-			},
-			[pVStat]: {
-				writable: true, value: vStat
-			}
-		});
+		this[pValue] = value;
+		this[pText] = text;
+		this[pVStat] = vStat;
 	}
 
-	// read-only
-	get default(){
-		return pDefault in this ? this[pDefault] : this.constructor.default;
-	}
-
-	get trim(){
-		return pTrim in this ? this[pTrim] : this.constructor.trim;
-
-	}
-
-	// read-write
 	get value(){
 		return this[pValue];
 	}
 
 	set value(_value){
-		// illegal value is ignored
 		let [value, text, vStat] = this.validateValue(_value);
-		if(vStat.isScalarLegal){
-			this.bdMutate("value", pValue, value, "text", pText, text, "vStat", pVStat, vStat);
-		}else{
-			console.warn("illegal");
-		}
+		this.bdMutate("value", pValue, value, "text", pText, text, "vStat", pVStat, vStat);
 	}
 
 	get text(){
@@ -67,29 +35,20 @@ export default class Input extends Component {
 	}
 
 	set text(_text){
-		// illegal text is ignored
 		let [value, text, vStat] = this.validateText(_text);
-		if(vStat.isScalarLegal){
-			this.bdMutate("value", pValue, value, "text", pText, text, "vStat", pVStat, vStat);
-		}else{
-			console.warn("illegal");
-		}
+		this.bdMutate("value", pValue, value, "text", pText, text, "vStat", pVStat, vStat);
 	}
 
+	// setting vStat directly is not allowed...it's done by clients by setting value/text
+	// note, however, that the internal state of vStat can be manipulated
 	get vStat(){
 		return this[pVStat];
 	}
 
-	// setting vStat is considered a private/protected process...it's done by clients by setting value/text
 
-	get placeholder(){
-		return this[pPlaceholder] === undefined ? this.constructor.placeholder : this[pPlaceholder];
-	}
-
-	set placeholder(value){
-		this.bdMutate("placeholder", pPlaceholder, value);
-	}
-
+	//
+	// validateValue, validateText, and format are the key methods that describe the behavior of an input
+	// override in subclasses or provide per-instance methods to cause special behavior, e.g., see InputInteger et al
 	validateValue(value){
 		return [value, this.format(value), VStat.valid()];
 	}
@@ -100,7 +59,15 @@ export default class Input extends Component {
 	}
 
 	format(value){
-		return (value === null || value === undefined) ? "" : ((value.toString && value.toString()) || "");
+		if(!value){
+			return value === 0 ? "0" : "";
+		}else{
+			try{
+				return value.toString();
+			}catch(e){
+				return this.default;
+			}
+		}
 	}
 
 	// protected API...
@@ -113,80 +80,81 @@ export default class Input extends Component {
 		// 4          div.placeholder
 		// 5      div.vStat
 		//
+		//  1. the component root
 		//  2. typically a relative box, either let input determine its size or style explicitly
 		//  3. either cause parent to size or absolute posit (0, 0, 0, 0) off of explicitly-sized parent
-		//  4. absolute posit (0, 0, 0, 0) within parent box
+		//  4. absolute posit (0, 0, 0, 0) within parent box, which is typically relative
 		//  5. may be filled via CSS content (based on vStat.className in root) or explicitly in subclasses based on vStat
+		//
+		// Notice that [5] can be placed above/below/left/right of [2] bu making [1] a flex box (row or column, block or inline)
+		// and then setting the flex order of [2] and [5]
 
-
-		return e("div", {
+		return e(
+			"div", {
 				className: "bd-input",
 				bdReflectClass: [
 					"vStat", vStat => vStat.className,
 					"text", value => (value.length ? "" : "empty")
 				]
 			},
-			e("div",
-				e("input", Object.assign(this.inputNodeAttributes || this.kwargs.inputNodeAttributes || this.constructor.inputNodeAttributes, {
+			(this.Meta ? e(this.Meta, {bdReflectProp: {vStat: "vStat"}}) : false),
+			e("div", {className: "bd-rbox"},
+				e("input", Object.assign({
 					tabIndex: 0,
-					bdAttach: "inputNode",
+					bdAttach: pInputNode,
 					bdAdvise: {input: pOnInput},
 					bdReflectProp: {disabled: "disabled"},
 					bdReflect: "text"
-				})),
-				e("div", {class: "placeholder", bdReflect: "placeholder"})
-			),
-			e("div", {className: "vStat"})
+				}, (this.inputAttrs || this.kwargs.inputAttrs || this.constructor.inputAttrs))),
+				e("div", {className: "placeholder", bdReflect: "placeholder"})
+			)
 		);
 	}
 
 	// private API...
-
-	[Component.pOnFocus](){
-		super[Component.pOnFocus]();
-	}
-
 	[Component.pOnBlur](){
 		super[Component.pOnBlur]();
-		// when the input has the focus, this.value and the input node value may _NOT_ be the same since
-		// we must allow the user to have illegal/unformatted text on the way to inputting legal text. Upon
-		// losing focus, this.value and the input node value must again be brought into congruence. If an
-		// illegal input was given, then we revert back to the last value.
-		let [value, text, vStat] = this.validateText(this.inputNode.value);
-		if(!VStat.isScalarLegal){
-			[value, text, vStat] = this.validateValue(this.value);
-		}
-		this.bdMutate("value", pValue, value, "text", pText, text, "vStat", pVStat, vStat);
+		// when the input has the focus, this.text and the input node value may _NOT_ be synchronized since
+		// we must allow the user to have unformatted text on the way to inputting legal text. Upon
+		// losing focus, this.text and the input node value must again be brought into congruence.
+		this.text = this[pInputNode].value;
 	}
 
 	[pOnInput](e){
-		let inputNode = e.target;
+		let inputNode = this[pInputNode];
 		let srcText = inputNode.value;
 		if(inputNode === document.activeElement){
-			// allow inputNode.value and this.value to be out of synch when input has the focus (illegal input
+			// allow inputNode.value and this.text to be out of synch when input has the focus (illegal input
 			// and/or not formatted); inputNode.value will be put back in synch and the text formatted when the
 			// input loses the focus
+
+			// eslint-disable-next-line no-unused-vars
 			let [value, text, vStat] = this.validateText(srcText);
-			if(vStat.isScalarLegal){
-				this.bdMutate("value", pValue, value, "text", pText, srcText, "vStat", pVStat, vStat);
-			}else{
-				this.bdMutate("text", pText, srcText, "vStat", pVStat, vStat);
-			}
+			this.bdMutate("value", pValue, value, "vStat", pVStat, vStat);
 		}else{
 			this.text = srcText;
 		}
-		this.bdNotify(e)
-	}
-
-	[pOnClick](e){
+		this.bdNotify(e);
 	}
 }
 
+// shut up eslint _and_ prove the variable exists before using it in a macro
+pPlaceholder;
+
+eval(defProps("Input", [
+	["ro", "Meta"],
+	["ro", "default"],
+	["ro", "trim"],
+	["rw", "placeholder", "pPlaceholder"]
+]));
+
 ns.publish(Input, {
+	Meta: false,
 	default: "",
+	errorValue: Symbol("error"),
 	trim: true,
-	inputNodeAttributes: {type: "text"},
+	inputAttrs: {type: "text"},
 	placeholder: " enter value ",
-	watchables: ["value", "text", "vStat", "placeholder"].concat(Component.watchables),
-	events: ["input"].concat(Component.events),
+	watchables: ["value", "text", "vStat", "placeholder"],
+	events: ["input"]
 });
