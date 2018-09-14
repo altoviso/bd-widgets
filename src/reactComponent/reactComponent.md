@@ -38,7 +38,7 @@ And finally, here is an example Backdraft component class that contains a react-
             this.theSelect.props = {value: e.value};
         }
     
-        _elements(){
+        bdElements(){
             return e("div", e(ReactComponent, {
                 component: Select,
                 props: {
@@ -49,7 +49,7 @@ And finally, here is an example Backdraft component class that contains a react-
                         {value: 'vanilla', label: 'Vanilla'}
                     ]
                 },
-                [e.attach]: "theSelect"
+                bdAttach: "theSelect"
             }));
         }
     }
