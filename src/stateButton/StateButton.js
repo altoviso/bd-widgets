@@ -1,5 +1,5 @@
 import {Component, e, stopEvent} from "../lib.js";
-import Button from "../button/Button.js"
+import Button from "../button/Button.js";
 
 class States {
 	constructor(owner, states, value){
@@ -22,7 +22,8 @@ class States {
 	set value(value){
 		let index = this.findIndex(value);
 		if(index === -1){
-			console.error("unexpected");
+			// eslint-disable-next-line no-console
+			console.error("unexpected, but ignored");
 		}else{
 			this.owner.removeClassName(this.className);
 			this.currentState = this.states[index];
@@ -77,8 +78,7 @@ export default class StateButton extends Button {
 
 		let states = kwargs.states || valuesToStates(kwargs.values);
 		if(!Array.isArray(states)){
-			console.error("illegal states");
-			states = valuesToStates(DEFAULT_2_STATE_VALUES);
+			throw new Error("illegal states");
 		}
 		Object.defineProperties(this, {
 			[pStates]: {
@@ -93,7 +93,8 @@ export default class StateButton extends Button {
 
 	set value(value){
 		if(!this[pStates].exists(value)){
-			console.ward("illegal value provided; ignored");
+			// eslint-disable-next-line no-console
+			console.warn("illegal value provided; ignored");
 		}else{
 			let oldValue = this.value;
 			if(value !== oldValue){
@@ -117,7 +118,7 @@ export default class StateButton extends Button {
 
 	reset(states, value){
 		if(!Array.isArray(states)){
-			console.error("illegal states");
+			throw new Error("illegal states");
 		}else{
 			this[pStates].reset(this[pConditionStates](states), value);
 			this.bdMutateNotify("value", undefined, this.value);
@@ -143,7 +144,7 @@ export default class StateButton extends Button {
 				e("div", {bdReflect: ["state", labelText]}),
 				e("div", {bdReflect: ["state", markText]})
 			)
-		)
+		);
 	}
 
 	// private API...
@@ -159,13 +160,13 @@ export default class StateButton extends Button {
 				result.label = state.label;
 			}
 			return result;
-		})
+		});
 	}
 
 	[Button.pOnClick](e){
 		// override Button's [Button.pOnClick]
 		stopEvent(e);
-		if(this[Component.pEnabled]){
+		if(this.enabled){
 			this.value = this[pStates].nextValue();
 			this.handler && this.handler();
 			this.bdNotify({name: "click", e: e});
@@ -174,7 +175,7 @@ export default class StateButton extends Button {
 }
 ns.publish(StateButton, {
 	className: "bd-state-button",
-	watchables: ['value', "state"].concat(Button.watchables),
+	watchables: ["value", "state"].concat(Button.watchables),
 });
 
 function valuesToStatesNoMark(values){
@@ -194,8 +195,7 @@ function getStates(_states, nullable, nullMark, falseMark, trueMark){
 	let states;
 	if(_states){
 		if((nullable && _states.length !== 3) || (!nullable && _states.length !== 2)){
-			console.error("illegal states provided");
-			states = valuesToStatesNoMark(nullable ? DEFAULT_3_STATE_VALUES : DEFAULT_2_STATE_VALUES);
+			throw new Error("illegal states");
 		}else{
 			// valid states provided...
 			states = _states;
@@ -210,7 +210,7 @@ function getStates(_states, nullable, nullMark, falseMark, trueMark){
 	}
 	setDefaults(states[i++], "state-false", falseMark);
 	setDefaults(states[i++], "state-true", trueMark);
-	return states
+	return states;
 }
 
 StateButton.Checkbox = class CheckBox extends StateButton {
