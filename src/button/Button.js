@@ -1,30 +1,15 @@
-import {Component, e, connect, stopEvent} from '../lib.js';
+import {Component, e, connect, stopEvent, defProps} from "../lib.js";
 
 let ns = Component.getNamespace();
 const pLabel = ns.get("pLabel");
 const pOnClick = ns.get("pOnClick");
 const pOnMouseDown = ns.get("pOnMouseDown");
+const pKeyHandler = ns.get("pKeyHandler");
 
 export default class Button extends Component {
 	constructor(kwargs){
 		super(kwargs);
-		Object.defineProperties(this, {
-			[pLabel]: {
-				writable: true, value: kwargs.label || ''
-			}
-		});
 		kwargs.handler && (this.handler = kwargs.handler);
-	}
-
-	get label(){
-		return this[pLabel];
-	}
-
-	set label(value){
-		if(value !== this[pLabel]){
-			this._dom && (this.labelNode.innerHTML = value);
-			this.bdMutate('label', pLabel, value);
-		}
 	}
 
 	// protected API...
@@ -35,20 +20,16 @@ export default class Button extends Component {
 		// 2      div
 		// 3          <this[pLabel]>
 		//
-		return e('div', {className: 'bd-button', bdAdvise: {click: pOnClick, mousedown: pOnMouseDown}},
-			e('div', {
-				tabIndex: 0,
-				bdAttach: 'labelNode',
-				innerHTML: this[pLabel]
-			})
+		return e("div", {className: "bd-button", bdAdvise: {click: pOnClick, mousedown: pOnMouseDown}},
+			e("div", {tabIndex: 0, bdReflect: "label"})
 		);
 	}
 
 	// private API...
 
 	[Component.pOnFocus](){
-		if(!this._keyHandler){
-			this._keyHandler = connect(this._dom.root, 'keypress', (e) => {
+		if(!this[pKeyHandler]){
+			this[pKeyHandler] = connect(this._dom.root, "keypress", (e) => {
 				if(e.charCode == 32){
 					// space bar => click
 					this[pOnClick](e);
@@ -60,8 +41,8 @@ export default class Button extends Component {
 
 	[Component.pOnBlur](){
 		super[Component.pOnBlur]();
-		this._keyHandler && this._keyHandler.destroy();
-		delete this._keyHandler;
+		this[pKeyHandler] && this[pKeyHandler].destroy();
+		delete this[pKeyHandler];
 	}
 
 	[pOnClick](e){
@@ -71,7 +52,7 @@ export default class Button extends Component {
 				this.focus();
 			}
 			this.handler && this.handler();
-			this.bdNotify({name: 'click', nativeEvent: e});
+			this.bdNotify({name: "click", nativeEvent: e});
 		}
 	}
 
@@ -84,8 +65,16 @@ export default class Button extends Component {
 	}
 }
 
+// shut up eslint _and_ prove the variable exists before using it in a macro
+pLabel;
+
+eval(defProps("Button", [
+	["rw", "label", "pLabel"]
+]));
+
 ns.publish(Button, {
-	watchables: ['label'],
-	events: ['click']
+	label: "",
+	watchables: ["label"],
+	events: ["click"]
 });
 

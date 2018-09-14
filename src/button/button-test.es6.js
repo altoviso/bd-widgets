@@ -14,7 +14,7 @@ smoke.defTest({
 		top.unrender();
 		top = 0;
 	},
-	test: function(logger){
+	test: function(){
 		let resolve;
 		let result = new Promise(_resolve => (resolve = _resolve));
 		let tabIndex = 1;
