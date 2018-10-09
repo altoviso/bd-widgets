@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+.bd-dialog {
+    // put the dialog in the center of the viewport
+    margin: 0;
+    border: 0;
+    padding: 0;
+    position: absolute;
+    top:0;
+    left:0;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    & > div {
+        // this is the single child frame that's centered both ways
+        background-color: @dialog-background-color;
+        color: @dialog-color;
+        border: @dialog-frame-width solid @dialog-frame-color;
+    }
+
+    .bd-title-bar {
+        background-color: @dialog-title-bar-color;
+    }
+
+    .body {
+        padding:@dialog-body-padding;
+        overflow:auto;
+
+        .bottomButtons {
+            margin-top:@dialog-body-padding;
+            display:flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    }
+}

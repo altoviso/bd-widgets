@@ -60,6 +60,7 @@
 				"./src/input/input-test.es6.js",
 				"./src/listBox/listBox-test.es6.js",
 				"./src/comboBox/comboBox-test.es6.js",
+				"./src/dialog/dialog-test.es6.js",
 
 				// make sure this is last
 				"./test/log-assert-count.js"

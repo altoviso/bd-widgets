@@ -35,7 +35,8 @@ class Help extends Component {
 				["StateButton", "stateButton"],
 				["Input", "input"],
 				["ListBox", "listBox"],
-				["ComboBox", "comboBox"]
+				["ComboBox", "comboBox"],
+				["Dialog", "Dialog"]
 			];
 			let content = widgetList.map(pair => {
 				let [widgetName, testid] = pair;
@@ -66,7 +67,9 @@ class Help extends Component {
 				["StateButton", "stateButton-demo"],
 				["Input", "input-demo"],
 				["ListBox", "listBox-demo"],
-				["ComboBox", "comboBox-demo"]
+				["ComboBox", "comboBox-demo"],
+				["Dialog", "dialog-demo"]
+
 			];
 			let content = widgetList.map(pair => {
 				let [widgetName, testid] = pair;
@@ -96,7 +99,9 @@ class Help extends Component {
 				["InputInteger", "InputInteger"],
 				["InputMap", "InputMap"],
 				["ListBox", "ListBox"],
-				["ComboBox", "ComboBox"]
+				["ComboBox", "ComboBox"],
+				["Dialog", "Dialog"]
+
 			];
 			let content = widgetList.map(pair => {
 				let [widgetName, testid] = pair;

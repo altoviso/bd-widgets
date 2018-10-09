@@ -352,4 +352,33 @@ input {
   opacity: 1;
   max-height: 15em;
 }
+.bd-dialog {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bd-dialog > div {
+  background-color: black;
+  color: white;
+  border: 2px solid #888;
+}
+.bd-dialog .bd-title-bar {
+  background-color: #888;
+}
+.bd-dialog .body {
+  padding: 5px;
+  overflow: auto;
+}
+.bd-dialog .body .bottomButtons {
+  margin-top: 5px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
 /*# sourceMappingURL=http://localhost:8080/altoviso/bd-widgests/less/main.css.map */
