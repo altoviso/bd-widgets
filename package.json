@@ -24,12 +24,14 @@
 	"bugs": {
 		"url": "https://github.com/altoviso/bd-widgets/issues"
 	},
+	"peerDependencies": {
+		"bd-core": "^2.3.0"
+	},
 	"dependencies": {
-		"animejs": "^2.2.0",
-		"bd-core": "^2.2.1"
+		"animejs": "^2.2.0"
 	},
 	"devDependencies": {
-		"bd-smoke": "^0.4.0",
+		"bd-smoke": "^1.0.0",
 		"chai": "^4.1.2",
 		"eslint": "^5.5.0",
 		"express": "^4.16.3",
