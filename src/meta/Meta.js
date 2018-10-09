@@ -1,35 +1,32 @@
 import {Component, e, VStat} from "../lib.js";
 
-let ns = Component.getNamespace();
-const pVStat = ns.get("pVStat");
-
 export default class Meta extends Component {
 	constructor(){
 		super({});
-		this[pVStat] = VStat.valid();
+		this.bdVStat = VStat.valid();
 	}
 
 	get vStat(){
-		return this[pVStat];
+		return this.bdVStat;
 	}
 
 	set vStat(value){
-		if(!value.eq(this[pVStat])){
-			this.bdMutate("vStat", pVStat, value);
+		if(!value.eq(this.bdVStat)){
+			this.bdMutate("vStat", "bdVStat", value);
 		}
 	}
 
 	bdElements(){
 		return e("div", {
 			className: "bd-meta icon-",
-			bdReflectProp: {title: ["vStat", (v) => v.message]},
+			bdReflect: {title: ["vStat", (v) => v.message]},
 			bdReflectClass: ["vStat", (v) => v.className]
 		});
 	}
 }
 
-ns.publish(Meta, {
-	watchables: ["vStat"],
-	events: [""]
+Object.assign(Meta, {
+	watchables: ["vStat"].concat(Component.watchables),
+	events: [""].concat(Component.events)
 });
 

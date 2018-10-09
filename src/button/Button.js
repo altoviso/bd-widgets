@@ -1,14 +1,11 @@
-import {Component, e, connect, stopEvent, defProps} from "../lib.js";
+import {Component, e, connect, stopEvent} from "../lib.js";
 
-let ns = Component.getNamespace();
-const pLabel = ns.get("pLabel");
-const pOnClick = ns.get("pOnClick");
-const pOnMouseDown = ns.get("pOnMouseDown");
-const pKeyHandler = ns.get("pKeyHandler");
-
-export default class Button extends Component {
+export default class Button extends Component.withWatchables("label") {
 	constructor(kwargs){
 		super(kwargs);
+		if(this.label === undefined){
+			this.label = "";
+		}
 		kwargs.handler && (this.handler = kwargs.handler);
 	}
 
@@ -18,36 +15,36 @@ export default class Button extends Component {
 		//
 		// 1  div.bd-button [bd-disabled] [bd-focused] [bd-hidden]
 		// 2      div
-		// 3          <this[pLabel]>
+		// 3          <this.label>
 		//
-		return e("div", {className: "bd-button", bdAdvise: {click: pOnClick, mousedown: pOnMouseDown}},
+		return e("div", {className: "bd-button", bdAdvise: {click: "bdOnClick", mousedown: "bdOnMouseDown"}},
 			e("div", {tabIndex: 0, bdReflect: "label"})
 		);
 	}
 
 	// private API...
 
-	[Component.pOnFocus](){
-		if(!this[pKeyHandler]){
-			this[pKeyHandler] = connect(this._dom.root, "keypress", (e) => {
+	bdOnFocus(){
+		if(!this.bdKeyHandler){
+			this.bdKeyHandler = connect(this._dom.root, "keypress", (e) => {
 				if(e.charCode == 32){
 					// space bar => click
-					this[pOnClick](e);
+					this.bdOnClick(e);
 				}
 			});
 		}
-		super[Component.pOnFocus]();
+		super.bdOnFocus();
 	}
 
-	[Component.pOnBlur](){
-		super[Component.pOnBlur]();
-		this[pKeyHandler] && this[pKeyHandler].destroy();
-		delete this[pKeyHandler];
+	bdOnBlur(){
+		super.bdOnBlur();
+		this.bdKeyHandler && this.bdKeyHandler.destroy();
+		delete this.bdKeyHandler;
 	}
 
-	[pOnClick](e){
+	bdOnClick(e){
 		stopEvent(e);
-		if(this[Component.pEnabled]){
+		if(this.enabled){
 			if(!this.hasFocus){
 				this.focus();
 			}
@@ -56,7 +53,7 @@ export default class Button extends Component {
 		}
 	}
 
-	[pOnMouseDown](e){
+	bdOnMouseDown(e){
 		if(this.hasFocus){
 			// pressing the left mouse down outside of the label (the focus node) inside the containing div causes
 			// the focus to leave the label; we don't want that when we have the focus...
@@ -65,16 +62,5 @@ export default class Button extends Component {
 	}
 }
 
-// shut up eslint _and_ prove the variable exists before using it in a macro
-pLabel;
-
-eval(defProps("Button", [
-	["rw", "label", "pLabel"]
-]));
-
-ns.publish(Button, {
-	label: "",
-	watchables: ["label"],
-	events: ["click"]
-});
-
+Button.watchables = ["label"].concat(Component.watchables);
+Button.events = ["click"].concat(Component.events);

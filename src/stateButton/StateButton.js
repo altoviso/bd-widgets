@@ -60,10 +60,6 @@ class States {
 	}
 }
 
-let ns = Button.getNamespace();
-const pStates = ns.get("pStates");
-const pConditionStates = ns.get("pConditionStates");
-
 const DEFAULT_2_STATE_VALUES = [false, true];
 const DEFAULT_3_STATE_VALUES = [null, true, false];
 
@@ -81,46 +77,46 @@ export default class StateButton extends Button {
 			throw new Error("illegal states");
 		}
 		Object.defineProperties(this, {
-			[pStates]: {
-				value: new States(this, this[pConditionStates](states), kwargs.value)
+			bdStates: {
+				value: new States(this, this.bdConditionStates(states), kwargs.value)
 			}
 		});
 	}
 
 	get value(){
-		return this[pStates].value;
+		return this.bdStates.value;
 	}
 
 	set value(value){
-		if(!this[pStates].exists(value)){
+		if(!this.bdStates.exists(value)){
 			// eslint-disable-next-line no-console
 			console.warn("illegal value provided; ignored");
 		}else{
 			let oldValue = this.value;
 			if(value !== oldValue){
-				let oldState = this[pStates].state;
-				this[pStates].value = value;
+				let oldState = this.bdStates.state;
+				this.bdStates.value = value;
 				this.bdMutateNotify("value", oldValue, value);
-				this.bdMutateNotify("state", oldState, this[pStates].state);
+				this.bdMutateNotify("state", oldState, this.bdStates.state);
 			}
 		}
 	}
 
 	get states(){
 		// deep copy
-		return this[pStates].states.map(state => Object.assign({}, state));
+		return this.bdStates.states.map(state => Object.assign({}, state));
 	}
 
 	get state(){
 		// deep copy
-		return Object.assign({}, this[pStates].state);
+		return Object.assign({}, this.bdStates.state);
 	}
 
 	reset(states, value){
 		if(!Array.isArray(states)){
 			throw new Error("illegal states");
 		}else{
-			this[pStates].reset(this[pConditionStates](states), value);
+			this.bdStates.reset(this.bdConditionStates(states), value);
 			this.bdMutateNotify("value", undefined, this.value);
 			this.bdMutateNotify("state", undefined, this.value);
 		}
@@ -131,7 +127,7 @@ export default class StateButton extends Button {
 	bdElements(){
 		let labelText = (state) => {
 			let label = state.label;
-			return label !== undefined ? (label ? label : "") : (this[Button.pLabel] !== undefined ? this[Button.pLabel] : "");
+			return label !== undefined ? (label ? label : "") : (this.label !== undefined ? this.label : "");
 		};
 
 		let markText = (state) => {
@@ -139,7 +135,7 @@ export default class StateButton extends Button {
 			return mark !== undefined ? (mark ? mark : "") : "";
 		};
 
-		return e("div", {tabIndex: -1, bdAdvise: {click: this[Button.pOnClick].bind(this)}},
+		return e("div", {tabIndex: -1, bdAdvise: {click: this.bdOnClick.bind(this)}},
 			e("div",
 				e("div", {bdReflect: ["state", labelText]}),
 				e("div", {bdReflect: ["state", markText]})
@@ -149,7 +145,7 @@ export default class StateButton extends Button {
 
 	// private API...
 
-	[pConditionStates](value){
+	bdConditionStates(value){
 		return value.map((state, i) => {
 			let result = {
 				value: "value" in state ? state.value : i,
@@ -163,19 +159,20 @@ export default class StateButton extends Button {
 		});
 	}
 
-	[Button.pOnClick](e){
-		// override Button's [Button.pOnClick]
+	bdOnClick(e){
+		// override Button's Button.bdOnClick
 		stopEvent(e);
 		if(this.enabled){
-			this.value = this[pStates].nextValue();
+			this.value = this.bdStates.nextValue();
 			this.handler && this.handler();
 			this.bdNotify({name: "click", e: e});
 		}
 	}
 }
-ns.publish(StateButton, {
+Object.assign(StateButton, {
 	className: "bd-state-button",
 	watchables: ["value", "state"].concat(Button.watchables),
+	events: ["value", "state"].concat(Button.events)
 });
 
 function valuesToStatesNoMark(values){

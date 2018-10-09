@@ -15,9 +15,9 @@ class DemoContainerForReactComponent extends Component {
 			props: {
 				onChange: this.onChange.bind(this),
 				options: [
-					{value: 'chocolate', label: 'Chocolate'},
-					{value: 'strawberry', label: 'Strawberry'},
-					{value: 'vanilla', label: 'Vanilla'}
+					{value: "chocolate", label: "Chocolate"},
+					{value: "strawberry", label: "Strawberry"},
+					{value: "vanilla", label: "Vanilla"}
 				]
 			},
 			bdAttach: "theSelect"

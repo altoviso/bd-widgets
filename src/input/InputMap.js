@@ -1,8 +1,6 @@
 import Input from "./Input.js";
 import {VStat} from "../lib.js";
 
-let ns = Input.getNamespace();
-
 export default class InputMap extends Input {
 	constructor(kwargs){
 		super(kwargs);
@@ -49,6 +47,5 @@ export default class InputMap extends Input {
 	}
 }
 
-ns.publish(InputMap, {
-	formatter: value => value === null || value === undefined ? "" : value + ""
-});
+InputMap.formatter = value => value === null || value === undefined ? "" : value + "";
+

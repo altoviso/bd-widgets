@@ -103,22 +103,22 @@ smoke.defBrowserTest({
 				}
 
 				// check OK to click without a handler
-				button[Button.pOnClick]("click-test-1");
+				button.bdOnClick("click-test-1");
 				assert(clickHandlerEventObject.nativeEvent === "click-test-1");
 
 				button.handler = h1;
-				button[Button.pOnClick]("click-test-2");
+				button.bdOnClick("click-test-2");
 				assert(clickHandlerEventObject.nativeEvent === "click-test-2");
 				assert(handlerResult === "h1");
 
 				button.handler = h2;
-				button[Button.pOnClick]();
+				button.bdOnClick();
 				assert(handlerResult === "h2");
 
 				// check OK to delete the handler once set
 				button.handler = 0;
-				button[Button.pOnClick]();
-				button[Button.pOnClick]("click-test-3");
+				button.bdOnClick();
+				button.bdOnClick("click-test-3");
 				assert(clickHandlerEventObject.nativeEvent === "click-test-3");
 
 				button.destroy();
@@ -138,7 +138,7 @@ smoke.defBrowserTest({
 				assert(button.label === "test3");
 				assert(button.handler === h1);
 				assert(button.id === "test4");
-				assert(button[Button.pStaticClassName] === "test5");
+				assert(button.staticClassName === "test5");
 				assert(button.className === "test6");
 				assert(button.tabIndex === 7);
 				assert(button.title === "test8");
@@ -316,7 +316,7 @@ let logResults = {
 			"watch",
 			"attachedToDoc",
 			true,
-			false
+			undefined
 		],
 		[
 			"message",
@@ -336,7 +336,7 @@ let logResults = {
 			"watch",
 			"hasFocus",
 			true,
-			false
+			undefined
 		],
 		[
 			"native event",

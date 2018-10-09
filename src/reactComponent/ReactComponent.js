@@ -1,8 +1,5 @@
 import {Component} from "../lib.js";
 
-const setRef = Symbol("ReactComponent-setRef");
-const setRefState = Symbol("ReactComponent-setRefState");
-
 function wrappedComponent(reactClass){
 	return class extends React.Component {
 		constructor(props){
@@ -10,16 +7,16 @@ function wrappedComponent(reactClass){
 			this.state = props;
 		}
 
-		[setRef](ref){
+		bdSetRef(ref){
 			this.ref = ref;
 		}
 
-		[setRefState](updater, callback){
+		bdSetRefState(updater, callback){
 			this.ref.setState(updater, callback);
 		}
 
 		render(){
-			return React.createElement(reactClass, Object.assign({}, this.state, {ref: this[setRef].bind(this)}));
+			return React.createElement(reactClass, Object.assign({}, this.state, {ref: this.bdSetRef.bind(this)}));
 		}
 
 		componentWillUnmount(){
@@ -74,7 +71,7 @@ export default class ReactComponent extends Component {
 
 	setState(updater, callback){
 		if(this.rendered){
-			this._dom.reactComponent.setRefState(updater, callback);
+			this._dom.reactComponent.bdSetRefState(updater, callback);
 		}
 	}
 }

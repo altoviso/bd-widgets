@@ -5,6 +5,7 @@ import InputBoolean from "./InputBoolean.js";
 import InputNumber from "./InputNumber.js";
 import InputInteger from "./InputInteger.js";
 import InputMap from "./InputMap.js";
+import Meta from "../meta/Meta.js";
 
 let action = smoke.Action.action;
 let keys = action.keys;
@@ -38,6 +39,15 @@ smoke.defTest({
 			absMax: 1000,
 			min: -100,
 			max: 100
+		}));
+		top.insChild(e(InputInteger, {
+			value: 0,
+			placeholder: "integers",
+			absMin: -1000,
+			absMax: 1000,
+			min: -100,
+			max: 100,
+			Meta:Meta
 		}));
 		top.insChild(e(InputNumber, {
 			value: 0,
@@ -129,8 +139,8 @@ smoke.defTest({
 				input.value = "test";
 				assert.sameMembers(root.className.split(" "), ["bd-input", "bd-vStat-valid"]);
 
-				// The member variable [pInputNode] holds the input node
-				let inputNode = input[Input.pInputNode];
+				// The member variable bdInputNode holds the input node
+				let inputNode = input.bdInputNode;
 				assert(inputNode.tagName === "INPUT");
 
 				// Component's enabled/disabled attribute is reflected to the input node
@@ -169,14 +179,14 @@ smoke.defTest({
 				// the input nodes attributes can be controlled by kwargs.inputAttrs
 				input = new Input({inputAttrs: {type: "button"}});
 				input.render();
-				assert(input[Input.pInputNode].type === "button");
+				assert(input.bdInputNode.type === "button");
 				input.destroy();
 
 				// the input nodes attributes can be set directly on an instance before rendering
 				input = new Input({inputAttrs:{type:"button"}});
 				input.inputAttrs = {type:"checkbox"}
 				input.render();
-				assert(input[Input.pInputNode].type==="checkbox");
+				assert(input.bdInputNode.type==="checkbox");
 				input.destroy();
 			}],
 			["vStat-reflect", function(){

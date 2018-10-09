@@ -7,7 +7,7 @@ export {default as keys} from "./keys.js";
 // For those who think this is dangerous, notice that the only time code from one of these functions is actually eval'd is
 // is after applying said function in our own code. Therefore, we completely control the output code by completely controlling
 // the input. Put another way: the only way to make these macro generators do something wrong is to change the code that
-// calls them. If you can change executing code, eval gives you nothing more.
+// calls them. Of course eval is not any more "dangerous" than changing executing code.
 
 function defReadOnly(name){
 	return `
@@ -21,8 +21,8 @@ function defReadOnly(name){
 function defReadOnlyWithPrivate(name, pName){
 	return `
 	get(){
-		return ${pName} in this ?
-			this[${pName}] :
+		return "${pName}" in this ?
+			this.${pName} :
 			("${name}" in this.kwargs ?
 				this.kwargs.${name} :
 				this.constructor.${name});
@@ -33,7 +33,7 @@ function defSetter(name, pName){
 	return `
 	set(value){
 		if(this.${name}!==value){
-			this.bdMutate("${name}", ${pName}, value);
+			this.bdMutate("${name}", "${pName}", value);
 		}
 	}`;
 }

@@ -1,41 +1,31 @@
 import Input from "./Input.js";
 import {VStat, defProps} from "../lib.js";
 
-let ns = Input.getNamespace();
-const pMin = ns.get("pMin");
-const pMax = ns.get("pMax");
-const pAbsMin = ns.get("pAbsMin");
-const pAbsMax = ns.get("pAbsMax");
-const pMinMsg = ns.get("pMinMsg");
-const pMaxMsg = ns.get("pMaxMsg");
-const pAbsMinMsg = ns.get("pAbsMinMsg");
-const pAbsMaxMsg = ns.get("pAbsMaxMsg");
-
 export default class InputNumber extends Input {
 	// an input control that accepts an optionally range-limited integer
 	set min(value){
-		if(this.bdMutate("min", pMin, value)){
+		if(this.bdMutate("min", "bdMin", value)){
 			// force recalc of vStat
 			this.value = this.value;
 		}
 	}
 
 	set max(value){
-		if(this.bdMutate("min", pMax, value)){
+		if(this.bdMutate("min", "bdMax", value)){
 			// force recalc of vStat
 			this.value = this.value;
 		}
 	}
 
 	set absMin(value){
-		if(this.bdMutate("min", pAbsMin, value)){
+		if(this.bdMutate("min", "bdAbsMin", value)){
 			// force recalc of vStat
 			this.value = this.value;
 		}
 	}
 
 	set absMax(value){
-		if(this.bdMutate("min", pAbsMax, value)){
+		if(this.bdMutate("min", "bdAbsMax", value)){
 			// force recalc of vStat
 			this.value = this.value;
 		}
@@ -54,7 +44,7 @@ export default class InputNumber extends Input {
 			value = Number(value);
 			if(Number.isNaN(value)){
 				let value = this.errorValue;
-				return [value, this.format(value), VStat.scalarError()]
+				return [value, this.format(value), VStat.scalarError()];
 			}
 		}
 		let text = this.format(value);
@@ -83,19 +73,19 @@ export default class InputNumber extends Input {
 eval(defProps("InputNumber", [
 	["ro", "errorValue"],
 
-	["rw", "minMsg", "pMinMsg"],
-	["rw", "maxMsg", "pMaxMsg"],
-	["rw", "absMinMsg", "pAbsMinMsg"],
-	["rw", "absMaxMsg", "pAbsMaxMsg"],
+	["rw", "minMsg", "bdMinMsg"],
+	["rw", "maxMsg", "bdMaxMsg"],
+	["rw", "absMinMsg", "bdAbsMinMsg"],
+	["rw", "absMaxMsg", "bdAbsMaxMsg"],
 
 	// only define the getters since the setters are defined explicitly to force a recalc of vStat
-	["ro", "min", "pMin"],
-	["ro", "max", "pMax"],
-	["ro", "absMin", "pAbsMin"],
-	["ro", "absMax", "pAbsMax"]
+	["ro", "min", "bdMin"],
+	["ro", "max", "bdMax"],
+	["ro", "absMin", "bdAbsMin"],
+	["ro", "absMax", "bdAbsMax"]
 ]));
 
-ns.publish(InputNumber, {
+Object.assign(InputNumber, {
 	min: Number.NEGATIVE_INFINITY,
 	max: Number.POSITIVE_INFINITY,
 	absMin: Number.NEGATIVE_INFINITY,

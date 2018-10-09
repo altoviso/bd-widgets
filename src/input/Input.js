@@ -1,13 +1,5 @@
 import {Component, e, VStat, defProps} from "../lib.js";
 
-let ns = Component.getNamespace();
-const pValue = ns.get("pValue");
-const pText = ns.get("pText");
-const pVStat = ns.get("pVStat");
-const pPlaceholder = ns.get("pPlaceholder");
-const pInputNode = ns.get("pInputNode");
-const pOnInput = ns.get("pOnInput");
-
 export default class Input extends Component {
 	constructor(kwargs){
 		super(kwargs);
@@ -16,33 +8,33 @@ export default class Input extends Component {
 		"format" in kwargs && (this.format = kwargs.format);
 
 		let [value, text, vStat] = this.validateValue("value" in kwargs ? kwargs.value : this.default);
-		this[pValue] = value;
-		this[pText] = text;
-		this[pVStat] = vStat;
+		this.bdValue = value;
+		this.bdText = text;
+		this.bdVStat = vStat;
 	}
 
 	get value(){
-		return this[pValue];
+		return this.bdValue;
 	}
 
 	set value(_value){
 		let [value, text, vStat] = this.validateValue(_value);
-		this.bdMutate("value", pValue, value, "text", pText, text, "vStat", pVStat, vStat);
+		this.bdMutate("value", "bdValue", value, "text", "bdText", text, "vStat", "bdVStat", vStat);
 	}
 
 	get text(){
-		return this[pText];
+		return this.bdText;
 	}
 
 	set text(_text){
 		let [value, text, vStat] = this.validateText(_text);
-		this.bdMutate("value", pValue, value, "text", pText, text, "vStat", pVStat, vStat);
+		this.bdMutate("value", "bdValue", value, "text", "bdText", text, "vStat", "bdVStat", vStat);
 	}
 
 	// setting vStat directly is not allowed...it's done by clients by setting value/text
 	// note, however, that the internal state of vStat can be manipulated
 	get vStat(){
-		return this[pVStat];
+		return this.bdVStat;
 	}
 
 
@@ -91,20 +83,18 @@ export default class Input extends Component {
 
 		return e(
 			"div", {
-				className: "bd-input",
 				bdReflectClass: [
 					"vStat", vStat => vStat.className,
 					"text", value => (value.length ? "" : "empty")
 				]
 			},
-			(this.Meta ? e(this.Meta, {bdReflectProp: {vStat: "vStat"}}) : false),
+			(this.Meta ? e(this.Meta, {bdReflect: {vStat: "vStat"}}) : false),
 			e("div", {className: "bd-rbox"},
 				e("input", Object.assign({
 					tabIndex: 0,
-					bdAttach: pInputNode,
-					bdAdvise: {input: pOnInput},
-					bdReflectProp: {disabled: "disabled"},
-					bdReflect: "text"
+					bdAttach: "bdInputNode",
+					bdAdvise: {input: "bdOnInput"},
+					bdReflect: {value: "text", disabled: "disabled"},
 				}, (this.inputAttrs || this.kwargs.inputAttrs || this.constructor.inputAttrs))),
 				e("div", {className: "placeholder", bdReflect: "placeholder"})
 			)
@@ -112,16 +102,16 @@ export default class Input extends Component {
 	}
 
 	// private API...
-	[Component.pOnBlur](){
-		super[Component.pOnBlur]();
+	bdOnBlur(){
+		super.bdOnBlur();
 		// when the input has the focus, this.text and the input node value may _NOT_ be synchronized since
 		// we must allow the user to have unformatted text on the way to inputting legal text. Upon
 		// losing focus, this.text and the input node value must again be brought into congruence.
-		this.text = this[pInputNode].value;
+		this.text = this.bdInputNode.value;
 	}
 
-	[pOnInput](e){
-		let inputNode = this[pInputNode];
+	bdOnInput(e){
+		let inputNode = this.bdInputNode;
 		let srcText = inputNode.value;
 		if(inputNode === document.activeElement){
 			// allow inputNode.value and this.text to be out of synch when input has the focus (illegal input
@@ -130,7 +120,7 @@ export default class Input extends Component {
 
 			// eslint-disable-next-line no-unused-vars
 			let [value, text, vStat] = this.validateText(srcText);
-			this.bdMutate("value", pValue, value, "vStat", pVStat, vStat);
+			this.bdMutate("value", "bdValue", value, "vStat", "bdVStat", vStat);
 		}else{
 			this.text = srcText;
 		}
@@ -138,23 +128,21 @@ export default class Input extends Component {
 	}
 }
 
-// shut up eslint _and_ prove the variable exists before using it in a macro
-pPlaceholder;
-
 eval(defProps("Input", [
 	["ro", "Meta"],
 	["ro", "default"],
 	["ro", "trim"],
-	["rw", "placeholder", "pPlaceholder"]
+	["rw", "placeholder", "bdPlaceholder"]
 ]));
 
-ns.publish(Input, {
+Object.assign(Input, {
+	className: "bd-input",
 	Meta: false,
 	default: "",
 	errorValue: Symbol("error"),
 	trim: true,
 	inputAttrs: {type: "text"},
 	placeholder: " enter value ",
-	watchables: ["value", "text", "vStat", "placeholder"],
-	events: ["input"]
+	watchables: ["value", "text", "vStat", "placeholder"].concat(Component.watchables),
+	events: ["input"].concat(Component.events)
 });
