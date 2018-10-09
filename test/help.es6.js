@@ -1,4 +1,4 @@
-import {Component, e, render} from "../node_modules/bd-core/lib.js";
+import {Component, e, render} from "../../bd-core/lib.js";
 
 const smoke = typeof window !== "undefined" ? window.smoke : require('bd-smoke');
 

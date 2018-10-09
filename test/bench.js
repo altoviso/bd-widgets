@@ -1,4 +1,4 @@
-import {Component, e, render} from "../node_modules/bd-core/lib.js";
+import {Component, e, render} from "../../bd-core/lib.js";
 import Button from "../src/button/Button.js";
 import StateButton from "../src/stateButton/StateButton.js";
 import Input from "../src/input/Input.js";
