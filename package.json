@@ -28,7 +28,7 @@
 		"bd-core": "^2.3.0"
 	},
 	"dependencies": {
-		"animejs": "^2.2.0"
+		"bd-promise": "^2.1.0"
 	},
 	"devDependencies": {
 		"bd-smoke": "^1.0.0",

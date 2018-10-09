@@ -48,7 +48,7 @@
 		let config = {
 			load: [
 				"./less/main.css",
-				isBrowser && "./node_modules/animejs/anime.js",
+				//isBrowser && "./node_modules/animejs/anime.js",
 				smoke.options.liveCss && "http://localhost:" + (smoke.options.liveCss===true ? 35729 : smoke.options.liveCss) + "/livereload.js",
 
 				// tests...
