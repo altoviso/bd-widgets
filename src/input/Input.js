@@ -92,6 +92,7 @@ export default class Input extends Component {
 			e("div", {className: "bd-rbox"},
 				e("input", Object.assign({
 					tabIndex: 0,
+					style:this.kwargs.style || this.kwargs.width || "",
 					bdAttach: "bdInputNode",
 					bdAdvise: {input: "bdOnInput"},
 					bdReflect: {value: "text", disabled: "disabled"},
