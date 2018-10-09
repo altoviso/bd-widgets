@@ -12,6 +12,10 @@
     justify-content: center;
     align-items: center;
 
+    .bd-inner {
+        padding:0;
+    }
+
     & > div {
         // this is the single child frame that's centered both ways
         background-color: @dialog-background-color;
@@ -21,6 +25,15 @@
 
     .bd-title-bar {
         background-color: @dialog-title-bar-color;
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .bd-button {
+            padding:0 5px;
+            border-radius: 10px;
+            font-size: 80%;
+        }
     }
 
     .body {
@@ -32,6 +45,15 @@
             display:flex;
             justify-content: flex-end;
             align-items: center;
+        }
+    }
+
+    .bottom-buttons{
+        display:flex;
+        justify-content: flex-end;
+        margin-top:1em;
+        .bd-button {
+            width:50px;
         }
     }
 }
