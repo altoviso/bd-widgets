@@ -94,7 +94,7 @@ input {
 }
 .bd-button div {
   display: inline-block;
-  padding: 3px;
+  padding: 0;
 }
 .bd-button div:after {
   padding: 5px;
@@ -363,22 +363,57 @@ input {
   justify-content: center;
   align-items: center;
 }
+.bd-dialog .bd-inner {
+  padding: 0;
+}
 .bd-dialog > div {
-  background-color: black;
-  color: white;
-  border: 2px solid #888;
+  background-color: white;
+  color: black;
+  border: 4px solid #9fb1ce;
 }
 .bd-dialog .bd-title-bar {
-  background-color: #888;
+  background-color: #9fb1ce;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.bd-dialog .bd-title-bar .bd-button {
+  padding: 0 5px;
+  border-radius: 10px;
+  font-size: 80%;
 }
 .bd-dialog .body {
-  padding: 5px;
+  padding: 1em;
   overflow: auto;
 }
 .bd-dialog .body .bottomButtons {
-  margin-top: 5px;
+  margin-top: 1em;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+.bd-dialog .bottom-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1em;
+}
+.bd-dialog .bottom-buttons .bd-button {
+  width: 50px;
+}
+.bd-labeled {
+  margin: 1em;
+  padding: 0.7em;
+  border: 1px solid #CCC;
+  border-radius: 3px;
+  position: relative;
+}
+.bd-labeled label {
+  color: #777777;
+  position: absolute;
+  top: -1em;
+  left: 5px;
+  padding: 3px;
+  background-color: white;
+  font-size: 80%;
 }
 /*# sourceMappingURL=http://localhost:8080/altoviso/bd-widgests/less/main.css.map */
