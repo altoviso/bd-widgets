@@ -382,22 +382,22 @@ input {
   border-radius: 10px;
   font-size: 80%;
 }
-.bd-dialog .body {
+.bd-dialog .bd-body {
   padding: 1em;
   overflow: auto;
 }
-.bd-dialog .body .bottomButtons {
+.bd-dialog .bd-body .bottomButtons {
   margin-top: 1em;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
-.bd-dialog .bottom-buttons {
+.bd-dialog .bd-bottom-buttons {
   display: flex;
   justify-content: flex-end;
   margin-top: 1em;
 }
-.bd-dialog .bottom-buttons .bd-button {
+.bd-dialog .bd-bottom-buttons .bd-button {
   width: 50px;
 }
 .bd-labeled {
