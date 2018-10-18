@@ -1,6 +1,6 @@
 import {Component, e, render, setStyle, setPosit, getMaxZIndex, viewportWatcher} from "../lib.js";
 import Button from "../button/Button.js";
-import Promise from "../../node_modules/bd-promise/Promise.js";
+import Promise from "../../../bd-promise/Promise.js";
 
 export default class Dialog extends Component {
 	constructor(kwargs){
@@ -9,15 +9,14 @@ export default class Dialog extends Component {
 		this.promise.dialog = this;
 	}
 
+	// protected API...
 	get title(){
-		return super.title;
+		return this.bdDialogTitle || "";
 	}
 
 	set title(value){
-		this.bdMutate("title", "bdTitle", value);
+		this.bdDialogTitle = value;
 	}
-
-	// protected API...
 
 	onCancel(){
 		this.promise.resolve(false);
@@ -28,6 +27,7 @@ export default class Dialog extends Component {
 	}
 
 	bdElements(){
+		let body = this.dialogBody();
 		return e("div",
 			e("div", {className: "bd-inner"},
 				e("div", {className: "bd-title-bar"},
@@ -36,11 +36,12 @@ export default class Dialog extends Component {
 						e(Button, {className: "icon-close", handler: this.onCancel.bind(this)})
 					)
 				),
-				e("div", {className: "body"}, this.dialogBody())
+				e("div", {className: "bd-body"}, body)
 			)
 		);
 	}
 }
+Dialog.className = "bd-dialog";
 
 function getDialogPosit(){
 	return {
@@ -58,7 +59,7 @@ Object.assign(Dialog, {
 		render(theDialog, document.body);
 		setPosit(theDialog, getDialogPosit());
 		setStyle(theDialog, "zIndex", getMaxZIndex(document.body) + 100);
-		theDialog.own(viewportWatcher.advise("resize", ()=>setPosit(theDialog, getDialogPosit()))) ;
+		theDialog.own(viewportWatcher.advise("resize", () => setPosit(theDialog, getDialogPosit())));
 		theDialog.promise.then(() => theDialog.destroy());
 		return theDialog.promise;
 	}
