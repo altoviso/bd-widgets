@@ -1,4 +1,4 @@
-import {WatchHub, EventHub} from "./bd-core.js";
+import {watchHub, eventHub, eqlComparators} from "./bd-core.js";
 
 const VALID = 0;
 const CONTEXT_INFO = 1;
@@ -112,7 +112,7 @@ class Base {
 //
 // manages a validation status and associated messages and className
 //
-export default class VStat extends EventHub(WatchHub(Base)) {
+export default class VStat extends eventHub(watchHub(Base)) {
 	constructor(level, message){
 		super();
 		this[pMessages] = [];
@@ -249,35 +249,7 @@ export default class VStat extends EventHub(WatchHub(Base)) {
 		return (Array.isArray(m) ? m : (m ? [m] : [])).slice();
 	}
 
-	eq(other){
-		if(!(other instanceof VStat)){
-			return false;
-		}
-		if(this[pLevel] !== other[pLevel]){
-			return false;
-		}
-		let lhsMessages = this[pMessages];
-		let rhsMessages = other[pMessages];
-		for(let i = 0, end = lhsMessages.length; i < end; i++){
-			let lhsLevelMessages = lhsMessages[i];
-			let rhsLevelMessages = rhsMessages[i];
-			// either undefined, string or array
-			if(lhsLevelMessages === undefined || typeof lhsLevelMessages === "string"){
-				if(lhsLevelMessages !== rhsLevelMessages){
-					return false;
-				}
-			}
-			// lhsLevelMessages is an array
-			if(!Array.isArray(rhsLevelMessages) || lhsLevelMessages.length !== rhsLevelMessages.length){
-				return false;
-			}
-			// both arrays of the same size; see if there is a string in the left not in the right
-			if(lhsLevelMessages.some(lMessage => !rhsLevelMessages.some(rMessage => lMessage === rMessage))){
-				return false;
-			}
-		}
-		return true;
-	}
+
 
 	set(level, message){
 		// forces exactly message at level; if message is missing, then the default message is provided
@@ -346,6 +318,36 @@ export default class VStat extends EventHub(WatchHub(Base)) {
 		});
 	}
 
+	static eql(lhs, rhs){
+		if(!(lhs instanceof VStat) || !(rhs instanceof VStat)){
+			return false;
+		}
+		if(lhs[pLevel] !== rhs[pLevel]){
+			return false;
+		}
+		let lhsMessages = lhs[pMessages];
+		let rhsMessages = rhs[pMessages];
+		for(let i = 0, end = lhsMessages.length; i < end; i++){
+			let lhsLevelMessages = lhsMessages[i];
+			let rhsLevelMessages = rhsMessages[i];
+			// either undefined, string or array
+			if(lhsLevelMessages === undefined || typeof lhsLevelMessages === "string"){
+				if(lhsLevelMessages !== rhsLevelMessages){
+					return false;
+				}
+			}
+			// lhsLevelMessages is an array
+			if(!Array.isArray(rhsLevelMessages) || lhsLevelMessages.length !== rhsLevelMessages.length){
+				return false;
+			}
+			// both arrays of the same size; see if there is a string in the left not in the right
+			if(lhsLevelMessages.some(lMessage => !rhsLevelMessages.some(rMessage => lMessage === rMessage))){
+				return false;
+			}
+		}
+		return true;
+	}
+
 	static valid(message){
 		return new VStat(VALID, message);
 	}
@@ -374,6 +376,8 @@ export default class VStat extends EventHub(WatchHub(Base)) {
 		return new VStat(SCALAR_ERROR, message);
 	}
 }
+
+eqlComparators.set(VStat, VStat.eql)
 
 Object.assign(VStat, {
 	MIN_LEVEL: VALID,
