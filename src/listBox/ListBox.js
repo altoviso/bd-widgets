@@ -137,7 +137,7 @@ export default class ListBox extends Component {
 		let newValue = this.bdFocusedItem = this.bdMap.has(target) ? target : null;
 		let normalizedNewValue = this.focusedItem;
 		if(normalizedOldValue !== normalizedNewValue){
-			this.bdMutateNotify("focusedItem", normalizedOldValue, normalizedNewValue);
+			this.bdMutateNotify("focusedItem", normalizedNewValue, normalizedOldValue);
 		}
 		if(this.rendered && oldValue !== newValue){
 			twiddleClass.call(this, "focusedItem", newValue, oldValue);

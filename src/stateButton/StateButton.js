@@ -96,8 +96,8 @@ export default class StateButton extends Button {
 			if(value !== oldValue){
 				let oldState = this.bdStates.state;
 				this.bdStates.value = value;
-				this.bdMutateNotify("value", oldValue, value);
-				this.bdMutateNotify("state", oldState, this.bdStates.state);
+				this.bdMutateNotify("value", value, oldValue);
+				this.bdMutateNotify("state", this.bdStates.state, oldState);
 			}
 		}
 	}
@@ -117,8 +117,8 @@ export default class StateButton extends Button {
 			throw new Error("illegal states");
 		}else{
 			this.bdStates.reset(this.bdConditionStates(states), value);
-			this.bdMutateNotify("value", undefined, this.value);
-			this.bdMutateNotify("state", undefined, this.value);
+			this.bdMutateNotify("value", this.value, undefined);
+			this.bdMutateNotify("state", this.value, undefined);
 		}
 	}
 
