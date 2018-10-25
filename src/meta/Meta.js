@@ -11,7 +11,7 @@ export default class Meta extends Component {
 	}
 
 	set vStat(value){
-		if(!value.eq(this.bdVStat)){
+		if(!VStat.eql(this.bdVStat, value)){
 			this.bdMutate("vStat", "bdVStat", value);
 		}
 	}

@@ -377,7 +377,7 @@ export default class VStat extends eventHub(watchHub(Base)) {
 	}
 }
 
-eqlComparators.set(VStat, VStat.eql)
+eqlComparators.set(VStat, VStat.eql);
 
 Object.assign(VStat, {
 	MIN_LEVEL: VALID,
