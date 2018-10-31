@@ -63,27 +63,31 @@ source: [```src/comboBox/ComboBox.js```](https://github.com/altoviso/bd-widgets/
 #### Dialog
 A dialog box with a customizable body by means of a Backdraft element tree. The class provides a static member function that returns a promise to return the value of the dialog box after it is displayed and the user causes a termination event--usually pressing an "OK" or "Cancel" button.
 
-source: [```src/comboBox/ComboBox.js```](https://github.com/altoviso/bd-widgets/blob/master/src/comboBox/ComboBox.js)
+source: [```src/dialog/Dialog.js```](https://github.com/altoviso/bd-widgets/blob/master/src/dialog/Dialog.js)
 
 #### Input
 A validatable input control that collects user keyboard input of various types. Validatable widgets include a validation status property of type `VStat` that gives the validation status of the widget value. The visual presentation may optionally display the validation status. Input widgets are designed to easily customize the type of values they can receive and present. The library includes customizations for booleans, integers, maps, and numbers.
 
-source: [```src/comboBox/ComboBox.js```](https://github.com/altoviso/bd-widgets/blob/master/src/comboBox/ComboBox.js)
+source: [```src/input/Input.js```](https://github.com/altoviso/bd-widgets/blob/master/src/input/Input.js), 
+[```src/input/InputBoolean.js```](https://github.com/altoviso/bd-widgets/blob/master/src/input/InputBoolean.js),
+[```src/input/InputInteger.js```](https://github.com/altoviso/bd-widgets/blob/master/src/input/InputInteger.js),
+[```src/input/InputMap.js```](https://github.com/altoviso/bd-widgets/blob/master/src/input/InputMap.js),
+[```src/input/InputNumberjs```](https://github.com/altoviso/bd-widgets/blob/master/src/input/InputNumberjs.js)
 
 #### Labeled
 In input widget within a stylized, labeled box. The label is mutable.
 
-source: [```src/comboBox/ComboBox.js```](https://github.com/altoviso/bd-widgets/blob/master/src/comboBox/ComboBox.js)
+source: [```src/labeled/Labeled.js```](https://github.com/altoviso/bd-widgets/blob/master/src/labeled/Labeled.js)
 
 #### ListBox
 A scrollable, pick list of items. The pick list may be populated dynamically or statically.
 
-source: [```src/comboBox/ComboBox.js```](https://github.com/altoviso/bd-widgets/blob/master/src/comboBox/ComboBox.js)
+source: [```src/listBox/ListBox.js```](https://github.com/altoviso/bd-widgets/blob/master/src/listBox/ListBox.js)
 
 #### Meta
 A static control that displays a mutable `VStat` value.
 
-source: [```src/comboBox/ComboBox.js```](https://github.com/altoviso/bd-widgets/blob/master/src/comboBox/ComboBox.js)
+source: [```src/meta/Meta.js```](https://github.com/altoviso/bd-widgets/blob/master/src/meta/Meta.js)
 
 #### Calendar
 Planned for release before end of 2018.
