@@ -1,0 +1,127 @@
+name: bd-widgets
+type: namespace
+sum: The Backdraft Widget Library
+namespaces:
+- name: types
+  sum: types defined by the Backdraft library
+- name: classes
+  sum: classes defined by the Backdraft Library
+- name: mixins
+  sum: mixin classes defined by the Backdraft Library
+- name: variables
+  sum: variables defined by the Backdraft Library
+- name: functions
+  sum: functions defined by the Backdraft Library
+d:
+- >
+  The Backdraft Widget Library is a library of user interface widgets built with Backdraft.
+
+- section:
+    name: Requirements
+    id: requirments
+    d:
+    - >
+      The Backdraft Widget Library is built with 100% modern Javascript (ES6). It requires a modern browser:
+
+    - ul:
+        - Chrome v69+
+        - Firefox v62+
+        - Safari v12+
+        - Edge v42+
+        - iOS v10+
+
+    - If you want to target some old, decrepit browser, build your code in a modern environment and then cross-compile it to target the old environment. Here's a [[good reference]https://leanpub.com/setting-up-es6/read#ch_deploying-es6] to start you on this task. Note that Backdraft is intended to build user interfaces for applications--not advertising web pages. Most users of applications have access to a modern browser so, in the normal case, this is never an issue.
+
+- section:
+    name: Installation and Basic Usage
+    id: installation
+    d:
+    - >
+      bd-widgets requires bd-core as a <i>peer dependency</i>. Therefore two installation commands must be given.
+
+      With npm:
+    - tc: |
+        $ npm install bd-core
+        $ npm install bd-widgets
+    - >
+      With yarn:
+    - tc: |
+        $ yarn add bd-core
+        $ yarn add bd-widgets
+    - >
+      With bowser:
+    - tc: |
+        $ bower install --save bd-core
+        $ bower install --save bd-widgets
+
+- section:
+    name: Widget Catalog
+    id: catalog
+    d:
+    - >
+      bd-widgets contains the following widgets:
+    - table:
+      - - >
+          `Button`
+        - >
+          A stylable button component with a mutable label and easy-to-connect handler. Clicking the button or key-pressing a space when the button has the focus causes the handler to be applied and the click event to be signaled.
+      - - >
+          `ComboBox`
+        - >
+          A validatable input control that includes a drop-down pick list. The pick list may be populated dynamically or statically.
+      - - >
+          `Dialog`
+        - >
+          A dialog box with a customizable body by means of a Backdraft element tree. The class provides a static member function that returns a promise to return the value of the dialog box after it is displayed and the user causes a termination event--usually pressing an "OK" or "Cancel" button.
+      - - >
+          `Input*`
+        - >
+          A validatable input control that collects user keyboard input of various types. Validatable widgets include a validation status property of type `VStat` that gives the validation status of the widget value. The visual presentation may optionally display the validation status. Input widgets are designed to easily customize the type of values they can receive and present. The library includes customizations for booleans, integers, maps, and numbers.
+      - - >
+          `Labeled`
+        - >
+          In input widget within a stylized, labeled box. The label is mutable.
+      - - >
+          `ListBox`
+        - >
+          A scrollable, pick list of items. The pick list may be populated dynamically or statically.
+      - - >
+          `Meta`
+        - >
+          A static control that displays a mutable `VStat` value.
+      - - >
+          `ReactComponent`
+        - >
+          A widget that contains a React component.
+      - - >
+          `StateButton`
+        - >
+          A button that rotates through a set of states. Built-in presets are available for two- and three-state checkboxes and radio buttons.
+
+    - >
+      The library is under rapid, active development, the following controls will be added during the last two months of 2018: Calendar, Date, Time, ScrollBar, Header, SimpleGrid, Progress, Tab, Tree, UpDown, RadioGroup.
+
+- section:
+    name: Package Organization
+    id: packageOrg
+    d:
+    - >
+      The widgets defined by the library are distributed <i>only</i> in their source version. All source resources are contained in the `/src` directory. Each subdirectory in `/src` contains a single widget type family. In most cases a widget family contains one type; for example, the widget type family `comboBox` contains the single widget type `ComboBox` and the Backdraft component class that defines `ComboBox` is exported by `/src/comboBox/ComboBox.js`. A few widget families contain multiple widget types; for example, the widget family `input` defines the widget types `Input`, `InputBoolean`, `InputInteger`, `InputMap`, and `InputNumber` and the classes that define these types are exported from `/src/input/Input.js`, `/src/input/InputBoolean.js`, and so on.
+
+    - i:
+        Your own Backdraft code must use the same instance of the Backdraft library used by the Backdraft widget library. If you followed installation instructions, bd-core (the Backdraft library) and bd-widgets will be installed as siblings. bd-widgets assumes this and imports Backdraft symbols as such.
+    - >
+      In order to use a particular widget in your own code, simply import that widget class from the appropriate resource.
+
+- section:
+    name: CSS and Styling
+    id: CSS
+    d:
+    - >
+      Each widget family directory contains the CSS used to stylize the visual presentation of the particular widget family. This CSS is expressed as two [[less]http://lesscss.org/] resources: for a given widget family, `widgetFamily`, `widgetFamily.less` defines CSS used for the widget and `widgetFamily-vars.less` defines variables used in `widgetFamily.less`.
+
+      Global less variables/mixins/styles are defined in `/less/presets.less`, `/less/variables.less`, `/less/mixins.less`, `/less/icomoon/style.css`, `/less/layout.less`, and some widgets use some of these global variables/mixins/styles.
+
+      A single stylesheet that includes the compiled less resources for all widgets is located at `/less/main.less`.
+
+      Any individual project can customize the visual presentation of widgets by creating a new main.less which includes/overrides the built-in styles as required.
