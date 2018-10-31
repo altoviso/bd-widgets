@@ -72,7 +72,7 @@ source: [```src/input/Input.js```](https://github.com/altoviso/bd-widgets/blob/m
 [```src/input/InputBoolean.js```](https://github.com/altoviso/bd-widgets/blob/master/src/input/InputBoolean.js),
 [```src/input/InputInteger.js```](https://github.com/altoviso/bd-widgets/blob/master/src/input/InputInteger.js),
 [```src/input/InputMap.js```](https://github.com/altoviso/bd-widgets/blob/master/src/input/InputMap.js),
-[```src/input/InputNumberjs```](https://github.com/altoviso/bd-widgets/blob/master/src/input/InputNumberjs.js)
+[```src/input/InputNumber.js```](https://github.com/altoviso/bd-widgets/blob/master/src/input/InputNumber.js)
 
 #### Labeled
 In input widget within a stylized, labeled box. The label is mutable.
