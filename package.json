@@ -28,7 +28,8 @@
 		"bd-core": "^2.3.1"
 	},
 	"dependencies": {
-		"bd-promise": "^2.1.0"
+		"bd-promise": "^2.1.0",
+		"opn": "^5.4.0"
 	},
 	"devDependencies": {
 		"bd-smoke": "^1.0.1",
