@@ -49,7 +49,7 @@ export default class ComboList extends Array {
 	}
 
 	get defaultValue(){
-		return this._defaultValue || this[0][VALUE];
+		return this._defaultValue || (this.length && this[0][VALUE]) || null;
 	}
 
 	getByValue(value){
