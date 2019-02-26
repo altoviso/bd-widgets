@@ -9,13 +9,17 @@ export default class Dialog extends Component {
 		this.promise.dialog = this;
 	}
 
-	// protected API...
 	get title(){
 		return this.bdDialogTitle || "";
 	}
 
 	set title(value){
-		this.bdDialogTitle = value;
+		if(this.bdMutate("title", "bdDialogTitle", value) && this.rendered){
+			let titleNode = this.bdDom.root.querySelector(".bd-title");
+			if(titleNode){
+				titleNode.innerHTML = value;
+			}
+		}
 	}
 
 	onCancel(){
@@ -31,7 +35,7 @@ export default class Dialog extends Component {
 		return e("div",
 			e("div", {className: "bd-inner"},
 				e("div", {className: "bd-title-bar"},
-					e("div", this.title),
+					e("div", {className: "bd-title"}, this.title),
 					e("div",
 						e(Button, {className: "icon-close", handler: this.onCancel.bind(this)})
 					)
