@@ -1,5 +1,5 @@
 (function(factory){
-		// eslint-disable-next-line no-undef
+	// eslint-disable-next-line no-undef
 	const isAmd = typeof define === "function" && define.amd;
 	const isNode = typeof window === "undefined";
 	if(isAmd){
@@ -23,7 +23,7 @@
 
 		// chai outputs a single string for the stack that is hard to read in the browser console window
 		smoke.logger.options.consoleErrorPrinter = function(e){
-		// eslint-disable-next-line no-console
+			// eslint-disable-next-line no-console
 			e.stack.split("\n").forEach(l => console.log(l));
 		};
 
@@ -33,7 +33,7 @@
 
 		function chaiAssert(...args){
 			smoke.bumpAssertCount();
-			cassert(...args);
+			cassert.call(chai, ...args);
 		}
 
 		Object.keys(chai.assert).forEach(name => {
@@ -49,7 +49,7 @@
 			load: [
 				"./less/main.css",
 				//isBrowser && "./node_modules/animejs/anime.js",
-				smoke.options.liveCss && "http://localhost:" + (smoke.options.liveCss===true ? 35729 : smoke.options.liveCss) + "/livereload.js",
+				smoke.options.liveCss && "http://localhost:" + (smoke.options.liveCss === true ? 35729 : smoke.options.liveCss) + "/livereload.js",
 
 				// tests...
 				"./test/help.es6.js",
@@ -66,9 +66,10 @@
 				"./test/log-assert-count.js"
 			],
 			remoteUrl: "http://localhost:8080/altoviso/bd-widgets/node_modules/bd-smoke/browser-runner.html",
+			capabilities: isNode ? require("./test/capabilities") : [],
 		};
 
-		// The following tests are defined in resources that use imports/exports, which, c2018, node cannot consum. But
+		// The following tests are defined in resources that use imports/exports, which, c2018, node cannot consume. But
 		// we need to inform node of test ids so it can remotely control running those tests on a remote browser. We do
 		// that here:
 		[
@@ -120,8 +121,10 @@
 				});
 			}else{
 				// user.help is defined in ./test/help.es6.js
-				smoke.options.user.help();
-				smoke.options.autoRun = false;
+				if(!isNode){
+					smoke.options.user.help();
+					smoke.options.autoRun = false;
+				}
 			}
 		});
 	});

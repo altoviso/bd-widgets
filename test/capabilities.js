@@ -9,6 +9,7 @@ let browserStackServer = {
 
 let testingBotKey = process.env.TESTINGBOT_KEY || false;
 let testingBotSecret = process.env.TESTINGBOT_SECRET || false;
+
 let testingBotServer = {
 	name: "testingbot",
 	url: "http://localhost:4445/wd/hub"
