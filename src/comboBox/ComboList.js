@@ -19,9 +19,9 @@ export default class ComboList extends Array {
 		}
 
 		function lexicalSort(lhs, rhs){
-			if(lhs < rhs){
+			if(lhs[TEXT] < rhs[TEXT]){
 				return -1;
-			}else if(lhs > rhs){
+			}else if(lhs[TEXT] > rhs[TEXT]){
 				return 1;
 			}else{
 				return 0;
