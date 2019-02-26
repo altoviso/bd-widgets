@@ -5,18 +5,21 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-
-    padding: 0 @button-pad;
     min-height: 2em;
-    border: @button-border;
+
+    color: @button-color;
+    background: @button-bg-color;
+
     margin: @button-gap;
+    padding: 0 @button-pad;
+    border: @button-border-width @button-border-style @button-border-color;
     border-radius: @button-border-radius;
-    background: @button-background;
     cursor: pointer;
 
-    div {
+    > div {
         display: inline-block;
         padding: 0;
+        text-align: center;
     }
 
     div:after {
@@ -24,36 +27,41 @@
     }
 
     &:hover, &.tickle:hover {
-        background: @button-hover;
+        color: @button-hover-color;
+        background: @button-hover-bg-color;
+        border-color: @button-hover-border-color;
+
         -webkit-animation-name: none;
         animation-name: none;
     }
 
-    &.bd-disabled {
-        border-color: @button-disabled-color;
-        background: @button-disabled-background;
-        color: @button-disabled-color;
-        cursor: default;
-        text-shadow: 1px 2px 1px white;
-    }
-
     &.tickle {
         background-image: none;
-
         animation-name: yellowTickle;
         animation-duration: 2s;
         animation-iteration-count: infinite;
+    }
+
+    &.bd-disabled,
+    &.tickle.bd-disabled,
+    &.bd-disabled:hover,
+    &.tickle.bd-disabled:hover {
+        color: @button-disabled-color;
+        background: @button-disabled-bg-color;
+        border-color: @button-disabled-border-color;
+        cursor: default;
+        text-shadow: 1px 2px 1px white;
     }
 }
 
 @keyframes yellowTickle {
     0% {
-        background-color: white;
+        background: white;
     }
     50% {
-        background-color: yellow;
+        background: yellow;
     }
     100% {
-        background-color: white;
+        background: white;
     }
 }

@@ -3,13 +3,15 @@
 .bd-state-button {
     display: inline-flex;
     min-height: 2em;
-    margin: @button-gap;
-    cursor: pointer;
 
+    color: @button-color;
+    background: @button-bg-color;
+
+    margin: @button-gap;
     padding: 0 @button-pad;
-    border: @button-border;
+    border: @button-border-width @button-border-style @button-border-color;
     border-radius: @button-border-radius;
-    background: @button-background;
+    cursor: pointer;
 
     > div {
         /* center the content both ways */
@@ -18,15 +20,13 @@
         align-items: center;
     }
 
-    &:hover {
-        background: @button-hover;
-    }
+    &:hover, &.tickle:hover {
+        color: @button-hover-color;
+        background: @button-hover-bg-color;
+        border-color: @button-hover-border-color;
 
-    &.bd-disabled {
-        background: @button-disabled-background;
-        color: @button-disabled-color;
-        cursor: default;
-        text-shadow: 1px 2px 1px white;
+        -webkit-animation-name: none;
+        animation-name: none;
     }
 
     &.checkbox {
@@ -65,6 +65,17 @@
 
     &.checkbox.state-null,
     &.radio-button.state-null {
-        color: #c6be1b;
+        color: @state-button-null-color
+    }
+
+    &.bd-disabled,
+    &.tickle.bd-disabled,
+    &.bd-disabled:hover,
+    &.tickle.bd-disabled:hover {
+        color: @button-disabled-color;
+        background: @button-disabled-bg-color;
+        border-color: @button-disabled-border-color;
+        cursor: default;
+        text-shadow: 1px 2px 1px white;
     }
 }

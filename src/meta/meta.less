@@ -4,19 +4,17 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    padding: 3px;
+    padding: @meta-padding;
     border: none;
-    //font-weight: bold;
-
-    font-size: 20px;
+    font-size: @meta-font-size;
 
     &.bd-vStat-valid:before {
-        color: green;
+        color: @meta-valid-color;
         content: "\e910";
     }
 
     &.bd-vStat-contextInfo:before, &.scalarInfo:before {
-        color: green;
+        color: @meta-info-color;
         content: "\ea08";
     }
 
@@ -26,7 +24,7 @@
     }
 
     &.bd-vStat-contextError:before, &.bd-vStat-scalarError:before {
-        color: red;
+        color: @meta-error-color;
         content: "\ea0d";
     }
 }

@@ -8,15 +8,42 @@
 @color: #222222;
 @bg-color: #f2f2f2;
 
+// widgets with a keyboard interface
+@widget-color: @color;
+@widget-bg-color: @bg-color;
+@widget-border-color: #dddddd;
+
+@widget-focus-color: @color;
+@widget-focus-bg-color: white;
+@widget-focus-border-color: @widget-border-color;
+
+@widget-disabled-color: @color;
+@widget-disabled-bg-color: #dddddd;
+@widget-disabled-border-color: @widget-disabled-bg-color;
+
+@widget-placeholder-color: @static-disabled-color;
+
+// widgets without a keyboard interface, e.g., buttons, pick-lists, etc.
+@static-color: @color;
+@static-bg-color: #9fb1ce;
+@static-border-color: #5a739b;
+
+@static-hover-color: @color;
+@static-hover-bg-color: #bacff2;
+@static-hover-border-color: #bacff2;
+
+@static-disabled-color: #a9a9a9;
+@static-disabled-bg-color: @widget-disabled-bg-color;
+@static-disabled-border-color: @widget-disabled-bg-color;
+
 @widget-margin: .2em;
+
 @widget-border-width: 1px;
 @widget-border-style: solid;
 @widget-border-color: #969696;
 @widget-border-radius: 5px;
+
 @widget-padding: .2em;
-@widget-color: inherit;
-@widget-bg-color: inherit;
-@widget-bg-color-focus: white;
+
 @widget-input-width: 10em;
-@widget-input-padding: 2px;
-@widget-placeholder-color: #d6d6d6;
+@widget-input-padding: .13em;

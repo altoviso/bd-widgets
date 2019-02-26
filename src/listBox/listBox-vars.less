@@ -1,23 +1,44 @@
 @charset "UTF-8";
 
-@bd-listBox-border-width: 1px;
-@bd-listBox-border-color: black;
-@bd-listBox-item-padding: 3px;
+@listBox-color: @widget-color;
+@listBox-bg-color: @widget-bg-color;
+@listBox-border-color: @widget-border-color;
 
-@bd-listBox-item-border-color: @bg-color;
+@listBox-focus-color: @widget-focus-color;
+@listBox-focus-bg-color: @widget-focus-bg-color;
 
-@bd-listBox-item-mouse-over-border-color: #6990ce;
-@bd-listBox-item-mouse-over-bg-color: @bg-color;
+@listBox-selected-color: @listBox-focus-color;
+@listBox-selected-bg-color: @listBox-focus-bg-color;
 
-@bd-listBox-item-selected-color: white;
-@bd-listBox-item-selected-border-color: #6990ce;
-@bd-listBox-item-selected-bg-color: #6990ce;
+@listBox-disabled-color: @widget-disabled-color;
+@listBox-disabled-bg-color: @widget-disabled-bg-color;
+@listBox-disabled-border-color: @widget-disabled-border-color;
 
-@bd-listBox-item-focused-border-color: #c3cfe2;
-@bd-listBox-item-focused-bg-color: #c3cfe2;
+@listBox-placeholder-color: @widget-placeholder-color;
 
-@bd-listbox-arrow-background: @button-background;
-@bd-listbox-arrow-hover-background: @button-hover-background;
+@listBox-margin: @widget-margin;
+@listBox-border-width: @widget-border-width;
+@listBox-border-style: @widget-border-style;
+@listBox-border-radius: @widget-border-radius;
+@listBox-padding: @widget-padding;
+@listBox-input-width: @widget-input-width;
+@listBox-input-padding: @widget-input-padding;
 
-@bd-listBox-no-items-color: #CCCCCC;
+@listBox-item-padding: 3px;
+@listBox-item-border-width: @widget-border-width 0 0;
+@listBox-item-border-color: @listBox-border-color;
+
+@listBox-arrow-color: @static-color;
+@listBox-arrow-bg-color: @static-bg-color;
+@listBox-arrow-border-color: @static-border-color;
+
+@listBox-arrow-hover-color: @static-hover-color;
+@listBox-arrow-hover-bg-color: @static-hover-bg-color;
+@listBox-arrow-hover-border-color: @static-hover-border-color;
+
+@listBox-arrow-query-color: @static-hover-color;
+@listBox-arrow-query-bg-color: yellow;
+@listBox-arrow-query-border-color: @static-hover-border-color;
+
+@listBox-no-items-color: #CCCCCC;
 

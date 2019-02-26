@@ -8,32 +8,39 @@
     border: @input-border-width @input-border-style @input-border-color;
     border-radius: @input-border-radius;
     padding: @input-padding;
-    background-color: @input-bg-color;
+
+    color: @input-color;
+    background: @input-bg-color;
 
     input {
         min-width: @input-input-width;
         padding: @input-input-padding;
         border: 0;
-        background-color:inherit;
+
+        color: @input-color;
+        background: @input-bg-color;
     }
 
-    &.bd-focused input {
-        background-color: @input-bg-color-focus;
+    &.bd-focused {
+        color: @widget-focus-color;
+        background: @widget-focus-bg-color;
+        border-color: @widget-focus-border-color;
+        input {
+            color: @widget-focus-color;
+            background: @widget-focus-bg-color;
+        }
     }
 
-    .placeholder, &.empty.bd-focused .placeholder {
-        display: none;
-    }
-
-    &.empty .placeholder {
-        display: block;
-        position: absolute;
-        color: @input-placeholder-color;
-        bottom: 0;
-        left: 0;
+    &.bd-disabled, &.bd-disabled.bd-focused {
+        color: @widget-disabled-color;
+        background: @widget-disabled-bg-color;
+        border-color: @widget-disabled-border-color;
+        input {
+            color: @widget-disabled-color;
+            background: @widget-disabled-bg-color;
+        }
     }
 }
-
 
 
 

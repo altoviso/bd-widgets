@@ -6,54 +6,44 @@
     border: 0;
     padding: 0;
     position: absolute;
-    top:0;
-    left:0;
-    display:flex;
+    top: 0;
+    left: 0;
+    display: flex;
     justify-content: center;
     align-items: center;
 
     .bd-inner {
-        padding:0;
-    }
-
-    & > div {
         // this is the single child frame that's centered both ways
-        background-color: @dialog-background-color;
         color: @dialog-color;
+        background: @dialog-bg-color;
         border: @dialog-frame-width solid @dialog-frame-color;
+        padding: 0;
     }
 
     .bd-title-bar {
-        background-color: @dialog-title-bar-color;
-        display:flex;
+        background: @dialog-title-bar-color;
+        display: flex;
         justify-content: space-between;
         align-items: center;
 
         .bd-button {
-            padding:0 5px;
+            padding: 0 5px;
             border-radius: 10px;
             font-size: 80%;
         }
     }
 
     .bd-body {
-        padding:@dialog-body-padding;
-        overflow:auto;
-
-        .bottomButtons {
-            margin-top:@dialog-body-padding;
-            display:flex;
-            justify-content: flex-end;
-            align-items: center;
-        }
+        padding: @dialog-body-padding;
+        overflow: auto;
     }
 
-    .bd-bottom-buttons{
-        display:flex;
+    .bd-bottom-buttons {
+        display: flex;
         justify-content: flex-end;
-        margin-top:1em;
+        margin-top: @dialog-body-padding;
         .bd-button {
-            width:50px;
+            width: 50px;
         }
     }
 }

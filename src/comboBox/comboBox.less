@@ -7,36 +7,23 @@
     border: @combo-border-width @combo-border-style @combo-border-color;
     border-radius: @combo-border-radius;
     padding: @combo-padding;
-    background-color: @input-bg-color;
+
+    color: @combo-color;
+    background: @combo-bg-color;
 
     &.bd-listBox-visible {
-        border-bottom-width:0;
-        border-bottom-left-radius:0;
-        border-bottom-right-radius:0;
+        border-bottom-width: 0;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
     }
 
     .bd-static, input {
-        min-width:  @combo-input-width;
+        min-width: @combo-input-width;
         padding: @combo-input-padding;
         border: 0;
-        background-color: inherit;
-    }
 
-    &.bd-focused .bd-static,
-    &.bd-focused input {
-        background-color: @input-bg-color-focus;
-    }
-
-    .placeholder, &.empty.bd-focused .placeholder {
-        display: none;
-    }
-
-    &.empty .placeholder {
-        display: block;
-        position: absolute;
-        color: @combo-placeholder-color;
-        bottom: 0;
-        left: 0;
+        color: @combo-color;
+        background: @combo-bg-color;
     }
 
     .arrow {
@@ -44,26 +31,71 @@
         justify-content: center;
         align-items: center;
         font-size: 20px;
+        margin: 3px;
         padding: 5px;
-        border-radius:5px;
+        border-radius: 5px;
+
+        &:hover {
+            background: @static-hover-color;
+        }
     }
 
-    .arrow:hover{
-        background-color:@button-hover;
+    &.bd-focused {
+        color: @combo-focus-color;
+        background: @combo-focus-bg-color;
+        border-color: @combo-focus-border-color;
+
+        .bd-static, input {
+            color: @combo-focus-color;
+            background: @combo-focus-bg-color;
+        }
+
+        .arrow:hover {
+            color: @static-hover-color;
+            background: @static-hover-bg-color;
+        }
+    }
+
+    &.bd-disabled, &.bd-disabled.bd-focused {
+        color: @combo-disabled-color;
+        background: @combo-disabled-bg-color;
+        border-color: @combo-disabled-border-color;
+
+        .bd-static, input {
+            color: @combo-disabled-color;
+            background: @combo-disabled-bg-color;
+        }
+
+        .arrow, .arrow:hover {
+            color: @static-disabled-color;
+            background: @static-disabled-bg-color;
+            border-color: @static-disabled-border-color;
+        }
     }
 }
 
 .bd-listBox.bd-for-combo {
     position: absolute;
-    margin:0;
+    margin: 0;
+    background: @combo-border-color;
     border: @combo-border-width @combo-border-style @combo-border-color;
-    //border-color:red;
-    border-top-width:0;
-    border-top-left-radius:0;
-    border-top-right-radius:0;
-    border-bottom-left-radius:@combo-border-radius;
-    border-bottom-right-radius:@combo-border-radius;
-    background-color: @input-bg-color-focus;
+    border-top-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: @combo-border-radius;
+    border-bottom-right-radius: @combo-border-radius;
     opacity: 1;
     max-height: 15em;
+
+    .items > div {
+        color: @combo-color;
+        background: @combo-bg-color;
+
+        &.mouseOverItem,
+        &.focusedItem,
+        .focusedItem {
+            color: @static-hover-color;
+            background: @static-hover-bg-color;
+        }
+    }
 }

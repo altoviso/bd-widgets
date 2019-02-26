@@ -1,18 +1,23 @@
 @charset "UTF-8";
 
 .bd-labeled {
-    margin: 1em;
-    padding: .7em;
-    border: 1px solid #CCC;
-    border-radius: 3px;
+    margin: @labeled-margin;
+    padding: @labeled-padding;
+    border: @labeled-border-width @labeled-border-style @labeled-border-color;
+    border-radius: @labeled-border-radius;
     position: relative;
     label {
-        color: #777777;
+        color: @labeled-color;
+        background-color: @bg-color;
         position: absolute;
         top: -1em;
-        left: 5px;
-        padding: 3px;
-        background-color: white;
+        left: .3em;
+        padding: 0 .2em;
         font-size: 80%;
     }
+}
+
+.bd-dialog .bd-labeled label {
+    background-color: @dialog-bg-color;
+
 }
