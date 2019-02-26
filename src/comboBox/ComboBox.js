@@ -43,6 +43,12 @@ export default class ComboBox extends Component {
 		return this.bdVStat;
 	}
 
+	// write-only
+	set list(value){
+		this.bdList = value instanceof ComboList ? value : new ComboList(Object.assign({}, this.kwargs, {list:value}));
+		this.value = this.value;
+	}
+
 	// validateValue, validateText: very much analogous to design in ../input/Input.js; no formatter since we have the list
 
 	validateValue(_value){
@@ -77,7 +83,6 @@ export default class ComboBox extends Component {
 		// 2      Meta (optional)
 		// 3      div
 		// 4          input -or- div.static
-		// 5          div.placeholder
 		// 6      div.arrow.icon-caret-down
 		//
 		//  1. the component root; the tree rooted at [3] is identical to the tree in the same position for Input
@@ -107,9 +112,8 @@ export default class ComboBox extends Component {
 					e("input", Object.assign({
 						tabIndex: 0,
 						bdAdvise: {input: "bdOnInput"},
-						bdReflect: {disabled: "disabled", value: "text"},
-					}, (this.inputAttrs || this.kwargs.inputAttrs || this.constructor.inputAttrs))),
-				div({className: "placeholder", bdReflect: "placeholder"})
+						bdReflect: {disabled: "disabled", value: "text", placeholder: "placeholder"},
+					}, (this.inputAttrs || this.kwargs.inputAttrs || this.constructor.inputAttrs)))
 			),
 			div({className: "arrow icon-caret-down"})
 		);
