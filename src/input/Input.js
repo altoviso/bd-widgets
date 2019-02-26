@@ -1,4 +1,4 @@
-import {Component, e, VStat, defProps} from "../lib.js";
+import {Component, e, div, VStat, defProps} from "../lib.js";
 
 export default class Input extends Component {
 	constructor(kwargs){
@@ -69,7 +69,6 @@ export default class Input extends Component {
 		// 1  div.bd-input [bd-disabled] [bd-focused] [bd-hidden] [vStat.className] [empty]
 		// 2      div
 		// 3          input
-		// 4          div.placeholder
 		// 5      div.vStat
 		//
 		//  1. the component root
@@ -81,23 +80,21 @@ export default class Input extends Component {
 		// Notice that [5] can be placed above/below/left/right of [2] bu making [1] a flex box (row or column, block or inline)
 		// and then setting the flex order of [2] and [5]
 
-		return e(
-			"div", {
+		return div({
 				bdReflectClass: [
 					"vStat", vStat => vStat.className,
 					"text", value => (value.length ? "" : "empty")
 				]
 			},
 			(this.Meta ? e(this.Meta, {bdReflect: {vStat: "vStat"}}) : false),
-			e("div", {className: "bd-rbox"},
+			div({className: "bd-rbox"},
 				e("input", Object.assign({
 					tabIndex: 0,
-					style:this.kwargs.style || this.kwargs.width || "",
+					style: this.kwargs.style || this.kwargs.width || "",
 					bdAttach: "bdInputNode",
 					bdAdvise: {input: "bdOnInput"},
-					bdReflect: {value: "text", disabled: "disabled"},
-				}, (this.inputAttrs || this.kwargs.inputAttrs || this.constructor.inputAttrs))),
-				e("div", {className: "placeholder", bdReflect: "placeholder"})
+					bdReflect: {value: "text", disabled: "disabled", placeholder: "placeholder"},
+				}, (this.inputAttrs || this.kwargs.inputAttrs || this.constructor.inputAttrs)))
 			)
 		);
 	}
