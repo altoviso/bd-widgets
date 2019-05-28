@@ -32,17 +32,21 @@ export default class Dialog extends Component {
 
 	bdElements(){
 		let body = this.dialogBody();
-		return e("div",
-			e("div", {className: "bd-inner"},
-				e("div", {className: "bd-title-bar"},
-					e("div", {className: "bd-title"}, this.title),
-					e("div",
+		return e.div(
+			e.div({className: "bd-inner", bdAttach:"inner"},
+				e.div({className: "bd-title-bar"},
+					e.div({className: "bd-title"}, this.title),
+					e.div(
 						e(Button, {className: "icon-close", handler: this.onCancel.bind(this)})
 					)
 				),
-				e("div", {className: "bd-body"}, body)
+				e.div({className: "bd-body"}, body)
 			)
 		);
+	}
+
+	getDialogPosit(){
+		return {};
 	}
 }
 Dialog.className = "bd-dialog";
@@ -61,9 +65,10 @@ Object.assign(Dialog, {
 	show(kwargs){
 		let theDialog = new this(kwargs);
 		render(theDialog, document.body);
-		setPosit(theDialog, getDialogPosit());
+		setPosit(theDialog.inner, theDialog.getDialogPosit());
 		setStyle(theDialog, "zIndex", getMaxZIndex(document.body) + 100);
-		theDialog.own(viewportWatcher.advise("resize", () => setPosit(theDialog, getDialogPosit())));
+		// note: should not be able to scroll since the dialog should take exactly the viewport
+		theDialog.own(viewportWatcher.advise("resize", () => setPosit(theDialog.inner, theDialog.getDialogPosit())));
 		theDialog.promise.then(() => theDialog.destroy());
 		return theDialog.promise;
 	}

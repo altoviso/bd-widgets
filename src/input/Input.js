@@ -80,15 +80,15 @@ export default class Input extends Component {
 		// Notice that [5] can be placed above/below/left/right of [2] bu making [1] a flex box (row or column, block or inline)
 		// and then setting the flex order of [2] and [5]
 
-		return div({
+		return e.div({
 				bdReflectClass: [
 					"vStat", vStat => vStat.className,
 					"text", value => (value.length ? "" : "empty")
 				]
 			},
 			(this.Meta ? e(this.Meta, {bdReflect: {vStat: "vStat"}}) : false),
-			div({className: "bd-rbox"},
-				e("input", Object.assign({
+			e.div({className: "bd-rbox"},
+				e.input(Object.assign({
 					tabIndex: 0,
 					style: this.kwargs.style || this.kwargs.width || "",
 					bdAttach: "bdInputNode",

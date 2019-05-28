@@ -10,7 +10,7 @@ class DemoContainerForReactComponent extends Component {
 	}
 
 	bdElements(){
-		return e("div", e(ReactComponent, {
+		return e.div(e(ReactComponent, {
 			component: Select,
 			props: {
 				onChange: this.onChange.bind(this),
@@ -132,9 +132,9 @@ let components = [
 
 class Top extends Component {
 	bdElements(){
-		return e("div", components.map((item) => e("div", {className: "component-section"},
+		return e.div(components.map((item) => e.div({className: "component-section"},
 			e("p", {className: "title"}, item.title),
-			item.ctorArgs.map(ctorArgs => e("div", {className: "container " + item.title.replace(/\./g, " ")}, e(item.class, ctorArgs)))
+			item.ctorArgs.map(ctorArgs => e.div({className: "container " + item.title.replace(/\./g, " ")}, e(item.class, ctorArgs)))
 			))
 		);
 	}

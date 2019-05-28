@@ -17,7 +17,7 @@ export default class Meta extends Component {
 	}
 
 	bdElements(){
-		return e("div", {
+		return e.div({
 			className: "bd-meta icon-",
 			bdReflect: {title: ["vStat", (v) => v.message]},
 			bdReflectClass: ["vStat", (v) => v.className]

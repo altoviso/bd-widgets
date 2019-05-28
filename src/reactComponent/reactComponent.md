@@ -39,7 +39,7 @@ And finally, here is an example Backdraft component class that contains a react-
         }
     
         bdElements(){
-            return e("div", e(ReactComponent, {
+            return e.div(e(ReactComponent, {
                 component: Select,
                 props: {
                     onChange: this.onChange.bind(this),

@@ -1,7 +1,7 @@
 import Input from "./Input.js";
 import {VStat} from "../lib.js";
 
-export default class IntegerInput extends Input {
+export default class IntegerBoolean extends Input {
 	validateValue(_value){
 		let value, text;
 		if(!_value || _value==="false" || value==="0" || (typeof _value==="string" && !_value.trim())){

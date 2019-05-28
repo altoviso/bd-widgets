@@ -73,14 +73,14 @@ smoke.defBrowserTest({
 		window.z2 = top.insChild(e(ListBox, {
 			list: getStaticList()
 		}));
-		setStyle(window.z2, "height", "14em");
+		window.z2.setStyle("height", "14em");
 
 		// dynamic list, free height
 		window.z3 = top.insChild(e(ListBox, getDynaList()));
 
 		// dynamic list, a fixed height, therefore requiring scrolling
 		window.z4 = top.insChild(e(ListBox, getDynaList()));
-		setStyle(window.z4, "height", "14em");
+		window.z4.setStyle("height", "14em");
 
 		top.insChild(e(Button, {label: "Focusable-2"}));
 		top.insChild(e(Button, {label: "End Test", handler: resolve}));

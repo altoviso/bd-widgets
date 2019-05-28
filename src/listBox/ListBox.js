@@ -27,7 +27,7 @@ export default class ListBox extends Component {
 
 		list = this.bdList = this.bdConditionList(list);
 		selectedItem = this.bdMap.has(selectedItem) ? selectedItem : null;
-		focusedItem = this.bdMap.has(focusedItem) ? focusedItem : selectedItem || (list.length ? list[0] : null);
+		focusedItem = this.bdMap.has(focusedItem) ? focusedItem : selectedItem;
 		this[list.length ? "removeClassName" : "addClassName"]("no-data");
 		this.rendered && this.bdRenderList();
 		this.selectedItem = selectedItem;
@@ -163,7 +163,7 @@ export default class ListBox extends Component {
 		let delta, newScrollTop;
 		let children = this.children;
 		let posit = getPosit(root);
-		let targetPosit = getPosit(children.byItem(item));
+		let targetPosit = children.byItem(item).getPosit();
 		delta = location === "top" ? targetPosit.t - posit.t : targetPosit.b - posit.b;
 		delta = Math.min(Math.max(-scrollTop, delta), scrollHeight - scrollTop - posit.h);
 		newScrollTop = scrollTop + delta;
@@ -242,10 +242,10 @@ export default class ListBox extends Component {
 
 	pageDown(){
 		if(!this.rendered || !this.children) return;
-		let posit = getPosit(this);
+		let posit = this.getPosit();
 		let newTopChild;
 		for(const child of this.children){
-			let childPosit = getPosit(child);
+			let childPosit = child.getPosit();
 			if(childPosit.b > posit.b) break;
 			newTopChild = child;
 		}
@@ -259,11 +259,11 @@ export default class ListBox extends Component {
 
 	pageUp(){
 		if(!this.rendered || !this.children) return;
-		let posit = getPosit(this);
+		let posit = this.getPosit();
 		let newBottomChild;
 		for(let i = this.children.length - 1; i >= 0; i--){
 			let child = this.children[i];
-			let childPosit = getPosit(child);
+			let childPosit = child.getPosit();
 			if(childPosit.t < posit.t) break;
 			newBottomChild = child;
 		}
@@ -277,7 +277,7 @@ export default class ListBox extends Component {
 
 	isInView(item){
 		let posit = getPosit(this.bdDom.root);
-		let targetPosit = getPosit(this.children.byItem(item));
+		let targetPosit = this.children.byItem(item).getPosit();
 		let result = posit.t <= targetPosit.t && targetPosit.b <= posit.b;
 		return result;
 	}
@@ -327,15 +327,15 @@ export default class ListBox extends Component {
 		// [3, 5] are visible only if the list is dynamic
 		// [4] holds items
 		//
-		return e("div", {
+		return e.div({
 				className: "bd-listBox unselectable",
 				tabIndex: 0,
 				bdAdvise: {keydown: "bdOnKeyDown", mousedown: "bdOnMouseDown", mouseover: "bdOnMouseOver"}
 			},
-			e("div",
-				e("div", {className: "items", bdAttach: "bdItemAttachPoint"}),
+			e.div(
+				e.div({className: "items", bdAttach: "bdItemAttachPoint"}),
 			),
-			e("div", {className: "no-items", bdReflect: "noItemsMessage"})
+			e.div({className: "no-items", bdReflect: "noItemsMessage"})
 		);
 	}
 
@@ -546,7 +546,7 @@ Object.assign(ListBox, {
 		}
 
 		bdElements(){
-			return e("div", this.kwargs.text);
+			return e.div(this.kwargs.text);
 		}
 	},
 	arrowComponent: class extends Component {
@@ -556,7 +556,7 @@ Object.assign(ListBox, {
 		}
 
 		bdElements(){
-			return e("div", {bdAdvise: {click: (e) => this.parent.bdOnClickArrow(e, this.kwargs.direction)}});
+			return e.div({bdAdvise: {click: (e) => this.parent.bdOnClickArrow(e, this.kwargs.direction)}});
 		}
 	},
 	watchables: ["focusedItem", "selectedItem", "mouseOverItem", "noItemsMessage"].concat(Component.watchables),

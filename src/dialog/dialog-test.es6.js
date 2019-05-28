@@ -16,18 +16,18 @@ class RenameDialog extends Dialog {
 		}
 	}
 	dialogBody(){
-		return e("div", {className: "rename-dialog"},
-			e("div",
-				e("div", {className: "labeled"},
-					e("div", "Current Name:"),
+		return e.div({className: "rename-dialog"},
+			e.div(
+				e.div({className: "labeled"},
+					e.div("Current Name:"),
 					e(Input, {value: this.kwargs.currentName, placeholder: "any text", disabled:true})
 				),
-				e("div", {className: "labeled"},
-					e("div", "New Name:"),
+				e.div({className: "labeled"},
+					e.div("New Name:"),
 					e(Input, {bdAttach: "newName", value: this.kwargs.currentName, placeholder: "enter new name"})
 				)
 			),
-			e("div", {className: "bottom-buttons"},
+			e.div({className: "bottom-buttons"},
 				e(Button, {label: "Cancel", handler: ()=> this.onCancel()}),
 				e(Button, {label: "OK", handler: ()=> this.promise.resolve(this.newName.value)})
 			)
@@ -44,8 +44,8 @@ class RenameDialog2 extends Dialog {
 		}
 	}
 	dialogBody(){
-		return e("div", {className: "rename-dialog"},
-			e("div",
+		return e.div({className: "rename-dialog"},
+			e.div(
 				e(Labeled, {label:"Current Name"},
 					e(Input, {value: this.kwargs.currentName, style:"min-width:20em", disabled:true})
 				),
@@ -53,7 +53,7 @@ class RenameDialog2 extends Dialog {
 					e(Input, {bdAttach: "newName", value: this.kwargs.currentName, placeholder: "enter new name", style:"min-width:20em"})
 				),
 			),
-			e("div", {className: "bottom-buttons"},
+			e.div({className: "bottom-buttons"},
 				e(Button, {label: "Cancel", handler: ()=> this.onCancel()}),
 				e(Button, {label: "OK", handler: ()=> this.promise.resolve(this.newName.value)})
 			)
