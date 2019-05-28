@@ -56,6 +56,10 @@ const caps = {
 		browserName: 'firefox',
 		smokeOrder: smokeOrder++
 	},
+	safari: {
+		browserName: 'safari',
+		smokeOrder: smokeOrder++
+	},
 	tbchrome: getTestingBotCaps('WIN10', 'chrome', '68'),
 	tbfirefox: getTestingBotCaps('WIN10', 'firefox', '61'),
 	ipad: getBrowserStackCaps(undefined, '11.3', 'iPad', {'device': 'iPad 6th', 'realMobile': 'true'})
