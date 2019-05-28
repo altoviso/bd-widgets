@@ -136,11 +136,8 @@ export default class StateButton extends Button {
 		};
 
 		return e("div", {tabIndex: -1, bdAdvise: {click: this.bdOnClick.bind(this)}},
-			e("div",
-				e("div", {bdReflect: ["state", labelText]}),
-				e("div", {bdReflect: ["state", markText]})
-			)
-		);
+			e("div", {bdReflect: ["state", labelText]}),
+			e("div", {bdReflect: ["state", markText]}));
 	}
 
 	// private API...
