@@ -2,25 +2,15 @@
 
 .bd-state-button {
     display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 2em;
 
     color: @button-color;
     background: @button-bg-color;
 
     margin: @button-gap;
     padding: 0 @button-pad;
-    border: @button-border-width @button-border-style @button-border-color;
-    border-radius: @button-border-radius;
+    border: @state-button-border-width @state-button-border-style @state-button-border-color;
+    border-radius: @state-button-border-radius;
     cursor: pointer;
-
-    //> div {
-    //    /* center the content both ways */
-    //    display: inline-flex;
-    //    justify-content: center;
-    //    align-items: center;
-    //}
 
     &:hover, &.tickle:hover {
         color: @button-hover-color;
@@ -57,7 +47,7 @@
         padding: @state-button-pad;
         border: none;
         background-color: inherit;
-        .icon-mixin;
+        .icon-mixin();
         div::selection {
             background-color: inherit;
             color: inherit;
