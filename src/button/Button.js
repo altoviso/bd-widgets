@@ -17,8 +17,8 @@ export default class Button extends Component.withWatchables("label") {
 		// 2      div
 		// 3          <this.label>
 		//
-		return e("div", {className: "bd-button", bdAdvise: {click: "bdOnClick", mousedown: "bdOnMouseDown"}},
-			e("div", {tabIndex: 0, bdReflect: "label"})
+		return e.div({className: "bd-button", bdAdvise: {click: "bdOnClick", mousedown: "bdOnMouseDown"}},
+			e.div({tabIndex: 0, bdReflect: "label"})
 		);
 	}
 
