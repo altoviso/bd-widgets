@@ -5,7 +5,8 @@
 	"main": "./lib.js",
 	"scripts": {
 		"test": "node node_modules/bd-smoke/smoke.js",
-		"server": "node httpServer.js"
+		"server": "node httpServer.js",
+		"lint": "./node_modules/.bin/eslint src"
 	},
 	"repository": {
 		"type": "git",
@@ -28,7 +29,9 @@
 		"bd-core": "^2.3.1",
 		"bd-promise": "^2.1.0"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"eslint-plugin-import": "^2.18.2"
+	},
 	"devDependencies": {
 		"bd-smoke": "^1.1.1",
 		"chai": "^4.2.0",
