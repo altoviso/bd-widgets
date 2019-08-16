@@ -1,6 +1,6 @@
-export * from "./bd-core.js";
-export {default as VStat} from "./VStat.js";
-export {default as keys} from "./keys.js";
+export * from './bd-core.js';
+export {default as VStat} from './VStat.js';
+export {default as keys} from './keys.js';
 
 // We use macros in this library! Hopefully...eventually...JavaScript will have what lisp has had for 50 years!
 
@@ -9,8 +9,8 @@ export {default as keys} from "./keys.js";
 // the input. Put another way: the only way to make these macro generators do something wrong is to change the code that
 // calls them. Of course eval is not any more "dangerous" than changing executing code.
 
-function defReadOnly(name){
-	return `
+function defReadOnly(name) {
+    return `
 	get(){
 		return "${name}" in this.kwargs ?
 				this.kwargs.${name} :
@@ -18,8 +18,8 @@ function defReadOnly(name){
 	}`;
 }
 
-function defReadOnlyWithPrivate(name, pName){
-	return `
+function defReadOnlyWithPrivate(name, pName) {
+    return `
 	get(){
 		return "${pName}" in this ?
 			this.${pName} :
@@ -29,8 +29,8 @@ function defReadOnlyWithPrivate(name, pName){
 	}`;
 }
 
-function defSetter(name, pName){
-	return `
+function defSetter(name, pName) {
+    return `
 	set(value){
 		if(this.${name}!==value){
 			this.bdMutate("${name}", "${pName}", value);
@@ -38,25 +38,24 @@ function defSetter(name, pName){
 	}`;
 }
 
-function defMutable(name, pName){
-	return defReadOnlyWithPrivate(name, pName)+ ","+ defSetter(name, pName);
+function defMutable(name, pName) {
+    return `${defReadOnlyWithPrivate(name, pName)},${defSetter(name, pName)}`;
 }
 
-export function defProps(theClass, props){
-	let propsDefExpr = props.map(prop => {
-		let [type, name, pName] = prop;
-		let macro;
-		if(type=="rw"){
-			macro = defMutable;
-		}else{
-			macro = pName ? defReadOnlyWithPrivate : defReadOnly;
-		}
-		let getterSetterExpr = macro(name, pName);
-		return `"${name}":{${getterSetterExpr}}`;
-	}).join(",\n");
-	let code = `(Object.defineProperties(${theClass}.prototype, {
+export function defProps(theClass, props) {
+    const propsDefExpr = props.map(prop => {
+        const [type, name, pName] = prop;
+        let macro;
+        if (type == 'rw') {
+            macro = defMutable;
+        } else {
+            macro = pName ? defReadOnlyWithPrivate : defReadOnly;
+        }
+        const getterSetterExpr = macro(name, pName);
+        return `"${name}":{${getterSetterExpr}}`;
+    }).join(',\n');
+    const code = `(Object.defineProperties(${theClass}.prototype, {
 	${propsDefExpr}
 }))`;
-	return code;
+    return code;
 }
-
