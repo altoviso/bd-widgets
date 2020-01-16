@@ -331,7 +331,8 @@ export default class ComboBox extends Component {
     }
 }
 
-eval(defProps('ComboBox', [
+// eslint-disable-next-line no-eval
+defProps(ComboBox, [
     ['ro', 'ListBox'],
     ['ro', 'Meta'],
     ['ro', 'default'],
@@ -340,7 +341,7 @@ eval(defProps('ComboBox', [
     ['ro', 'noCase'],
     ['ro', 'sort'],
     ['rw', 'placeholder', 'bdPlaceholder']
-]));
+]);
 
 Object.assign(ComboBox, {
     List: ComboList,

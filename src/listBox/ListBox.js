@@ -533,10 +533,10 @@ export default class ListBox extends Component {
     }
 }
 
-eval(defProps('ListBox', [
+defProps(ListBox, [
     ['ro', 'selectable'],
     ['rw', 'noItemsMessage', 'bdNoItemsMessage']
-]));
+]);
 
 Object.assign(ListBox, {
     noItemsMessage: 'no items',

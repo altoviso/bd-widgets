@@ -125,12 +125,12 @@ export default class Input extends Component {
     }
 }
 
-eval(defProps('Input', [
+defProps(Input, [
     ['ro', 'Meta'],
     ['ro', 'default'],
     ['ro', 'trim'],
     ['rw', 'placeholder', 'bdPlaceholder']
-]));
+]);
 
 Object.assign(Input, {
     className: 'bd-input',
