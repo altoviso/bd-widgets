@@ -1,9 +1,10 @@
 import {e, TestContainer, render, smoke, assert, assertClassNameEq} from '../../test/lib.js';
+import log1 from './button-test-log-01.js';
 import Button from './Button.js';
 
 const action = smoke.Action.action;
 const keys = action.keys;
-let top = 0;
+let top;
 
 smoke.defTest({
     id: 'button-demo',
@@ -12,7 +13,7 @@ smoke.defTest({
     },
     finally() {
         top.unrender();
-        top = 0;
+        top = undefined;
     },
     test() {
         let resolve;
@@ -64,7 +65,7 @@ smoke.defBrowserTest({
     tests: [{
         id: 'static',
         tests: [
-            ['basic', function () {
+            ['basic', () => {
                 // default constructor...
                 let button = new Button({});
                 assert(button.rendered === false);
@@ -86,8 +87,8 @@ smoke.defBrowserTest({
 
                 let clickHandlerEventObject;
 
-                function clickHandler(e) {
-                    clickHandlerEventObject = e;
+                function clickHandler(event) {
+                    clickHandlerEventObject = event;
                 }
 
                 button.advise('click', clickHandler);
@@ -147,7 +148,7 @@ smoke.defBrowserTest({
 
                 button.destroy();
             }],
-            ['render', function () {
+            ['render', () => {
                 let button = new Button({});
                 button.render();
                 let root = button._dom.root;
@@ -234,9 +235,9 @@ smoke.defBrowserTest({
             top.monitor(button);
 
             top.message = 'rendering';
-            const buttonLeft = top.insChild(Button, {label: '1', tabIndex: 1});
+            top.insChild(Button, {label: '1', tabIndex: 1});
             const child = top.insChild(button);
-            const buttonRight = top.insChild(Button, {label: '3', tabIndex: 3});
+            top.insChild(Button, {label: '3', tabIndex: 3});
             assert(child === button);
             assert(button.rendered);
             assert(button.attachedToDoc);
@@ -282,150 +283,9 @@ smoke.defBrowserTest({
 
             top.message = 'destroying button';
             top.delChild(child);
-            top.checkLog(logResults[this.testName()]);
+            top.checkLog(log1[this.testName()]);
             top.finish();
             assert(button.destroyed);
         }
     }]
 });
-
-
-const logResults = {
-    'button/dynamic': [
-        [
-            'log',
-            'starting test:button/dynamic'
-        ],
-        [
-            'message',
-            'rendering'
-        ],
-        [
-            'watch',
-            'className',
-            'bd-button',
-            ''
-        ],
-        [
-            'watch',
-            'rendered',
-            true,
-            false
-        ],
-        [
-            'watch',
-            'attachedToDoc',
-            true,
-            undefined
-        ],
-        [
-            'message',
-            'three buttons should be displayed; this test exercises the CENTER button'
-        ],
-        [
-            'prompt',
-            'click CENTER button'
-        ],
-        [
-            'watch',
-            'className',
-            'bd-button bd-focused',
-            'bd-button'
-        ],
-        [
-            'watch',
-            'hasFocus',
-            true,
-            undefined
-        ],
-        [
-            'native event',
-            'click',
-            {
-                type: 'click'
-            }
-        ],
-        [
-            'message',
-            'the CENTER button has the focus'
-        ],
-        [
-            'prompt',
-            'press tab'
-        ],
-        [
-            'watch',
-            'className',
-            'bd-button',
-            'bd-button bd-focused'
-        ],
-        [
-            'watch',
-            'hasFocus',
-            false,
-            true
-        ],
-        [
-            'message',
-            'the CENTER button lost the focus'
-        ],
-        [
-            'prompt',
-            'press shift-tab'
-        ],
-        [
-            'watch',
-            'className',
-            'bd-button bd-focused',
-            'bd-button'
-        ],
-        [
-            'watch',
-            'hasFocus',
-            true,
-            false
-        ],
-        [
-            'message',
-            'the CENTER button re-acquired the focus'
-        ],
-        [
-            'prompt',
-            'press spacebar'
-        ],
-        [
-            'native event',
-            'click',
-            {
-                type: 'keypress'
-            }
-        ],
-        [
-            'prompt',
-            'click the CENTER button'
-        ],
-        [
-            'native event',
-            'click',
-            {
-                type: 'click'
-            }
-        ],
-        [
-            'message',
-            'destroying button'
-        ],
-        [
-            'watch',
-            'attachedToDoc',
-            false,
-            true
-        ],
-        [
-            'watch',
-            'rendered',
-            false,
-            true
-        ]
-    ]
-};

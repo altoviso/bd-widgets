@@ -1,4 +1,4 @@
-import {Component, e, stopEvent} from '../lib.js';
+import {e, stopEvent} from '../lib.js';
 import Button from '../button/Button.js';
 
 class States {
@@ -156,13 +156,13 @@ export default class StateButton extends Button {
         });
     }
 
-    bdOnClick(e) {
+    bdOnClick(event) {
         // override Button's Button.bdOnClick
-        stopEvent(e);
+        stopEvent(event);
         if (this.enabled) {
             this.value = this.bdStates.nextValue();
             this.handler && this.handler();
-            this.bdNotify({name: 'click', e});
+            this.bdNotify({name: 'click', event});
         }
     }
 }

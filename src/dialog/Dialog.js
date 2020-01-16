@@ -49,12 +49,12 @@ export default class Dialog extends Component {
 }
 Dialog.className = 'bd-dialog';
 
-function getDialogPosit() {
-    return {
-        h: Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
-        w: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
-    };
-}
+// function getDialogPosit() {
+//     return {
+//         h: Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
+//         w: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
+//     };
+// }
 
 Object.assign(Dialog, {
     className: 'bd-dialog',

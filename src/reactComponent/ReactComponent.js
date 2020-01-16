@@ -1,5 +1,7 @@
 import {Component} from '../lib.js';
 
+/* global React:false, ReactDOM:false */
+
 function wrappedComponent(reactClass) {
     return class extends React.Component {
         constructor(props) {

@@ -1,12 +1,8 @@
-import {e, TestContainer, render, smoke, setStyle, assert} from '../../test/lib.js';
+import {e, TestContainer, render, smoke} from '../../test/lib.js';
 import ComboBox from './ComboBox.js';
 import Button from '../button/Button.js';
-import Meta from '../meta/Meta.js';
 
-const action = smoke.Action.action;
-const keys = action.keys;
 let top = 0;
-
 
 smoke.defBrowserTest({
     id: 'comboBox-demo',
@@ -42,32 +38,33 @@ smoke.defBrowserTest({
             'bbb'
         ];
 
-        function getDynaList() {
-            const list = [];
-            for (let i = 100; i < 110; i++) {
-                list.push(`${i}`);
-            }
-
-            function get(direction) {
-                const newItems = [];
-                if (direction === 'before') {
-                    const start = Number(list[0]);
-                    for (let i = start - 5; i < start; i++) {
-                        newItems.push(`${i}`);
-                    }
-                    list.splice(0, 0, ...newItems);
-                } else {
-                    const start = Number(list[list.length - 1]);
-                    for (let i = start + 1; i <= start + 5; i++) newItems.push(`${i}`);
-                    list.splice(list.length, 0, ...newItems);
-                }
-                return new Promise(resolve => {
-                    setTimeout(() => resolve(newItems), 2000);
-                });
-            }
-
-            return {list, get};
-        }
+        // function getDynaList() {
+        //     const list = [];
+        //     for (let i = 100; i < 110; i++) {
+        //         list.push(`${i}`);
+        //     }
+        //
+        //     function get(direction) {
+        //         const newItems = [];
+        //         if (direction === 'before') {
+        //             const start = Number(list[0]);
+        //             for (let i = start - 5; i < start; i++) {
+        //                 newItems.push(`${i}`);
+        //             }
+        //             list.splice(0, 0, ...newItems);
+        //         } else {
+        //             const start = Number(list[list.length - 1]);
+        //             for (let i = start + 1; i <= start + 5; i++) newItems.push(`${i}`);
+        //             list.splice(list.length, 0, ...newItems);
+        //         }
+        //         // eslint-disable-next-line no-shadow
+        //         return new Promise(resolve => {
+        //             setTimeout(() => resolve(newItems), 2000);
+        //         });
+        //     }
+        //
+        //     return {list, get};
+        // }
 
 
         // static list, free height
@@ -106,21 +103,21 @@ smoke.defBrowserTest({
     tests: [{
         id: 'static',
         tests: [
-            ['core', function () {
-
+            ['core', () => {
+                // todo
             }],
-            ['whatever', function () {
-
+            ['whatever', () => {
+                // todo
             }]
         ]
     }, {
         id: 'dynamic',
         tests: [
-            ['core', function () {
-
+            ['core', () => {
+                // todo
             }],
-            ['whatever', function () {
-
+            ['whatever', () => {
+                // todo
             }]
         ]
     }]

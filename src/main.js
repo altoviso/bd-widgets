@@ -3,10 +3,13 @@ import Button from './button/Button.js';
 import StateButton from './stateButton/StateButton.js';
 import ReactComponent from './reactComponent/ReactComponent.js';
 
+/* eslint-disable no-console */
+/* global Select */
+
 class DemoContainerForReactComponent extends Component {
-    onChange(e) {
-        console.log('react-select onChange:', e.value);
-        this.theSelect.props = {value: e.value};
+    onChange(event) {
+        console.log('react-select onChange:', event.value);
+        this.theSelect.props = {value: event.value};
     }
 
     bdElements() {

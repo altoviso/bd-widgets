@@ -1,12 +1,8 @@
 import {
     Component,
     e,
-    div,
     stopEvent,
     VStat,
-    setPosit,
-    getPosit,
-    getStyle,
     getMaxZIndex,
     defProps,
     keys
@@ -57,7 +53,7 @@ export default class ComboBox extends Component {
 
     // write-only
     set list(value) {
-        this.bdList = value instanceof ComboList ? value : new ComboList({ ...this.kwargs, list: value});
+        this.bdList = value instanceof ComboList ? value : new ComboList({ ...this.kwargs, list: value });
         this.value = this.value;
     }
 
@@ -115,17 +111,17 @@ export default class ComboBox extends Component {
                 keydown: 'bdOnKeyDown'
             }
         },
-        (this.Meta ? e(this.Meta, {bdReflect: {vStat: 'vStat'}}) : false),
-        e.div({className: 'bd-rbox'},
+        (this.Meta ? e(this.Meta, { bdReflect: { vStat: 'vStat' } }) : false),
+        e.div({ className: 'bd-rbox' },
             this.static ?
-                e.div({className: 'bd-static', tabIndex: 0, bdReflect: ['text', s => s || '&nbsp;']}) :
+                e.div({ className: 'bd-static', tabIndex: 0, bdReflect: ['text', s => s || '&nbsp;'] }) :
                 e.input({
                     tabIndex: 0,
-                    bdAdvise: {input: 'bdOnInput'},
-                    bdReflect: {disabled: 'disabled', value: 'text', placeholder: 'placeholder'},
+                    bdAdvise: { input: 'bdOnInput' },
+                    bdReflect: { disabled: 'disabled', value: 'text', placeholder: 'placeholder' },
                     ...(this.inputAttrs || this.kwargs.inputAttrs || this.constructor.inputAttrs)
                 })),
-        e.div({className: 'arrow icon-caret-down'}));
+        e.div({ className: 'arrow icon-caret-down' }));
     }
 
     get bdInputNode() {
@@ -144,9 +140,9 @@ export default class ComboBox extends Component {
     bdOnBlur() {
         super.bdOnBlur();
         if (this.bdListBox) {
-        	this.bdListBox.destroy();
-        	delete this.bdListBox;
-        	this.removeClassName('bd-listBox-visible', 'above', 'below');
+            this.bdListBox.destroy();
+            delete this.bdListBox;
+            this.removeClassName('bd-listBox-visible', 'above', 'below');
         }
         this.bdAcceptInput();
     }
@@ -203,7 +199,10 @@ export default class ComboBox extends Component {
             return false;
         }
 
-        const result = {z: getMaxZIndex(document.body) + 1, w: Math.round(posit.w - (2 * this.getStyle('borderWidth')))};
+        const result = {
+            z: getMaxZIndex(document.body) + 1,
+            w: Math.round(posit.w - (2 * this.getStyle('borderWidth')))
+        };
         const spaceBelow = h - posit.b;
         if (spaceBelow < 100 && spaceBelow < posit.t) {
             // less than 100px below with more available above; therefore, put the list box above the combo box
@@ -215,11 +214,10 @@ export default class ComboBox extends Component {
             // result.maxH = h - result.t;
         }
         result.l = /* result.maxW = */posit.l;
-        console.log(posit);
         return result;
     }
 
-    bdOnKeyDown(e) {
+    bdOnKeyDown(event) {
         const move = (listBox, direction) => {
             if (listBox) {
                 listBox[direction]();
@@ -237,7 +235,7 @@ export default class ComboBox extends Component {
         };
 
         const listBox = this.bdListBox;
-        switch (e.keyCode) {
+        switch (event.keyCode) {
             case keys.down:
                 listBox ? move(listBox, 'down') : this.bdDisplayListBox();
                 break;
@@ -261,7 +259,7 @@ export default class ComboBox extends Component {
                 const inputNode = this.bdInputNode;
                 if (inputNode.selectionStart) {
                     inputNode.value = inputNode.value.substring(0, inputNode.selectionStart - 1);
-                    this.bdOnInput(e);
+                    this.bdOnInput(event);
                     break;
                 } else {
                     return;
@@ -270,17 +268,17 @@ export default class ComboBox extends Component {
             default:
                 return;
         }
-        stopEvent(e);
+        stopEvent(event);
     }
 
-    bdOnMouseDown(e) {
-        if (e.button !== 0) {
+    bdOnMouseDown(event) {
+        if (event.button !== 0) {
             return;
         }
         if (!this.hasFocus) {
             this.bdDom.tabIndexNode.focus();
         }
-        if (e.target === this.bdDom.root.querySelector('.arrow')) {
+        if (event.target === this.bdDom.root.querySelector('.arrow')) {
             if (this.bdListBox) {
                 if (!this.static) {
                     this.bdListBox.destroy();
@@ -290,11 +288,11 @@ export default class ComboBox extends Component {
             } else {
                 this.bdDisplayListBox();
             }
-            stopEvent(e);
+            stopEvent(event);
         }
     }
 
-    bdOnInput(e) {
+    bdOnInput(event) {
         const inputNode = this.bdInputNode;
         const srcText = inputNode.value;
         if (inputNode !== document.activeElement) {
@@ -327,7 +325,7 @@ export default class ComboBox extends Component {
         const [value, text, vStat] = this.validateText(srcText);
         this.bdMutate('value', 'bdValue', value, 'vStat', 'bdVStat', vStat);
 
-        this.bdNotify(e);
+        this.bdNotify(event);
     }
 }
 
@@ -347,7 +345,7 @@ Object.assign(ComboBox, {
     List: ComboList,
     ListBox: class ComboListBox extends ListBox {
         constructor(kwargs) {
-            kwargs = {tabIndex: '', className: 'bd-for-combo', ...kwargs};
+            kwargs = { tabIndex: '', className: 'bd-for-combo', ...kwargs };
             super(kwargs);
             this.render();
         }
@@ -357,7 +355,7 @@ Object.assign(ComboBox, {
     sift: false,
     noCase: true,
     errorValue: Symbol('error'),
-    inputAttrs: {type: 'text'},
+    inputAttrs: { type: 'text' },
     placeholder: ' enter value ',
     watchables: ['value', 'text', 'vStat', 'placeholder'].concat(Component.watchables),
     events: ['input'].concat(Component.events),

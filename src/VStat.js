@@ -8,16 +8,6 @@ const SCALAR_WARN = 4;
 const CONTEXT_ERROR = 5;
 const SCALAR_ERROR = 6;
 
-const levelIds = [
-    'valid',
-    'contextInfo',
-    'scalarInfo',
-    'contextWarn',
-    'scalarWarn',
-    'contextError',
-    'scalarError'
-];
-
 // privates...
 const pLevel = Symbol('pLevel');
 const pMessages = Symbol('pMessages');
@@ -309,7 +299,7 @@ export default class VStat extends eventHub(watchHub(Base)) {
                     this[pMessages][VStat.VALID] = message;
                     pushQ('messageIns', VStat.VALID, message, this);
                 }
-                const maxLevel = this[pMessages].reduce((acc, item, level) => item ? level : acc, VALID);
+                const maxLevel = this[pMessages].reduce((acc, item, level_) => item ? level_ : acc, VALID);
                 if (maxLevel !== this[pLevel]) {
                     this.bdMutate('level', pLevel, maxLevel);
                 }

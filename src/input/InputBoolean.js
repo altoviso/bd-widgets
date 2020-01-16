@@ -3,8 +3,7 @@ import {VStat} from '../lib.js';
 
 export default class IntegerBoolean extends Input {
     validateValue(_value) {
-        let value,
-            text;
+        let value;
         if (!_value || _value === 'false' || value === '0' || (typeof _value === 'string' && !_value.trim())) {
             return [false, this.format(false), VStat.valid()];
         } else {
@@ -16,7 +15,7 @@ export default class IntegerBoolean extends Input {
         return this.validateValue(text);
     }
 
-    format(value, checkMap) {
+    format(value) {
         return value ? 'true' : 'false';
     }
 }

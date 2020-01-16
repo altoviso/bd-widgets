@@ -1,4 +1,4 @@
-import {Component, e, div, VStat, defProps} from '../lib.js';
+import {Component, e, VStat, defProps} from '../lib.js';
 
 export default class Input extends Component {
     constructor(kwargs) {
@@ -56,7 +56,7 @@ export default class Input extends Component {
         } else {
             try {
                 return value.toString();
-            } catch (e) {
+            } catch (error) {
                 return this.default;
             }
         }
@@ -107,7 +107,7 @@ export default class Input extends Component {
         this.text = this.bdInputNode.value;
     }
 
-    bdOnInput(e) {
+    bdOnInput(event) {
         const inputNode = this.bdInputNode;
         const srcText = inputNode.value;
         if (inputNode === document.activeElement) {
@@ -121,7 +121,7 @@ export default class Input extends Component {
         } else {
             this.text = srcText;
         }
-        this.bdNotify(e);
+        this.bdNotify(event);
     }
 }
 

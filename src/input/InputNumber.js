@@ -43,8 +43,8 @@ export default class InputNumber extends Input {
             }
             value = Number(value);
             if (Number.isNaN(value)) {
-                const value = this.errorValue;
-                return [value, this.format(value), VStat.scalarError()];
+                const errorValue = this.errorValue;
+                return [errorValue, this.format(errorValue), VStat.scalarError()];
             }
         }
         const text = this.format(value);
@@ -70,7 +70,7 @@ export default class InputNumber extends Input {
     }
 }
 
-eval(defProps('InputNumber', [
+defProps(InputNumber, [
     ['ro', 'errorValue'],
 
     ['rw', 'minMsg', 'bdMinMsg'],
@@ -83,7 +83,7 @@ eval(defProps('InputNumber', [
     ['ro', 'max', 'bdMax'],
     ['ro', 'absMin', 'bdAbsMin'],
     ['ro', 'absMax', 'bdAbsMax']
-]));
+]);
 
 Object.assign(InputNumber, {
     min: Number.NEGATIVE_INFINITY,

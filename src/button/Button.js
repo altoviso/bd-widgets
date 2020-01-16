@@ -25,8 +25,9 @@ export default class Button extends Component.withWatchables('label') {
 
     bdOnFocus() {
         if (!this.bdKeyHandler) {
-            this.bdKeyHandler = connect(this._dom.root, 'keypress', e => {
-                if (e.charCode == 32) {
+            // eslint-disable-next-line no-shadow
+            this.bdKeyHandler = connect(this._dom.root, 'keydown', e => {
+                if (e.key === ' ') {
                     // space bar => click
                     this.bdOnClick(e);
                 }
@@ -41,22 +42,22 @@ export default class Button extends Component.withWatchables('label') {
         delete this.bdKeyHandler;
     }
 
-    bdOnClick(e) {
-        stopEvent(e);
+    bdOnClick(event) {
+        stopEvent(event);
         if (this.enabled) {
             if (!this.hasFocus) {
                 this.focus();
             }
             this.handler && this.handler();
-            this.bdNotify({name: 'click', nativeEvent: e});
+            this.bdNotify({name: 'click', nativeEvent: event});
         }
     }
 
-    bdOnMouseDown(e) {
+    bdOnMouseDown(event) {
         if (this.hasFocus) {
             // pressing the left mouse down outside of the label (the focus node) inside the containing div causes
             // the focus to leave the label; we don't want that when we have the focus...
-            stopEvent(e);
+            stopEvent(event);
         }
     }
 }

@@ -288,7 +288,7 @@ smoke.defTest({
                 function format(value) {
                     if (!value) {
                         return '';
-                    } else if ( 1 <= value&& value <= 12) {
+                    } else if (value >= 1 && value <= 12) {
                         return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December'][value - 1];
                     } else {
                         return `${value}`;

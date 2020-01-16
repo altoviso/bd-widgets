@@ -88,7 +88,7 @@ export default class ListBox extends Component {
                     posit = 'last';
                 }
             }
-            insertItems.map((item, i) => {
+            insertItems.forEach((item, i) => {
                 list.splice(start + i, 0, item);
                 if (children) {
                     const child = this.bdInsChild(item, ref, posit, itemComponentType);
@@ -157,17 +157,15 @@ export default class ListBox extends Component {
         if (scrollHeight <= root.clientHeight) {
             // everything is visible; therefore nothing to scroll
             root.scrollTop = 0;
-            return;
+            return false;
         }
 
-        let delta,
-            newScrollTop;
         const children = this.children;
         const posit = getPosit(root);
         const targetPosit = children.byItem(item).getPosit();
-        delta = location === 'top' ? targetPosit.t - posit.t : targetPosit.b - posit.b;
+        let delta = location === 'top' ? targetPosit.t - posit.t : targetPosit.b - posit.b;
         delta = Math.min(Math.max(-scrollTop, delta), scrollHeight - scrollTop - posit.h);
-        newScrollTop = scrollTop + delta;
+        const newScrollTop = scrollTop + delta;
 
         // delta = Math.min(delta, getPosit(children[children.length - 1]).b - posit.b);
         // newScrollTop = Math.min(scrollHeight - posit.h + 1, Math.max(0, scrollTop + delta));
@@ -360,6 +358,7 @@ export default class ListBox extends Component {
             }
             // child.bdListBoxCreated remains undefined
         } else {
+            // eslint-disable-next-line new-cap
             child = new itemComponentType(item);
             child.bdListBoxCreated = true;
         }
@@ -406,6 +405,7 @@ export default class ListBox extends Component {
         const itemComponentType = this.kwargs.itemComponentType || this.constructor.itemComponentType;
         const arrowComponent = this.kwargs.arrowComponent || this.constructor.arrowComponent;
         const createArrow = direction => {
+            // eslint-disable-next-line new-cap
             const arrow = new arrowComponent({direction});
             arrow.bdItem = arrow;
             arrow.bdListBoxCreated = true;
@@ -450,8 +450,8 @@ export default class ListBox extends Component {
         }
     }
 
-    bdOnKeyDown(e) {
-        switch (e.keyCode) {
+    bdOnKeyDown(event) {
+        switch (event.keyCode) {
             case keys.down:
                 this.down();
                 break;
@@ -472,18 +472,18 @@ export default class ListBox extends Component {
             default:
                 return;
         }
-        stopEvent(e);
+        stopEvent(event);
     }
 
-    bdOnMouseDown(e) {
-        stopEvent(e);
-        if (e.button !== 0) {
+    bdOnMouseDown(event) {
+        stopEvent(event);
+        if (event.button !== 0) {
             return;
         }
         if (this.kwargs.multiSelect) {
             // TODO: RFE
         } else {
-            const item = this.bdItemFromNode(e.target);
+            const item = this.bdItemFromNode(event.target);
             if (item) {
                 this.focusedItem = item;
                 if (this.selectable) {
@@ -493,8 +493,8 @@ export default class ListBox extends Component {
         }
     }
 
-    bdOnClickArrow(e, direction) {
-        stopEvent(e);
+    bdOnClickArrow(event, direction) {
+        stopEvent(event);
         this.focusedItem = direction === 'up' ? this.bdUpArrow : this.bdDownArrow;
         if (this.kwargs.get) {
             const up = direction === 'up';
@@ -520,10 +520,10 @@ export default class ListBox extends Component {
         }// else ignore
     }
 
-    bdOnMouseOver(e) {
-        this.bdMutate('mouseOverItem', 'bdMouseOverItem', this.bdItemFromNode(e.target));
-        const h1 = connect(this.bdDom.root, 'mousemove', e => {
-            this.bdMutate('mouseOverItem', 'bdMouseOverItem', this.bdItemFromNode(e.target));
+    bdOnMouseOver(event) {
+        this.bdMutate('mouseOverItem', 'bdMouseOverItem', this.bdItemFromNode(event.target));
+        const h1 = connect(this.bdDom.root, 'mousemove', event_ => {
+            this.bdMutate('mouseOverItem', 'bdMouseOverItem', this.bdItemFromNode(event_.target));
         });
         const h2 = connect(this.bdDom.root, 'mouseleave', () => {
             this.bdMutate('mouseOverItem', 'bdMouseOverItem', null);
@@ -558,7 +558,7 @@ Object.assign(ListBox, {
         }
 
         bdElements() {
-            return e.div({bdAdvise: {click: e => this.parent.bdOnClickArrow(e, this.kwargs.direction)}});
+            return e.div({bdAdvise: {click: event => this.parent.bdOnClickArrow(event, this.kwargs.direction)}});
         }
     },
     watchables: ['focusedItem', 'selectedItem', 'mouseOverItem', 'noItemsMessage'].concat(Component.watchables),
