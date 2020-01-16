@@ -1,6 +1,6 @@
 {
 	"name": "bd-widgets",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "a library of user interface widgets built with Backdraft",
 	"main": "./lib.js",
 	"scripts": {
