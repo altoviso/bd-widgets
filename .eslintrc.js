@@ -15,18 +15,14 @@ module.exports = {
     ],
 
     'rules': {
-    }//,
+    },
 
-	// "overrides": [
-	// 	{
-	// 		"files": ["smoke.js"],
-	// 		"rules": {
-	// 			"quotes": "off",
-	// 			"indent": "off"
-	// 		},
-	// 		"globals": {
-	// 			"define": true
-	// 		}
-	// 	}
-	// ]
+	"overrides": [
+		{
+			"files": ['test/**', '*-test.es6.js', '*-test.js'],
+			"rules": {
+				"no-console": "off",
+			}
+		}
+	]
 };
