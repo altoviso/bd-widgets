@@ -115,7 +115,6 @@ smoke.defBrowserTest({
                 button.handler = h2;
                 button.bdOnClick();
                 assert(handlerResult === 'h2');
-
                 // check OK to delete the handler once set
                 button.handler = 0;
                 button.bdOnClick();
@@ -228,16 +227,27 @@ smoke.defBrowserTest({
     }, {
         id: 'dynamic',
         async test() {
+
             top.start(this);
 
             const id = 'button-test-1';
-            const button = new Button({id, label: '2', tabIndex: 2});
+            const button = new Button({
+                id,
+                label: '2',
+                tabIndex: 2
+            });
             top.monitor(button);
 
             top.message = 'rendering';
-            top.insChild(Button, {label: '1', tabIndex: 1});
+            top.insChild(Button, {
+                label: '1',
+                tabIndex: 1
+            });
             const child = top.insChild(button);
-            top.insChild(Button, {label: '3', tabIndex: 3});
+            top.insChild(Button, {
+                label: '3',
+                tabIndex: 3
+            });
             assert(child === button);
             assert(button.rendered);
             assert(button.attachedToDoc);
@@ -287,5 +297,6 @@ smoke.defBrowserTest({
             top.finish();
             assert(button.destroyed);
         }
-    }]
+    }
+    ]
 });

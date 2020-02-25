@@ -22,8 +22,9 @@ $ npm run server
 
 It will automatically open a top-level test page, typically:
 ```
-http://localhost:3002/bd-widgets/node_modules/bd-smoke/browser-runner.html
+http://localhost:3002/bd-widgets/node_modules/bd-smoke/smoke-runner.html
 ```
+
 ## Website
 
 Backdraft is extensively documented at [backdraftjs.org](https://backdraftjs.org).

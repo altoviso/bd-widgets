@@ -64,7 +64,7 @@ Object.assign(Dialog, {
         const theDialog = new this(kwargs);
         render(theDialog, document.body);
         setPosit(theDialog.inner, theDialog.getDialogPosit());
-        setStyle(theDialog, 'zIndex', getMaxZIndex(document.body) + 100);
+        setStyle(theDialog.bdDom.root, 'zIndex', getMaxZIndex(document.body) + 100);
         // note: should not be able to scroll since the dialog should take exactly the viewport
         theDialog.own(viewportWatcher.advise('resize', () => setPosit(theDialog.inner, theDialog.getDialogPosit())));
         theDialog.promise.then(() => theDialog.destroy());

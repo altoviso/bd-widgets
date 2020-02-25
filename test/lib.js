@@ -1,6 +1,5 @@
+import {smoke} from '../node_modules/bd-smoke/smoke.js';
 import {Component, e} from '../src/lib.js';
-
-const smoke = typeof window !== 'undefined' ? window.smoke : require('bd-smoke');
 
 const assert = smoke.assert;
 
@@ -66,21 +65,19 @@ class TestContainer extends Component {
     }
 
     checkLog(expected) {
+        // i.e., return true iff there is NOT
+        // some log entry, i, such that there is an item, j in that entry that is different than expected
         assert(!this.log.some((entry, i) => {
             const expectedEntry = expected[i];
-            if (entry.some((item, j) => {
+            return entry.some((item, j) => {
                 if (smoke.stringify(item) !== smoke.stringify(expectedEntry[j])) {
-                    this.test.logger.logNote(`unexpected log entry (${i}, ${j}),[${item}][${expectedEntry[j]}]`);
+                    this.test.logger.logNote(`unexpected log entry (${i}, ${j})`);
+                    this.test.logger.logNote(`expected: ${smoke.stringify(expectedEntry)}`);
+                    this.test.logger.logNote(`actual: ${smoke.stringify(entry)}`);
                     return true;
                 }
                 return false;
-            })) {
-                console.log(entry);
-                console.log(expectedEntry);
-                return true;
-            } else {
-                return false;
-            }
+            });
         }));
     }
 

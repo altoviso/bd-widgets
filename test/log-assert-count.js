@@ -1,4 +1,4 @@
-const smoke = typeof window !== 'undefined' ? window.smoke : require('bd-smoke');
+import {smoke} from '../node_modules/bd-smoke/smoke.js';
 
 smoke.defTest({
     id: 'log-assert-count',

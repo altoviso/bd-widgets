@@ -85,7 +85,7 @@ smoke.defTest({
 });
 
 smoke.defBrowserTest({
-    id: 'button',
+    id: 'dialog',
     before() {
         top = render(TestContainer, document.getElementById('bd-smoke-root'));
     },

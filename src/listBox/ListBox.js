@@ -1,4 +1,4 @@
-import {Component, e, connect, getPosit, stopEvent, defProps, keys} from '../lib.js';
+import {Component, e, connect, getPosit, insert, stopEvent, defProps, keys} from '../lib.js';
 
 function twiddleClass(className, item, oldItem) {
     let index = this.bdMap.get(oldItem);
@@ -364,7 +364,7 @@ export default class ListBox extends Component {
         }
         child.bdItem = item;
         child.render();
-        Component.insertNode(child.bdDom.root, ref, posit);
+        insert(child.bdDom.root, ref, posit);
         this.bdAdopt(child);
         return child;
     }
@@ -410,7 +410,7 @@ export default class ListBox extends Component {
             arrow.bdItem = arrow;
             arrow.bdListBoxCreated = true;
             arrow.render();
-            Component.insertNode(arrow.bdDom.root, this.bdItemAttachPoint, direction === 'up' ? 'first' : 'last');
+            insert(arrow.bdDom.root, this.bdItemAttachPoint, direction === 'up' ? 'first' : 'last');
             this.bdMap.set(arrow, this.children.length);
             this.bdAdopt(arrow);
             return arrow;

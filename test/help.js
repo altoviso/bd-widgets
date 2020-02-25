@@ -1,6 +1,5 @@
 import {Component, e, render} from '../../bd-core/lib.js';
-
-const smoke = typeof window !== 'undefined' ? window.smoke : require('bd-smoke');
+import {smoke} from '../node_modules/bd-smoke/smoke.js';
 
 class Help extends Component {
     bdElements() {
@@ -9,7 +8,7 @@ class Help extends Component {
         }
 
         function anchor(include) {
-            return { innerHTML: `<a href="./browser-runner.html?i=${include}">i=${include}</a>` };
+            return { innerHTML: `<a href="./smoke-runner.html?i=${include}">i=${include}</a>` };
         }
 
         function testSetTable() {
@@ -21,7 +20,7 @@ class Help extends Component {
             ].map(item => {
                 const [param, text] = item;
                 return e('tr',
-                    e('td', { innerHTML: `<a href="./browser-runner.html?testSet=${param}">testSet=${param}</a>` }),
+                    e('td', { innerHTML: `<a href="./smoke-runner.html?testSet=${param}">testSet=${param}</a>` }),
                     e('td', text));
             });
             return e('table', content);
@@ -114,7 +113,7 @@ class Help extends Component {
             e('h2', 'Backdraft Widget Library Tests'),
             e('p', 'There are several kinds of tests included with the bd-widget library:'),
             ul([
-                "A demonstration page (<a href='../../index.html'>here</a>), that shows the butons and a wrapped React Component.",
+                "A demonstration page (<a href='../../index.html'>here</a>), that shows the buttons and a wrapped React Component.",
                 'Individual widget type demonstrations, that show several examples of one type of widget.',
                 'Static tests, that unit test each widget without user interaction.',
                 'Dynamic tests, that unit test each widget, but require user interaction.',

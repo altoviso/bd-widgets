@@ -1,6 +1,5 @@
+import {smoke} from '../node_modules/bd-smoke/smoke.js';
 import VStat from '../src/VStat.js';
-
-const smoke = typeof window !== 'undefined' ? window.smoke : require('bd-smoke');
 
 const assert = smoke.assert;
 
