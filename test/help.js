@@ -34,6 +34,7 @@ class Help extends Component {
                 ['Input', 'input'],
                 ['ListBox', 'listBox'],
                 ['ComboBox', 'comboBox'],
+                ['Accordion', 'accordion'],
                 ['Dialog', 'Dialog']
             ];
             const content = widgetList.map(pair => {
@@ -63,6 +64,7 @@ class Help extends Component {
                 ['Input', 'input-demo'],
                 ['ListBox', 'listBox-demo'],
                 ['ComboBox', 'comboBox-demo'],
+                ['Accordion', 'accordion-demo'],
                 ['Dialog', 'dialog-demo']
 
             ];
@@ -92,6 +94,7 @@ class Help extends Component {
                 ['InputMap', 'InputMap'],
                 ['ListBox', 'ListBox'],
                 ['ComboBox', 'ComboBox'],
+                ['Accordion', 'Accordion'],
                 ['Dialog', 'Dialog']
 
             ];

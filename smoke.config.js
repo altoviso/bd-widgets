@@ -48,8 +48,9 @@ smoke.configureBrowser({ load: ['./node_modules/chai/chai.js'] }, () => {
             './src/input/input-test.js',
             './src/listBox/listBox-test.js',
             './src/comboBox/comboBox-test.js',
+            './src/accordion/accordion-test.js',
             './src/dialog/dialog-test.js',
-
+            './src/dialog/dialog-test.js',
             // make sure this is last
             './test/log-assert-count.js'
         ]

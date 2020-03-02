@@ -491,4 +491,35 @@ input {
 .bd-dialog .bd-labeled label {
   background-color: #f2f2f2;
 }
-/*# sourceMappingURL=http://localhost:8080/altoviso/bd-widgests/less/main.css.map */
+.bd-accordion {
+  display: flex;
+  flex-direction: column;
+  color: #222222;
+  background: #9fb1ce;
+  margin: 0.15em;
+  padding: 1em;
+  border: 1px solid #5a739b;
+  border-radius: 5px;
+}
+.bd-accordion > .bd-accordion-item {
+  display: none;
+}
+.bd-accordion > .bd-accordion-item.selected {
+  display: block;
+}
+.bd-accordion > .bd-accordion-item.selected span:after {
+  content: "\f0d7";
+}
+.bd-accordion.open > .bd-accordion-item {
+  display: block;
+}
+.bd-accordion.open > .bd-accordion-item span:after {
+  content: "\f0d9";
+}
+.bd-accordion-item {
+  cursor: pointer;
+}
+.bd-accordion-item.selected {
+  color: #222222;
+  background: yellow;
+}
