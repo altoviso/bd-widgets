@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+.bd-accordion {
+	display:flex;
+	flex-direction:column;
+
+	color: @accordion-color;
+	background: @accordion-bg-color;
+
+	margin: @accordion-gap;
+	padding: @accordion-pad;
+	border: @accordion-border-width @accordion-border-style @accordion-border-color;
+	border-radius: @accordion-border-radius;
+
+
+	// unless open, all items are hidden except the selected item, which is shown with a down-arrow
+	& > .bd-accordion-item {
+		font-size: 200%;
+
+		display: none;
+
+		&.selected {
+			display: block;
+
+			span:after {
+				content: "\f0d7";
+			}
+		}
+	}
+
+	// for the open state, show everything and change the down-arrow to a left-arrow
+	&.open > .bd-accordion-item {
+		display: block;
+
+		span:after {
+			content: "\f0d9";
+		}
+	}
+}
+
+.bd-accordion-item {
+	cursor: pointer;
+	margin:5px;
+	padding:5px;
+
+	&.selected {
+		color: @accordion-selected-color;
+		background: @accordion-selected-bg-color;
+	}
+}
