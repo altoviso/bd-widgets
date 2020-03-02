@@ -502,6 +502,7 @@ input {
   border-radius: 5px;
 }
 .bd-accordion > .bd-accordion-item {
+  font-size: 200%;
   display: none;
 }
 .bd-accordion > .bd-accordion-item.selected {
@@ -518,6 +519,8 @@ input {
 }
 .bd-accordion-item {
   cursor: pointer;
+  margin: 5px;
+  padding: 5px;
 }
 .bd-accordion-item.selected {
   color: #222222;
