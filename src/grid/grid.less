@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+.bd-grid {
+    overflow: auto;
+
+  .left-buffer, .right-buffer {
+    flex-grow:1;
+    flex-shrink:1;
+  }
+
+  table {
+    border-collapse: collapse;
+    background-color: @grid-bg-color;
+    overflow:auto;
+  }
+
+  th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th, td {
+    border: 1px solid @grid-border-color;
+    padding: @grid-padding;
+    text-align: left;
+  }
+
+
+
+  .topBuffer, .bottomBuffer {
+    td {
+      padding: 0;
+    }
+  }
+
+  .grow {
+    animation-name: grow-kf;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+
+  .grow-padding {
+    animation-name: grow-padding-kf;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+
+  .bd-button.bd-disabled,
+  .bd-button.tickle.bd-disabled,
+  .bd-button.bd-disabled:hover,
+  .bd-button.tickle.bd-disabled:hover {
+    color: #a9a9a9;
+    background: #dddddd;
+    border-color: #dddddd;
+    cursor: default;
+    text-shadow: 1px 2px 1px white;
+  }
+
+  @keyframes grow-kf {
+    0% {
+      max-height: 0;
+    }
+    100% {
+      max-height: 100px;
+    }
+  }
+
+
+  @keyframes grow-padding-kf {
+    0% {
+      padding-top: 0;
+      padding-bottom: 0;
+      background: yellow;
+    }
+    50% {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      background: yellow;
+    }
+    100% {
+      background: white;
+    }
+  }
+}

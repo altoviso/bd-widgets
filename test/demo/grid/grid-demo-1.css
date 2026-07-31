@@ -1,0 +1,688 @@
+@charset "UTF-8";
+body {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+  color: #222222;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+input {
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 20px;
+}
+.bd-rbox {
+  position: relative;
+}
+.unselectable {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.icon-mixin {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+@font-face {
+  font-family: 'icomoon';
+  src: url('fonts/icomoon.eot?eel1gc');
+  src: url('fonts/icomoon.eot?eel1gc#iefix') format('embedded-opentype'), url('fonts/icomoon.ttf?eel1gc') format('truetype'), url('fonts/icomoon.woff?eel1gc') format('woff'), url('fonts/icomoon.svg?eel1gc#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="icon-"],
+[class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-floppy-disk:before {
+  content: "\e904";
+}
+.icon-bin:before {
+  content: "\e909";
+}
+.icon-plus:before {
+  content: "\e90d";
+}
+.icon-minus:before {
+  content: "\e90e";
+}
+.icon-close:before {
+  content: "\e90f";
+}
+.icon-checkmark:before {
+  content: "\e910";
+}
+.icon-radio-checked:before {
+  content: "\e911";
+}
+.icon-radio-unchecked:before {
+  content: "\e912";
+}
+.icon-warning:before {
+  content: "\ea07";
+}
+.icon-notification:before {
+  content: "\ea08";
+}
+.icon-question:before {
+  content: "\ea09";
+}
+.icon-info:before {
+  content: "\ea0c";
+}
+.icon-cancel-circle:before {
+  content: "\ea0d";
+}
+.icon-menu2:before {
+  content: "\f0c9";
+}
+.icon-caret-down:before {
+  content: "\f0d7";
+}
+.icon-caret-up:before {
+  content: "\f0d8";
+}
+.icon-caret-left:before {
+  content: "\f0d9";
+}
+.icon-caret-right:before {
+  content: "\f0da";
+}
+.icon-meatballs:before {
+  content: "\f141";
+}
+.icon-kabob:before {
+  content: "\f142";
+}
+.container.Button,
+.container.StateButton,
+.container.ReactComponent {
+  display: inline-block;
+  margin: 1em;
+  padding: 1em;
+  border: 1px solid #CCC;
+}
+.container.ReactComponent {
+  max-width: 20em;
+  min-width: 12em;
+}
+.bd-meta {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.15em;
+  border: none;
+  font-size: 125%;
+}
+.bd-meta.bd-vStat-valid:before {
+  color: #00bc00;
+  content: "\e910";
+}
+.bd-meta.bd-vStat-contextInfo:before,
+.bd-meta.scalarInfo:before {
+  color: #00bc00;
+  content: "\ea08";
+}
+.bd-meta.bd-vStat-contextWarn:before,
+.bd-meta.bd-vStat-scalarWarn:before {
+  color: #dd9b00;
+  content: "\ea07";
+}
+.bd-meta.bd-vStat-contextError:before,
+.bd-meta.bd-vStat-scalarError:before {
+  color: red;
+  content: "\ea0d";
+}
+.bd-button {
+  /* center the content both ways */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: #222222;
+  background: #9fb1ce;
+  margin: 0.15em;
+  padding: 0 1em;
+  border: 1px solid #5a739b;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.bd-button > div {
+  display: inline-block;
+  padding: 0;
+  text-align: center;
+}
+.bd-button div:after {
+  padding: 5px;
+}
+.bd-button:hover,
+.bd-button.tickle:hover {
+  color: #222222;
+  background: #bacff2;
+  border-color: #bacff2;
+  -webkit-animation-name: none;
+  animation-name: none;
+}
+.bd-button.tickle {
+  background-image: none;
+  animation-name: yellowTickle;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.bd-button.bd-disabled,
+.bd-button.tickle.bd-disabled,
+.bd-button.bd-disabled:hover,
+.bd-button.tickle.bd-disabled:hover {
+  color: #a9a9a9;
+  background: #dddddd;
+  border-color: #dddddd;
+  cursor: default;
+  text-shadow: 1px 2px 1px white;
+}
+@keyframes yellowTickle {
+  0% {
+    background: white;
+  }
+  50% {
+    background: yellow;
+  }
+  100% {
+    background: white;
+  }
+}
+.bd-state-button {
+  display: inline-flex;
+  color: #222222;
+  background: #9fb1ce;
+  margin: 0.15em;
+  padding: 0 1em;
+  border: 1px solid #5a739b;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.bd-state-button > div {
+  /* center the content both ways */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.bd-state-button:hover,
+.bd-state-button.tickle:hover {
+  color: #222222;
+  background: #bacff2;
+  border-color: #bacff2;
+  -webkit-animation-name: none;
+  animation-name: none;
+}
+.bd-state-button.checkbox {
+  padding: 0.2em;
+  border: none;
+  background-color: inherit;
+}
+.bd-state-button.checkbox > div {
+  border: 1px solid black;
+  padding: 3px;
+  font-weight: bold;
+}
+.bd-state-button.checkbox > div > div::selection {
+  background-color: inherit;
+  color: inherit;
+}
+.bd-state-button.checkbox > div > div:nth-child(2) {
+  height: 1em;
+  width: 1em;
+  text-align: center;
+}
+.bd-state-button.radio-button {
+  padding: 0.2em;
+  border: none;
+  background-color: inherit;
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.bd-state-button.radio-button div::selection {
+  background-color: inherit;
+  color: inherit;
+}
+.bd-state-button.checkbox.state-null,
+.bd-state-button.radio-button.state-null {
+  color: #c6be1b;
+}
+.bd-state-button.bd-disabled,
+.bd-state-button.tickle.bd-disabled,
+.bd-state-button.bd-disabled:hover,
+.bd-state-button.tickle.bd-disabled:hover {
+  color: #a9a9a9;
+  background: #dddddd;
+  border-color: #dddddd;
+  cursor: default;
+  text-shadow: 1px 2px 1px white;
+}
+.bd-input {
+  /* center the content both ways */
+  display: inline-flex;
+  align-items: center;
+  margin: 0.2em;
+  border: 1px solid #969696;
+  border-radius: 5px;
+  padding: 0.2em;
+  color: #222222;
+  background: #f2f2f2;
+}
+.bd-input input {
+  min-width: 10em;
+  padding: 0.13em;
+  border: 0;
+  color: #222222;
+  background: #f2f2f2;
+}
+.bd-input.bd-focused {
+  color: #222222;
+  background: white;
+  border-color: #969696;
+}
+.bd-input.bd-focused input {
+  color: #222222;
+  background: white;
+}
+.bd-input.bd-disabled,
+.bd-input.bd-disabled.bd-focused {
+  color: #222222;
+  background: #dddddd;
+  border-color: #dddddd;
+}
+.bd-input.bd-disabled input,
+.bd-input.bd-disabled.bd-focused input {
+  color: #222222;
+  background: #dddddd;
+}
+.bd-listBox {
+  display: inline-block;
+  color: #222222;
+  background: #f2f2f2;
+  border-color: #969696;
+  border-width: 1px;
+  border-style: solid;
+  min-width: 10em;
+  margin: 1em;
+  overflow-y: auto;
+  cursor: pointer;
+}
+.bd-listBox.fixed {
+  overflow-y: hidden;
+}
+.bd-listBox .no-items {
+  display: none;
+}
+.bd-listBox.no-data .no-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #CCCCCC;
+  margin: 2em;
+}
+.bd-listBox .up-arrow,
+.bd-listBox .down-arrow {
+  justify-content: center;
+  align-items: center;
+  font-size: 200%;
+  padding: 0.05em;
+  color: #222222;
+  background: #9fb1ce;
+  border-color: #5a739b;
+}
+.bd-listBox .up-arrow:hover,
+.bd-listBox .down-arrow:hover {
+  color: #222222;
+  background: #bacff2;
+  border-color: #bacff2;
+}
+.bd-listBox.arrows .up-arrow,
+.bd-listBox.arrows .down-arrow {
+  display: flex;
+}
+.bd-listBox .items > * {
+  border-top-width: 1px 0 0;
+  padding: 3px;
+}
+.bd-listBox .items > * .mouseOverItem {
+  color: #222222;
+  background: white;
+}
+.bd-listBox .items > * .focusedItem {
+  color: #222222;
+  background: white;
+}
+.bd-listBox .items > * .selectedItem {
+  color: #222222;
+  background: white;
+}
+.bd-listBox .items > *:first-child {
+  border-top-width: 0;
+}
+.bd-listBox.query-before .up-arrow,
+.bd-listBox.query-after .down-arrow {
+  color: #222222;
+  background: yellow;
+  border-color: #bacff2;
+}
+.bd-listBox.bd-disabled .items > * .mouseOverItem {
+  color: #222222;
+  background: #dddddd;
+}
+.bd-listBox.bd-disabled .items > * .focusedItem {
+  color: #222222;
+  background: #dddddd;
+}
+.bd-listBox.bd-disabled .items > * .selectedItem {
+  color: #222222;
+  background: #dddddd;
+}
+.bd-listBox.bd-disabled.query-before .up-arrow,
+.bd-listBox.bd-disabled.query-after .down-arrow {
+  color: #222222;
+  background: #dddddd;
+  border-color: #dddddd;
+}
+.bd-comboBox {
+  display: inline-flex;
+  align-items: center;
+  margin: 0.2em;
+  border: 1px solid #969696;
+  border-radius: 5px;
+  padding: 0.2em;
+  color: #222222;
+  background: #f2f2f2;
+}
+.bd-comboBox.bd-listBox-visible {
+  border-bottom-width: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.bd-comboBox .bd-static,
+.bd-comboBox input {
+  min-width: 10em;
+  padding: 0.13em;
+  border: 0;
+  color: #222222;
+  background: #f2f2f2;
+}
+.bd-comboBox .arrow {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  margin: 3px;
+  padding: 5px;
+  border-radius: 5px;
+}
+.bd-comboBox .arrow:hover {
+  background: #222222;
+}
+.bd-comboBox.bd-focused {
+  color: #222222;
+  background: white;
+  border-color: #969696;
+}
+.bd-comboBox.bd-focused .bd-static,
+.bd-comboBox.bd-focused input {
+  color: #222222;
+  background: white;
+}
+.bd-comboBox.bd-focused .arrow:hover {
+  color: #222222;
+  background: #bacff2;
+}
+.bd-comboBox.bd-disabled,
+.bd-comboBox.bd-disabled.bd-focused {
+  color: #222222;
+  background: #dddddd;
+  border-color: #dddddd;
+}
+.bd-comboBox.bd-disabled .bd-static,
+.bd-comboBox.bd-disabled.bd-focused .bd-static,
+.bd-comboBox.bd-disabled input,
+.bd-comboBox.bd-disabled.bd-focused input {
+  color: #222222;
+  background: #dddddd;
+}
+.bd-comboBox.bd-disabled .arrow,
+.bd-comboBox.bd-disabled.bd-focused .arrow,
+.bd-comboBox.bd-disabled .arrow:hover,
+.bd-comboBox.bd-disabled.bd-focused .arrow:hover {
+  color: #a9a9a9;
+  background: #dddddd;
+  border-color: #dddddd;
+}
+.bd-listBox.bd-for-combo {
+  position: absolute;
+  margin: 0;
+  background: #969696;
+  border: 1px solid #969696;
+  border-top-width: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  opacity: 1;
+  max-height: 15em;
+}
+.bd-listBox.bd-for-combo .items > div {
+  color: #222222;
+  background: #f2f2f2;
+}
+.bd-listBox.bd-for-combo .items > div.mouseOverItem,
+.bd-listBox.bd-for-combo .items > div.focusedItem,
+.bd-listBox.bd-for-combo .items > div .focusedItem {
+  color: #222222;
+  background: #bacff2;
+}
+.bd-dialog {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bd-dialog .bd-inner {
+  color: #222222;
+  background: #f2f2f2;
+  border: 4px solid #9fb1ce;
+  padding: 0;
+}
+.bd-dialog .bd-title-bar {
+  background: #9fb1ce;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.bd-dialog .bd-title-bar .bd-button {
+  padding: 0 5px;
+  border-radius: 10px;
+  font-size: 80%;
+}
+.bd-dialog .bd-body {
+  padding: 1em;
+  overflow: auto;
+}
+.bd-dialog .bd-bottom-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1em;
+}
+.bd-dialog .bd-bottom-buttons .bd-button {
+  width: 50px;
+}
+.bd-labeled {
+  margin: 1em;
+  padding: 0.7em;
+  border: 1px solid #969696;
+  border-radius: 5px;
+  position: relative;
+}
+.bd-labeled label {
+  color: #777777;
+  background-color: #f2f2f2;
+  position: absolute;
+  top: -1em;
+  left: 0.3em;
+  padding: 0 0.2em;
+  font-size: 80%;
+}
+.bd-dialog .bd-labeled label {
+  background-color: #f2f2f2;
+}
+.bd-grid {
+  overflow: auto;
+}
+.bd-grid .left-buffer,
+.bd-grid .right-buffer {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+.bd-grid table {
+  border-collapse: collapse;
+  background-color: #f2f2f2;
+  overflow: auto;
+}
+.bd-grid th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+.bd-grid th,
+.bd-grid td {
+  border: 1px solid #5a739b;
+  padding: 5px;
+  text-align: left;
+}
+.bd-grid .topBuffer td,
+.bd-grid .bottomBuffer td {
+  padding: 0;
+}
+.bd-grid .grow {
+  animation-name: grow-kf;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.bd-grid .grow-padding {
+  animation-name: grow-padding-kf;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.bd-grid .bd-button.bd-disabled,
+.bd-grid .bd-button.tickle.bd-disabled,
+.bd-grid .bd-button.bd-disabled:hover,
+.bd-grid .bd-button.tickle.bd-disabled:hover {
+  color: #a9a9a9;
+  background: #dddddd;
+  border-color: #dddddd;
+  cursor: default;
+  text-shadow: 1px 2px 1px white;
+}
+@keyframes grow-kf {
+  0% {
+    max-height: 0;
+  }
+  100% {
+    max-height: 100px;
+  }
+}
+@keyframes grow-padding-kf {
+  0% {
+    padding-top: 0;
+    padding-bottom: 0;
+    background: yellow;
+  }
+  50% {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background: yellow;
+  }
+  100% {
+    background: white;
+  }
+}
+body {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  height: 100vh;
+  height: 100dvh;
+}
+.grid-demo-1 {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.grid-demo-1 .center-section {
+  display: flex;
+  justify-content: center;
+  flex-shrink: 1;
+  overflow: hidden;
+}
+.grid-demo-1 .center-section .spacer {
+  flex-grow: 1;
+  flex-basis: 0;
+}
+.grid-demo-1 .bd-grid {
+  flex-shrink: 1;
+  margin-left: 10px;
+}
+.grid-demo-1 h1,
+.grid-demo-1 footer {
+  padding: 5px 0;
+  background-color: #aaa;
+}
+.grid-demo-1 .color {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.grid-demo-1 .color div:first-child {
+  height: 40px;
+  width: 40px;
+  border: 1px solid black;
+}
+/*# sourceMappingURL=http://localhost:8080/altoviso/bd-widgests/less/main.css.map */
